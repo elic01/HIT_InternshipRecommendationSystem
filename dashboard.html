@@ -51,6 +51,15 @@
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(15px);
             border-right: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 40;
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            .main-content {
+                margin-left: 0;
+            }
         }
 
         .stat-card {
@@ -97,7 +106,7 @@
 <body class="light">
     <div class="flex h-screen">
         <!-- Sidebar -->
-        <aside class="sidebar w-64 h-screen fixed left-0 overflow-y-auto custom-scrollbar">
+        <aside class="sidebar w-64 h-screen fixed left-0 overflow-y-auto custom-scrollbar transition-transform duration-300 ease-in-out md:translate-x-0">
             <div class="p-6">
                 <h1 class="text-2xl font-bold gradient-text mb-8">HIT IRS</h1>
                 <nav class="space-y-2">
@@ -197,27 +206,29 @@
                 <div class="lg:col-span-2">
                     <div class="glass-card p-6 mb-8">
                         <h3 class="text-xl font-bold mb-6">Recommended Internships</h3>
-                        <div class="space-y-4">
-                            <!-- Internship Card -->
-                            <div class="bg-white/5 p-4 rounded-lg">
-                                <div class="flex items-start justify-between">
-                                    <div>
-                                        <h4 class="font-semibold mb-2">Software Developer Intern</h4>
-                                        <p class="text-sm text-gray-500 mb-2">Microsoft Corporation</p>
+                        <div class="space-y-4" id="internshipsList">
+                            <template id="internshipCardTemplate">
+                                <div class="bg-white/5 p-4 rounded-lg hover:bg-white/10 transition-all">
+                                    <div class="flex items-start justify-between">
+                                        <div>
+                                            <h4 class="font-semibold mb-2"></h4>
+                                            <p class="text-sm text-gray-500 mb-2"></p>
+                                            <div class="flex space-x-2 tags"></div>
+                                            <p class="text-sm mt-2 salary"></p>
+                                        </div>
                                         <div class="flex space-x-2">
-                                            <span class="text-xs bg-primary/20 text-primary px-2 py-1 rounded">Remote</span>
-                                            <span class="text-xs bg-primary/20 text-primary px-2 py-1 rounded">Full-time</span>
+                                            <button class="save-btn text-primary hover:text-primary-dark">
+                                                <i class="fas fa-bookmark"></i>
+                                            </button>
+                                            <button class="apply-btn bg-primary hover:bg-primary-dark px-4 py-1 rounded">
+                                                Apply
+                                            </button>
                                         </div>
                                     </div>
-                                    <button class="text-primary hover:text-primary-dark">
-                                        <i class="fas fa-bookmark"></i>
-                                    </button>
                                 </div>
-                            </div>
-                            <!-- More internship cards... -->
+                            </template>
                         </div>
                     </div>
-
                     <!-- Application Timeline -->
                     <div class="glass-card p-6">
                         <h3 class="text-xl font-bold mb-6">Recent Activities</h3>
@@ -301,5 +312,27 @@
         // Initialize Charts (if needed)
         // Add any additional JavaScript functionality here
     </script>
+    <script src="/assets/js/sidebar.js"></script>
+<script src="/assets/js/navigation.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        initializeSidebar();
+        initializeMobileSidebar();
+        new NavigationManager();
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const internshipManager = new InternshipManager();
+        internshipManager.fetchInternships();
+        
+        // Existing initialization code...
+        initializeSidebar();
+        initializeMobileSidebar();
+        new NavigationManager();
+    });
+</script>
+<script src="/assets/js/internships.js"></script>
+
 </body>
 </html>
