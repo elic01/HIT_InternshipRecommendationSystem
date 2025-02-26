@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommendations | HIT IRS</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <style>
+        /* Keeping consistent styles from dashboard */
+        :root {
+            --primary-light: #3B82F6;
+            --secondary-light: #60A5FA;
+            --background-light: #F3F4F6;
+            --text-light: #1F2937;
+            --primary-dark: #1E40AF;
+            --secondary-dark: #1D4ED8;
+            --background-dark: #111827;
+            --text-dark: #F9FAFB;
+        }
+
+        .dark {
+            --primary: var(--primary-dark);
+            --secondary: var(--secondary-dark);
+            --background: var(--background-dark);
+            --text: var(--text-dark);
+        }
+
+        .light {
+            --primary: var(--primary-light);
+            --secondary: var(--secondary-light);
+            --background: var(--background-light);
+            --text: var(--text-light);
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        .recommendation-card {
+            transition: transform 0.3s ease;
+        }
+
+        .recommendation-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .match-indicator {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+    </style>
+</head>
+<body class="light">
+    <div class="flex h-screen">
+        <!-- Sidebar (same as dashboard) -->
+        <aside class="sidebar w-64 h-screen fixed left-0 overflow-y-auto custom-scrollbar">
+            <!-- Sidebar content same as dashboard -->
+        </aside>
+
+        <!-- Main Content -->
+        <main class="ml-64 flex-1 p-8">
+            <!-- Top Bar -->
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <h2 class="text-2xl font-bold">Personalized Recommendations</h2>
+                    <p class="text-gray-500">Based on your profile, skills, and preferences</p>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button id="themeToggle" class="p-2 rounded-full hover:bg-gray-700">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <img src="https://picsum.photos/40/40?random=1" alt="Profile" class="w-10 h-10 rounded-full">
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="glass-card p-6 mb-8">
+                <div class="flex flex-wrap gap-4 items-center">
+                    <div class="flex-1">
+                        <input type="text" placeholder="Search recommendations..." 
+                               class="w-full p-2 rounded-lg bg-white/10 border border-white/20">
+                    </div>
+                    <select class="p-2 rounded-lg bg-white/10 border border-white/20">
+                        <option>Sort by Match %</option>
+                        <option>Sort by Date</option>
+                        <option>Sort by Company</option>
+                    </select>
+                    <button class="bg-primary px-4 py-2 rounded-lg">
+                        <i class="fas fa-filter mr-2"></i>Filters
+                    </button>
+                </div>
+            </div>
+            <div class="glass-card p-6 mb-8">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div>
+                        <label class="block text-sm mb-2">Industry</label>
+                        <select id="industryFilter" class="w-full p-2 rounded-lg bg-white/10 border border-white/20">
+                            <option value="">All Industries</option>
+                            <option value="tech">Technology</option>
+                            <option value="finance">Finance</option>
+                            <option value="healthcare">Healthcare</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm mb-2">Experience Level</label>
+                        <select id="experienceFilter" class="w-full p-2 rounded-lg bg-white/10 border border-white/20">
+                            <option value="">All Levels</option>
+                            <option value="beginner">Beginner</option>
+                            <option value="intermediate">Intermediate</option>
+                            <option value="advanced">Advanced</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm mb-2">Location</label>
+                        <select id="locationFilter" class="w-full p-2 rounded-lg bg-white/10 border border-white/20">
+                            <option value="">All Locations</option>
+                            <option value="remote">Remote</option>
+                            <option value="onsite">On-site</option>
+                            <option value="hybrid">Hybrid</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm mb-2">Duration</label>
+                        <select id="durationFilter" class="w-full p-2 rounded-lg bg-white/10 border border-white/20">
+                            <option value="">All Durations</option>
+                            <option value="3">3 months</option>
+                            <option value="6">6 months</option>
+                            <option value="12">12 months</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Add this after the recommendations grid -->
+            <div class="mt-8 flex justify-between items-center">
+                <div class="text-sm text-gray-500">
+                    Showing <span id="startRange">1</span>-<span id="endRange">10</span> of <span id="totalItems">100</span> recommendations
+                </div>
+                <div class="flex space-x-2">
+                    <button id="prevPage" class="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20">
+                        <i class="fas fa-chevron-left mr-2"></i>Previous
+                    </button>
+                    <button id="nextPage" class="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20">
+                        Next<i class="fas fa-chevron-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- Recommendations Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Recommendation Card Template -->
+                <div class="glass-card p-6 recommendation-card">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold">Software Engineer Intern</h3>
+                            <p class="text-gray-500">Google</p>
+                        </div>
+                        <div class="match-indicator">95%</div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-primary/20 text-primary px-3 py-1 rounded">React</span>
+                            <span class="bg-primary/20 text-primary px-3 py-1 rounded">Node.js</span>
+                            <span class="bg-primary/20 text-primary px-3 py-1 rounded">TypeScript</span>
+                        </div>
+                        <p class="text-sm">Based on your expertise in frontend development and cloud technologies</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500">Posted 2 days ago</span>
+                            <button class="bg-primary hover:bg-primary-dark px-4 py-2 rounded-lg">
+                                Apply Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add more recommendation cards here -->
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Theme Toggle (same as dashboard)
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        let isDark = false;
+
+        themeToggle.addEventListener('click', () => {
+            isDark = !isDark;
+            body.className = isDark ? 'dark' : 'light';
+            themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        });
+    </script>
+</body>
+</html>

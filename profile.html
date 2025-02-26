@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | HIT IRS</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/stlye.css">
+    <link rel="stylesheet" href="assets/css/profile.css">
+    <style>
+        /* Copy the entire style section from dashboard.html */
+    </style>
+</head>
+<body class="light">
+    <div class="flex h-screen">
+        <!-- Reuse the sidebar from dashboard.html -->
+        <aside class="sidebar w-64 h-screen fixed left-0 overflow-y-auto custom-scrollbar transition-transform duration-300 ease-in-out md:translate-x-0">
+            <!-- Sidebar content -->
+        </aside>
+
+        <!-- Main Content -->
+        <main class="ml-64 flex-1 p-8">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl font-bold">My Profile</h2>
+                <div class="flex items-center space-x-4">
+                    <button id="darkModeToggle" class="fixed top-4 right-16 p-2 rounded-full bg-gray-200 dark:bg-gray-700">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button id="closeProfile" class="fixed top-4 right-4 p-2 rounded-full bg-gray-200 dark:bg-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <button id="saveChanges" style="display: none" class="fixed bottom-4 right-4 bg-primary text-white px-6 py-2 rounded-lg shadow-lg">
+                        <i class="fas fa-save mr-2"></i>Save Changes
+                    </button>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Left Column -->
+                <div class="lg:col-span-1">
+                    <div class="glass-card p-6 mb-8">
+                        <div class="text-center">
+                            <div class="relative inline-block">
+                                <img id="profileImage" src="https://picsum.photos/150/150?random=2" alt="Profile" class="w-32 h-32 rounded-full mx-auto mb-4">
+                                <label for="imageUpload" class="absolute bottom-0 right-0 bg-primary p-2 rounded-full cursor-pointer">
+                                    <i class="fas fa-camera text-white"></i>
+                                </label>
+                                <input type="file" id="imageUpload" class="hidden" accept="image/*">
+                            </div>
+                            <h3 class="text-xl font-bold" id="profileName">John Doe</h3>
+                            <p class="text-gray-500" id="profileMajor">Software Engineering</p>
+                            <p class="text-sm text-gray-500" id="profileYear">Class of 2024</p>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-6">
+                        <h3 class="text-xl font-bold mb-4">Contact Information</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <i class="fas fa-envelope w-6"></i>
+                                <span class="ml-2" id="profileEmail">john.doe@hit.edu</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-phone w-6"></i>
+                                <span class="ml-2" id="profilePhone">+1 234 567 8900</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-location-dot w-6"></i>
+                                <span class="ml-2" id="profileLocation">Harbin, China</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="lg:col-span-2">
+                    <!-- Education -->
+                    <div class="glass-card p-6 mb-8">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-xl font-bold">Education</h3>
+                            <button class="text-primary hover:text-primary-dark" onclick="addEducation()">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                        <div id="educationList" class="space-y-4">
+                            <!-- Education items will be added here -->
+                        </div>
+                    </div>
+
+                    <!-- Skills -->
+                    <div class="glass-card p-6 mb-8">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-xl font-bold">Skills</h3>
+                            <button class="text-primary hover:text-primary-dark" onclick="addSkill()">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                        <div id="skillsList" class="flex flex-wrap gap-2">
+                            <!-- Skills will be added here -->
+                        </div>
+                    </div>
+
+                    <!-- Experience -->
+                    <div class="glass-card p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-xl font-bold">Experience</h3>
+                            <button class="text-primary hover:text-primary-dark" onclick="addExperience()">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                        <div id="experienceList" class="space-y-4">
+                            <!-- Experience items will be added here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add Profile JavaScript -->
+    <script src="/assets/js/profile.js"></script>
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applications | HIT IRS</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Keeping the same custom styles from dashboard */
+        :root {
+            --primary-light: #3B82F6;
+            --secondary-light: #60A5FA;
+            --background-light: #F3F4F6;
+            --text-light: #1F2937;
+            --primary-dark: #1E40AF;
+            --secondary-dark: #1D4ED8;
+            --background-dark: #111827;
+            --text-dark: #F9FAFB;
+        }
+
+        .dark {
+            --primary: var(--primary-dark);
+            --secondary: var(--secondary-dark);
+            --background: var(--background-dark);
+            --text: var(--text-dark);
+        }
+
+        .light {
+            --primary: var(--primary-light);
+            --secondary: var(--secondary-light);
+            --background: var(--background-light);
+            --text: var(--text-light);
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        .application-card {
+            transition: transform 0.3s ease;
+        }
+
+        .application-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .status-pending {
+            background-color: #FEF3C7;
+            color: #92400E;
+        }
+
+        .status-accepted {
+            background-color: #D1FAE5;
+            color: #065F46;
+        }
+
+        .status-rejected {
+            background-color: #FEE2E2;
+            color: #991B1B;
+        }
+    </style>
+</head>
+<body class="light">
+    <div class="flex h-screen">
+        <!-- Reuse the same sidebar from dashboard.html -->
+        <aside class="sidebar w-64 h-screen fixed left-0 overflow-y-auto custom-scrollbar">
+            <!-- Sidebar content same as dashboard.html -->
+        </aside>
+
+        <!-- Main Content -->
+        <main class="ml-64 flex-1 p-8">
+            <!-- Top Bar -->
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <h2 class="text-2xl font-bold">My Applications</h2>
+                    <p class="text-gray-500">Track your internship applications</p>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button id="themeToggle" class="p-2 rounded-full hover:bg-gray-700">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <div class="relative">
+                        <button class="p-2 rounded-full hover:bg-gray-700">
+                            <i class="fas fa-bell"></i>
+                        </button>
+                    </div>
+                    <img src="https://picsum.photos/40/40?random=1" alt="Profile" class="w-10 h-10 rounded-full">
+                </div>
+            </div>
+
+            <!-- Applications Filter -->
+            <div class="glass-card p-6 mb-8">
+                <div class="flex flex-wrap gap-4 items-center justify-between">
+                    <div class="flex gap-4">
+                        <button class="px-4 py-2 rounded-lg bg-primary text-white">All</button>
+                        <button class="px-4 py-2 rounded-lg hover:bg-white/10">Pending</button>
+                        <button class="px-4 py-2 rounded-lg hover:bg-white/10">Accepted</button>
+                        <button class="px-4 py-2 rounded-lg hover:bg-white/10">Rejected</button>
+                    </div>
+                    <div class="flex gap-4">
+                        <input type="text" placeholder="Search applications..." class="px-4 py-2 rounded-lg bg-white/5 border border-white/10">
+                        <select class="px-4 py-2 rounded-lg bg-white/5 border border-white/10">
+                            <option>Sort by: Latest</option>
+                            <option>Sort by: Oldest</option>
+                            <option>Sort by: Company</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Applications List -->
+            <div class="space-y-6">
+                <!-- Application Card -->
+                <div class="glass-card p-6 application-card">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <img src="https://picsum.photos/50/50?random=2" alt="Company Logo" class="w-12 h-12 rounded-lg">
+                            <div>
+                                <h3 class="text-xl font-bold">Software Engineer Intern</h3>
+                                <p class="text-gray-500">Google</p>
+                            </div>
+                        </div>
+                        <span class="px-4 py-2 rounded-full status-pending text-sm font-medium">Pending</span>
+                    </div>
+                    <div class="mt-4 flex items-center justify-between">
+                        <div class="flex space-x-4 text-sm text-gray-500">
+                            <span><i class="fas fa-calendar-alt mr-2"></i>Applied: Jan 15, 2024</span>
+                            <span><i class="fas fa-map-marker-alt mr-2"></i>Mountain View, CA</span>
+                            <span><i class="fas fa-clock mr-2"></i>Full-time</span>
+                        </div>
+                        <button class="text-primary hover:text-primary-dark">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- More application cards with different statuses -->
+                <div class="glass-card p-6 application-card">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <img src="https://picsum.photos/50/50?random=3" alt="Company Logo" class="w-12 h-12 rounded-lg">
+                            <div>
+                                <h3 class="text-xl font-bold">Frontend Developer Intern</h3>
+                                <p class="text-gray-500">Microsoft</p>
+                            </div>
+                        </div>
+                        <span class="px-4 py-2 rounded-full status-accepted text-sm font-medium">Accepted</span>
+                    </div>
+                    <div class="mt-4 flex items-center justify-between">
+                        <div class="flex space-x-4 text-sm text-gray-500">
+                            <span><i class="fas fa-calendar-alt mr-2"></i>Applied: Jan 10, 2024</span>
+                            <span><i class="fas fa-map-marker-alt mr-2"></i>Seattle, WA</span>
+                            <span><i class="fas fa-clock mr-2"></i>Full-time</span>
+                        </div>
+                        <button class="text-primary hover:text-primary-dark">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        let isDark = false;
+
+        themeToggle.addEventListener('click', () => {
+            isDark = !isDark;
+            body.className = isDark ? 'dark' : 'light';
+            themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        });
+    </script>
+    <script src="/assets/js/applications.js"></script>
+</body>
+</html>
+
+
