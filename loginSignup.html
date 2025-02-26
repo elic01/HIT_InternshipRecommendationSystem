@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login/Signup | HIT IRS</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-light: #3B82F6;
+            --secondary-light: #60A5FA;
+            --background-light: #F3F4F6;
+            --text-light: #1F2937;
+            --primary-dark: #1E40AF;
+            --secondary-dark: #1D4ED8;
+            --background-dark: #111827;
+            --text-dark: #F9FAFB;
+        }
+
+        .dark {
+            --primary: var(--primary-dark);
+            --secondary: var(--secondary-dark);
+            --background: var(--background-dark);
+            --text: var(--text-dark);
+        }
+
+        .light {
+            --primary: var(--primary-light);
+            --secondary: var(--secondary-light);
+            --background: var(--background-light);
+            --text: var(--text-light);
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            transition: all 0.3s ease;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 20%);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        .form-input {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            width: 100%;
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+        }
+
+        .social-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .gradient-text {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .error-message {
+            color: #EF4444;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        .success-message {
+            color: #10B981;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        .floating-label {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--background);
+            padding: 0 0.25rem;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .form-input:focus + .floating-label,
+        .form-input:not(:placeholder-shown) + .floating-label {
+            top: 0;
+            transform: translateY(-50%) scale(0.85);
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body class="light px-4">
+    <div class="container max-w-md mx-auto">
+        <!-- Login Form -->
+        <div id="loginForm" class="glass-card p-8 mb-4">
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-bold gradient-text">Welcome Back</h1>
+                <p class="text-gray-500">Login to your account</p>
+            </div>
+
+            <form id="loginFormElement" class="space-y-6">
+                <div class="relative">
+                    <input type="email" id="loginEmail" class="form-input" placeholder=" " required>
+                    <label for="loginEmail" class="floating-label">Email</label>
+                </div>
+
+                <div class="relative">
+                    <input type="password" id="loginPassword" class="form-input" placeholder=" " required>
+                    <label for="loginPassword" class="floating-label">Password</label>
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <label class="flex items-center">
+                        <input type="checkbox" class="form-checkbox">
+                        <span class="ml-2">Remember me</span>
+                    </label>
+                    <a href="#" class="text-primary hover:underline">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="btn-primary w-full">Login</button>
+
+                <div class="relative flex items-center justify-center">
+                    <hr class="w-full border-gray-600">
+                    <span class="absolute bg-background px-4">Or continue with</span>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <button type="button" class="social-btn flex items-center justify-center">
+                        <i class="fab fa-google mr-2"></i> Google
+                    </button>
+                    <button type="button" class="social-btn flex items-center justify-center">
+                        <i class="fab fa-github mr-2"></i> GitHub
+                    </button>
+                </div>
+            </form>
+
+            <p class="text-center mt-6">
+                Don't have an account? 
+                <a href="#" class="text-primary hover:underline" onclick="toggleForms()">Sign up</a>
+            </p>
+        </div>
+
+        <!-- Signup Form -->
+        <div id="signupForm" class="glass-card p-8 mb-4 hidden">
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-bold gradient-text">Create Account</h1>
+                <p class="text-gray-500">Join HIT IRS today</p>
+            </div>
+
+            <form id="signupFormElement" class="space-y-6">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="relative">
+                        <input type="text" id="firstName" class="form-input" placeholder=" " required>
+                        <label for="firstName" class="floating-label">First Name</label>
+                    </div>
+                    <div class="relative">
+                        <input type="text" id="lastName" class="form-input" placeholder=" " required>
+                        <label for="lastName" class="floating-label">Last Name</label>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <input type="email" id="signupEmail" class="form-input" placeholder=" " required>
+                    <label for="signupEmail" class="floating-label">Email</label>
+                </div>
+
+                <div class="relative">
+                    <input type="text" id="studentId" class="form-input" placeholder=" " required>
+                    <label for="studentId" class="floating-label">Student ID</label>
+                </div>
+
+                <div class="relative">
+                    <select id="department" class="form-input" required>
+                        <option value="">Select Department</option>
+                        <option value="software">Software Engineering</option>
+                        <option value="electronic">Electronic Engineering</option>
+                        <option value="computer">Computer Science</option>
+                        <!-- Add more departments -->
+                    </select>
+                </div>
+
+                <div class="relative">
+                    <input type="password" id="signupPassword" class="form-input" placeholder=" " required>
+                    <label for="signupPassword" class="floating-label">Password</label>
+                </div>
+
+                <div class="relative">
+                    <input type="password" id="confirmPassword" class="form-input" placeholder=" " required>
+                    <label for="confirmPassword" class="floating-label">Confirm Password</label>
+                </div>
+
+                <button type="submit" class="btn-primary w-full">Sign Up</button>
+            </form>
+
+            <p class="text-center mt-6">
+                Already have an account? 
+                <a href="#" class="text-primary hover:underline" onclick="toggleForms()">Login</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // IndexedDB Configuration
+        let db;
+        const dbName = "hitIrsDB";
+        const dbVersion = 1;
+
+        // Initialize IndexedDB
+        const request = indexedDB.open(dbName, dbVersion);
+
+        request.onerror = (event) => {
+            console.error("Database error:", event.target.error);
+        };
+
+        request.onupgradeneeded = (event) => {
+            db = event.target.result;
+
+            // Create users object store
+            if (!db.objectStoreNames.contains("users")) {
+                const usersStore = db.createObjectStore("users", { keyPath: "email" });
+                usersStore.createIndex("studentId", "studentId", { unique: true });
+            }
+        };
+
+        request.onsuccess = (event) => {
+            db = event.target.result;
+            console.log("Database initialized successfully");
+        };
+
+        // Form Toggle Function
+        function toggleForms() {
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
+            loginForm.classList.toggle('hidden');
+            signupForm.classList.toggle('hidden');
+        }
+
+        // Form Validation Functions
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function validatePassword(password) {
+            return password.length >= 8;
+        }
+
+        function validateStudentId(studentId) {
+            const re = /^[A-Z]{2}\d{6}$/;  // Example format: HT123456
+            return re.test(studentId);
+        }
+
+        // User Registration Function
+        async function registerUser(userData) {
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction(["users"], "readwrite");
+                const usersStore = transaction.objectStore("users");
+
+                const request = usersStore.add(userData);
+
+                request.onsuccess = () => {
+                    resolve(true);
+                };
+
+                request.onerror = () => {
+                    reject(request.error);
+                };
+            });
+        }
+
+        // User Login Function
+        async function loginUser(email, password) {
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction(["users"], "readonly");
+                const usersStore = transaction.objectStore("users");
+                const request = usersStore.get(email);
+
+                request.onsuccess = () => {
+                    const user = request.result;
+                    if (user && user.password === password) {
+                        resolve(user);
+                    } else {
+                        reject(new Error("Invalid credentials"));
+                    }
+                };
+
+                request.onerror = () => {
+                    reject(request.error);
+                };
+            });
+        }
+
+        // Form Submission Handlers
+        document.getElementById('signupFormElement').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('signupEmail').value;
+            const studentId = document.getElementById('studentId').value;
+            const department = document.getElementById('department').value;
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            // Validation
+            if (!validateEmail(email)) {
+                alert("Please enter a valid email address");
+                return;
+            }
+
+            if (!validatePassword(password)) {
+                alert("Password must be at least 8 characters long");
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                alert("Passwords do not match");
+                return;
+            }
+
+            if (!validateStudentId(studentId)) {
+                alert("Please enter a valid student ID");
+                return;
+            }
+
+            try {
+                const userData = {
+                    firstName,
+                    lastName,
+                    email,
+                    studentId,
+                    department,
+                    password,
+                    createdAt: new Date()
+                };
+
+                await registerUser(userData);
+                alert("Registration successful! Please login.");
+                toggleForms();
+            } catch (error) {
+                alert("Registration failed: " + error.message);
+            }
+        });
+
+        document.getElementById('loginFormElement').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            try {
+                const user = await loginUser(email, password);
+                // Store user session
+                sessionStorage.setItem('currentUser', JSON.stringify(user));
+                // Redirect to dashboard
+                window.location.href = 'dashboard.html';
+            } catch (error) {
+                alert("Login failed: " + error.message);
+            }
+        });
+
+        // Theme Toggle
+        const themeToggle = document.createElement('button');
+        themeToggle.className = 'fixed top-4 right-4 p-2 rounded-full hover:bg-gray-700';
+        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        document.body.appendChild(themeToggle);
+
+        themeToggle.addEventListener('click', () => {
+            const body = document.body;
+            body.className = body.className.includes('dark') ? 'light' : 'dark';
+            themeToggle.innerHTML = body.className.includes('dark') ? 
+                '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        });
+    </script>
+</body>
+</html>
