@@ -207,5 +207,14 @@
             themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
         });
     </script>
+    <script src="/assets/js/jsearch-api.js"></script>
+<script src="/assets/js/recommendations.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const recommendationsManager = new RecommendationsManager();
+        recommendationsManager.fetchRecommendations();
+    });
+</script>
+
 </body>
 </html>

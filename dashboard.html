@@ -314,25 +314,17 @@
     </script>
     <script src="/assets/js/sidebar.js"></script>
 <script src="/assets/js/navigation.js"></script>
+<script src="/assets/js/jsearch-api.js"></script>
+<script src="/assets/js/indexeddb-manager.js"></script>
+<script src="/assets/js/internships.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         initializeSidebar();
         initializeMobileSidebar();
         new NavigationManager();
-    });
-</script>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
         const internshipManager = new InternshipManager();
         internshipManager.fetchInternships();
-        
-        // Existing initialization code...
-        initializeSidebar();
-        initializeMobileSidebar();
-        new NavigationManager();
     });
 </script>
-<script src="/assets/js/internships.js"></script>
 
-</body>
-</html>
+</body></html>

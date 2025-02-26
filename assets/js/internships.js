@@ -1,48 +1,46 @@
 class InternshipManager {
     constructor() {
-        this.internships = [];
+        this.jsearchAPI = new JSearchAPI();
+        this.dbManager = new InternshipDBManager();
         this.template = document.getElementById('internshipCardTemplate');
         this.container = document.getElementById('internshipsList');
     }
 
     async fetchInternships() {
-        // Simulate API call
-        this.internships = [
-            {
-                title: 'Software Developer Intern',
-                company: 'Microsoft Corporation',
-                tags: ['Remote', 'Full-time'],
-                salary: '$45/hr',
-                deadline: '2024-03-01'
-            },
-            {
-                title: 'ML Engineer Intern',
-                company: 'Google',
-                tags: ['Hybrid', 'Full-time'],
-                salary: '$50/hr',
-                deadline: '2024-03-15'
-            }
-        ];
-        this.renderInternships();
+        try {
+            // Try to fetch from API
+            const internships = await this.jsearchAPI.fetchInternships();
+            
+            // Save to IndexedDB for offline access
+            await this.dbManager.saveInternships(internships);
+            
+            // Display internships
+            this.displayInternships(internships);
+        } catch (error) {
+            console.error('Error managing internships:', error);
+        }
     }
 
-    renderInternships() {
+    displayInternships(internships) {
         this.container.innerHTML = '';
-        this.internships.forEach(internship => {
+        
+        internships.forEach(internship => {
             const card = this.template.content.cloneNode(true);
             
-            card.querySelector('h4').textContent = internship.title;
-            card.querySelector('p').textContent = internship.company;
+            card.querySelector('h4').textContent = internship.job_title;
+            card.querySelector('p').textContent = internship.employer_name;
             
+            // Add tags
             const tagsContainer = card.querySelector('.tags');
-            internship.tags.forEach(tag => {
-                const span = document.createElement('span');
-                span.className = 'text-xs bg-primary/20 text-primary px-2 py-1 rounded';
-                span.textContent = tag;
-                tagsContainer.appendChild(span);
-            });
+            internship.job_employment_type && tagsContainer.appendChild(
+                this.createTag(internship.job_employment_type)
+            );
             
-            card.querySelector('.salary').textContent = internship.salary;
+            // Add salary if available
+            const salaryElement = card.querySelector('.salary');
+            if (internship.job_salary) {
+                salaryElement.textContent = `Salary: ${internship.job_salary}`;
+            }
             
             const saveBtn = card.querySelector('.save-btn');
             saveBtn.addEventListener('click', () => this.saveInternship(internship));
@@ -54,6 +52,12 @@ class InternshipManager {
         });
     }
 
+    createTag(text) {
+        const span = document.createElement('span');
+        span.className = 'bg-primary/20 text-primary px-2 py-1 rounded text-xs';
+        span.textContent = text;
+        return span;
+    }
     saveInternship(internship) {
         // Add save functionality
         const saved = localStorage.getItem('savedInternships') || '[]';
