@@ -1,0 +1,2125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applications | InternMatch - Harare Institute of Technology</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Notyf for notifications -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Flatpickr for Date Picker -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        secondary: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            200: '#99f6e4',
+                            300: '#5eead4',
+                            400: '#2dd4bf',
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                            700: '#0f766e',
+                            800: '#115e59',
+                            900: '#134e4a',
+                        },
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Poppins', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'neu-light': '9px 9px 18px #e0e0e0, -9px -9px 18px #ffffff',
+                        'neu-dark': '9px 9px 18px #151515, -9px -9px 18px #252525',
+                        'neu-button-light': '5px 5px 10px #e0e0e0, -5px -5px 10px #ffffff',
+                        'neu-button-dark': '5px 5px 10px #151515, -5px -5px 10px #252525',
+                        'inner-neu-light': 'inset 3px 3px 6px #e0e0e0, inset -3px -3px 6px #ffffff',
+                        'inner-neu-dark': 'inset 3px 3px 6px #151515, inset -3px -3px 6px #252525',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom Styles */
+        .neu-card {
+            border-radius: 20px;
+            transition: all 0.3s ease-in-out;
+        }
+        
+        .dark .neu-card {
+            background: #1f2937;
+            box-shadow: 9px 9px 18px #151515, -9px -9px 18px #252525;
+        }
+        
+        .light .neu-card {
+            background: #ffffff;
+            box-shadow: 9px 9px 18px #e0e0e0, -9px -9px 18px #ffffff;
+        }
+        
+        .neu-button {
+            border-radius: 12px;
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .dark .neu-button {
+            background: #1f2937;
+            box-shadow: 5px 5px 10px #151515, -5px -5px 10px #252525;
+        }
+        
+        .light .neu-button {
+            background: #ffffff;
+            box-shadow: 5px 5px 10px #e0e0e0, -5px -5px 10px #ffffff;
+        }
+        
+        .neu-button:hover {
+            transform: translateY(-3px);
+        }
+        
+        .neu-button:active {
+            transform: translateY(0);
+        }
+        
+        .neu-input {
+            border-radius: 12px;
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .dark .neu-input {
+            background: #1f2937;
+            box-shadow: inset 3px 3px 6px #151515, inset -3px -3px 6px #252525;
+            color: #e5e7eb;
+            border: 1px solid #374151;
+        }
+        
+        .light .neu-input {
+            background: #f9fafb;
+            box-shadow: inset 3px 3px 6px #e0e0e0, inset -3px -3px 6px #ffffff;
+            color: #1f2937;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .neu-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            transition: all 0.3s ease-in-out;
+        }
+        
+        @media (max-width: 1023px) {
+            .sidebar {
+                transform: translateX(-100%);
+                position: fixed;
+                z-index: 50;
+                height: 100vh;
+            }
+            
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            
+            .sidebar-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 40;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.3s ease-in-out;
+            }
+            
+            .sidebar-overlay.open {
+                opacity: 1;
+                pointer-events: auto;
+            }
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        .dark ::-webkit-scrollbar-track {
+            background: #1f2937;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2563eb;
+        }
+        
+        /* Notification Badge */
+        .notification-badge {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background-color: #ef4444;
+            color: white;
+            font-size: 0.625rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Card Hover Effects */
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Status Badges */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .status-applied {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+        }
+        
+        .dark .status-applied {
+            background-color: rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+        }
+        
+        .status-reviewing {
+            background-color: rgba(139, 92, 246, 0.1);
+            color: #8b5cf6;
+        }
+        
+        .dark .status-reviewing {
+            background-color: rgba(139, 92, 246, 0.2);
+            color: #a78bfa;
+        }
+        
+        .status-interview {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
+        }
+        
+        .dark .status-interview {
+            background-color: rgba(245, 158, 11, 0.2);
+            color: #fbbf24;
+        }
+        
+        .status-offer {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+        }
+        
+        .dark .status-offer {
+            background-color: rgba(16, 185, 129, 0.2);
+            color: #34d399;
+        }
+        
+        .status-accepted {
+            background-color: rgba(5, 150, 105, 0.1);
+            color: #059669;
+        }
+        
+        .dark .status-accepted {
+            background-color: rgba(5, 150, 105, 0.2);
+            color: #10b981;
+        }
+        
+        .status-rejected {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+        }
+        
+        .dark .status-rejected {
+            background-color: rgba(239, 68, 68, 0.2);
+            color: #f87171;
+        }
+        
+        .status-withdrawn {
+            background-color: rgba(107, 114, 128, 0.1);
+            color: #6b7280;
+        }
+        
+        .dark .status-withdrawn {
+            background-color: rgba(107, 114, 128, 0.2);
+            color: #9ca3af;
+        }
+        
+        /* Timeline Styles */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0.75rem;
+            width: 2px;
+            background-color: #e5e7eb;
+        }
+        
+        .dark .timeline::before {
+            background-color: #374151;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        
+        .timeline-marker {
+            position: absolute;
+            left: -2rem;
+            top: 0.25rem;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            border: 2px solid white;
+            background-color: #3b82f6;
+        }
+        
+        .dark .timeline-marker {
+            border-color: #1f2937;
+        }
+        
+        .timeline-marker.reviewing {
+            background-color: #8b5cf6;
+        }
+        
+        .timeline-marker.interview {
+            background-color: #f59e0b;
+        }
+        
+        .timeline-marker.offer {
+            background-color: #10b981;
+        }
+        
+        .timeline-marker.accepted {
+            background-color: #059669;
+        }
+        
+        .timeline-marker.rejected {
+            background-color: #ef4444;
+        }
+        
+        .timeline-marker.withdrawn {
+            background-color: #6b7280;
+        }
+        
+        /* Notes Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        .modal-content {
+            width: 90%;
+            max-width: 600px;
+            border-radius: 20px;
+            transition: transform 0.3s ease;
+            transform: scale(0.9);
+        }
+        
+        .modal.open .modal-content {
+            transform: scale(1);
+        }
+        
+        /* Application Filters */
+        .filter-button {
+            border-radius: 9999px;
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        
+        .filter-button.active {
+            background-color: #eff6ff;
+            color: #3b82f6;
+        }
+        
+        .dark .filter-button.active {
+            background-color: rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+        
+        .empty-state-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            opacity: 0.7;
+        }
+        
+        /* Progress Bar */
+        .progress-bar {
+            height: 0.5rem;
+            border-radius: 0.25rem;
+            background-color: #e5e7eb;
+            overflow: hidden;
+        }
+        
+        .dark .progress-bar {
+            background-color: #374151;
+        }
+        
+        .progress-bar-value {
+            height: 100%;
+            border-radius: 0.25rem;
+            background: linear-gradient(to right, #3b82f6, #10b981);
+        }
+        
+        /* Withdraw Confirmation */
+        .withdraw-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .withdraw-modal.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        .withdraw-content {
+            width: 90%;
+            max-width: 500px;
+            border-radius: 20px;
+            transition: transform 0.3s ease;
+            transform: scale(0.9);
+        }
+        
+        .withdraw-modal.open .withdraw-content {
+            transform: scale(1);
+        }
+    </style>
+</head>
+<body class="font-sans light transition-colors duration-300 bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-100 min-h-screen flex flex-col">
+    <!-- Sidebar Overlay (Mobile) -->
+    <div id="sidebar-overlay" class="sidebar-overlay lg:hidden"></div>
+    
+    <!-- Notes Modal -->
+    <div id="notes-modal" class="modal">
+        <div class="modal-content neu-card light:bg-white dark:bg-gray-800 p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold">Application Notes</h3>
+                <button id="close-notes-modal" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <form id="notes-form">
+                <div class="mb-6">
+                    <label for="application-notes" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Notes</label>
+                    <textarea id="application-notes" name="application-notes" rows="6" class="neu-input w-full px-4 py-2 resize-none" placeholder="Add your notes about this application..."></textarea>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                        These notes are private and only visible to you.
+                    </p>
+                </div>
+                
+                <div class="flex justify-end space-x-3">
+                    <button type="button" id="cancel-notes" class="neu-button py-2 px-4 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none">
+                        Cancel
+                    </button>
+                    <button type="submit" class="py-2 px-4 bg-gradient-to-r from-primary-600 to-secondary-600 text-white rounded-lg shadow-md hover:from-primary-700 hover:to-secondary-700 focus:outline-none">
+                        Save Notes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Add Interview Modal -->
+    <div id="interview-modal" class="modal">
+        <div class="modal-content neu-card light:bg-white dark:bg-gray-800 p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold">Add Interview Details</h3>
+                <button id="close-interview-modal" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <form id="interview-form">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label for="interview-date" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Interview Date & Time</label>
+                        <input type="text" id="interview-date" name="interview-date" class="neu-input w-full px-4 py-2" placeholder="Select date and time">
+                    </div>
+                    
+                    <div>
+                        <label for="interview-type" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Interview Type</label>
+                        <select id="interview-type" name="interview-type" class="neu-input w-full px-4 py-2">
+                            <option value="video">Video Interview</option>
+                            <option value="phone">Phone Interview</option>
+                            <option value="in-person">In-Person Interview</option>
+                            <option value="technical">Technical Assessment</option>
+                            <option value="group">Group Interview</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <label for="interview-location" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Location/Link</label>
+                    <input type="text" id="interview-location" name="interview-location" class="neu-input w-full px-4 py-2" placeholder="Enter interview location or meeting link">
+                </div>
+                
+                <div class="mb-6">
+                    <label for="interview-contact" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Contact Person</label>
+                    <input type="text" id="interview-contact" name="interview-contact" class="neu-input w-full px-4 py-2" placeholder="Name of interviewer or contact person">
+                </div>
+                
+                <div class="mb-6">
+                    <label for="interview-notes" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Additional Notes</label>
+                    <textarea id="interview-notes" name="interview-notes" rows="3" class="neu-input w-full px-4 py-2 resize-none" placeholder="Any additional information about the interview..."></textarea>
+                </div>
+                
+                <div class="flex items-center mb-6">
+                    <input id="interview-reminder" name="interview-reminder" type="checkbox" class="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded" checked>
+                    <label for="interview-reminder" class="ml-2 block text-sm text-gray-700 dark:text-gray-300">
+                        Set reminder (24 hours before)
+                    </label>
+                </div>
+                
+                <div class="flex justify-end space-x-3">
+                    <button type="button" id="cancel-interview" class="neu-button py-2 px-4 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none">
+                        Cancel
+                    </button>
+                    <button type="submit" class="py-2 px-4 bg-gradient-to-r from-primary-600 to-secondary-600 text-white rounded-lg shadow-md hover:from-primary-700 hover:to-secondary-700 focus:outline-none">
+                        Save Interview
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Withdraw Application Modal -->
+    <div id="withdraw-modal" class="withdraw-modal">
+        <div class="withdraw-content neu-card light:bg-white dark:bg-gray-800 p-6">
+            <div class="text-center mb-6">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 mb-4">
+                    <i class="fas fa-exclamation-triangle text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold font-display mb-2">Withdraw Application</h3>
+                <p class="text-gray-600 dark:text-gray-400">
+                    Are you sure you want to withdraw your application for <span id="withdraw-position" class="font-medium"></span> at <span id="withdraw-company" class="font-medium"></span>?
+                </p>
+            </div>
+            
+            <form id="withdraw-form">
+                <div class="mb-6">
+                    <label for="withdraw-reason" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Reason for Withdrawal (Optional)</label>
+                    <select id="withdraw-reason" name="withdraw-reason" class="neu-input w-full px-4 py-2">
+                        <option value="">Select a reason</option>
+                        <option value="accepted-other">Accepted another offer</option>
+                        <option value="no-longer-interested">No longer interested in this position</option>
+                        <option value="location-issue">Location issues</option>
+                        <option value="compensation-issue">Compensation not competitive</option>
+                        <option value="timing-issue">Timing/scheduling conflicts</option>
+                        <option value="other">Other reason</option>
+                    </select>
+                </div>
+                
+                <div id="other-reason-container" class="mb-6 hidden">
+                    <label for="other-reason" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Specify Reason</label>
+                    <textarea id="other-reason" name="other-reason" rows="3" class="neu-input w-full px-4 py-2 resize-none" placeholder="Please specify your reason for withdrawal..."></textarea>
+                </div>
+                
+                <div class="flex space-x-3">
+                    <button type="button" id="cancel-withdraw" class="neu-button flex-1 py-2 px-4 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none">
+                        Cancel
+                    </button>
+                    <button type="submit" class="flex-1 py-2 px-4 bg-red-600 hover:bg-red-700 text-white rounded-lg shadow-md focus:outline-none">
+                        Withdraw Application
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Main Container -->
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar w-72 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex-shrink-0">
+            <!-- Sidebar Header -->
+            <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                <a href="index.html" class="flex items-center space-x-2">
+                    <div class="h-10 w-10 rounded-lg bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center">
+                        <i class="fas fa-briefcase text-white text-xl"></i>
+                    </div>
+                    <span class="text-xl font-bold font-display bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-secondary-500">InternMatch</span>
+                </a>
+            </div>
+            
+            <!-- User Profile Summary -->
+            <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                <div class="flex items-center space-x-4">
+                    <img src="https://picsum.photos/id/1005/100" alt="User Profile" class="w-12 h-12 rounded-full object-cover border-2 border-primary-500">
+                    <div>
+                        <h3 class="font-medium text-gray-900 dark:text-gray-100">Tadiwa Makumbe</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Computer Science, 3rd Year</p>
+                    </div>
+                </div>
+                
+                <!-- Profile Completion -->
+                <div class="mt-6">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-sm text-gray-600 dark:text-gray-400">Profile Completion</span>
+                        <span class="text-sm font-medium text-primary-600 dark:text-primary-400">75%</span>
+                    </div>
+                    <div class="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full" style="width: 75%"></div>
+                    </div>
+                    <a href="profile.html" class="text-xs text-primary-600 dark:text-primary-400 mt-2 inline-block hover:underline">
+                        Complete your profile
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Navigation Menu -->
+            <nav class="p-4">
+                <ul class="space-y-1">
+                    <li>
+                        <a href="dashboard.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-home"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/internshipListing.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-briefcase"></i>
+                            <span>Internships</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/recommendations.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-star"></i>
+                            <span>Recommendations</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/savedInternships.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-bookmark"></i>
+                            <span>Saved</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/applications.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300">
+                            <i class="fas fa-file-alt"></i>
+                            <span>Applications</span>
+                            <span class="ml-auto bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-xs font-medium px-2 py-0.5 rounded-full">7</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/notifications.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-bell"></i>
+                            <span>Notifications</span>
+                            <span class="ml-auto bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 text-xs font-medium px-2 py-0.5 rounded-full">5</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <hr class="my-6 border-gray-200 dark:border-gray-700">
+                
+                <ul class="space-y-1">
+                    <li>
+                        <a href="profile.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-user-circle"></i>
+                            <span>Profile</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settings.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/contactPage.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Help & Support</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/auth.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Log Out</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top Navigation -->
+            <header class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+                <div class="flex items-center justify-between p-4">
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-button" class="lg:hidden p-2 rounded-md text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 focus:outline-none">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    
+                    <!-- Page Title -->
+                    <h1 class="text-xl font-bold font-display text-gray-900 dark:text-gray-100 hidden md:block">My Applications</h1>
+                    
+                    <!-- Right Navigation Items -->
+                    <div class="flex items-center space-x-4">
+                        <!-- Theme Toggle -->
+                        <button id="theme-toggle" class="p-2 rounded-full text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 focus:outline-none">
+                            <i class="fas fa-moon dark:hidden"></i>
+                            <i class="fas fa-sun hidden dark:block"></i>
+                        </button>
+                        
+                        <!-- Notifications -->
+                        <div class="relative">
+                            <button class="p-2 rounded-full text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 focus:outline-none">
+                                <i class="fas fa-bell"></i>
+                                <span class="notification-badge">5</span>
+                            </button>
+                        </div>
+                        
+                        <!-- Messages -->
+                        <div class="relative">
+                            <button class="p-2 rounded-full text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 focus:outline-none">
+                                <i class="fas fa-comment-alt"></i>
+                                <span class="notification-badge">2</span>
+                            </button>
+                        </div>
+                        
+                        <!-- User Menu -->
+                        <div class="relative">
+                            <button class="flex items-center focus:outline-none">
+                                <img src="https://picsum.photos/id/1005/100" alt="User Profile" class="w-8 h-8 rounded-full object-cover">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Applications Content -->
+            <main class="flex-1 overflow-y-auto">
+                <div class="container mx-auto px-4 py-6">
+                    <!-- Applications Overview -->
+                    <div class="neu-card p-6 mb-8" data-aos="fade-up" data-aos-duration="800">
+                        <h2 class="text-xl font-semibold font-display mb-6">Applications Overview</h2>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+                            <div class="p-4 bg-blue-50 dark:bg-blue-900/10 rounded-lg border border-blue-100 dark:border-blue-900/20">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <p class="text-sm text-blue-600 dark:text-blue-400">Total Applications</p>
+                                        <p class="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-1">7</p>
+                                    </div>
+                                    <div class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400">
+                                        <i class="fas fa-file-alt"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="p-4 bg-purple-50 dark:bg-purple-900/10 rounded-lg border border-purple-100 dark:border-purple-900/20">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <p class="text-sm text-purple-600 dark:text-purple-400">In Progress</p>
+                                        <p class="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-1">4</p>
+                                    </div>
+                                    <div class="w-10 h-10 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-600 dark:text-purple-400">
+                                        <i class="fas fa-hourglass-half"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="p-4 bg-green-50 dark:bg-green-900/10 rounded-lg border border-green-100 dark:border-green-900/20">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <p class="text-sm text-green-600 dark:text-green-400">Successful</p>
+                                        <p class="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-1">2</p>
+                                    </div>
+                                    <div class="w-10 h-10 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-600 dark:text-green-400">
+                                        <i class="fas fa-check"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="p-4 bg-red-50 dark:bg-red-900/10 rounded-lg border border-red-100 dark:border-red-900/20">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <p class="text-sm text-red-600 dark:text-red-400">Rejected/Withdrawn</p>
+                                        <p class="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-1">1</p>
+                                    </div>
+                                    <div class="w-10 h-10 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center text-red-600 dark:text-red-400">
+                                        <i class="fas fa-times"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Application Success Rate</span>
+                                <span class="text-sm text-gray-600 dark:text-gray-400">28.5%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-bar-value" style="width: 28.5%"></div>
+                            </div>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                Based on applications that have received a response
+                            </p>
+                        </div>
+                        
+                        <div class="bg-yellow-50 dark:bg-yellow-900/10 border border-yellow-100 dark:border-yellow-900/20 rounded-lg p-4">
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-lightbulb text-yellow-600 dark:text-yellow-400 mt-1"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <h3 class="text-sm font-medium text-yellow-800 dark:text-yellow-300">Application Tip</h3>
+                                    <div class="mt-2 text-sm text-yellow-700 dark:text-yellow-400">
+                                        <p>Follow up on your applications that have been submitted for more than 2 weeks. A polite email can show your continued interest and might help move your application forward.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Applications Filters -->
+                    <div class="flex flex-wrap items-center justify-between mb-6">
+                        <div class="flex flex-wrap items-center space-x-2 mb-4 md:mb-0">
+                            <button class="filter-button active" data-filter="all">
+                                All Applications
+                            </button>
+                            <button class="filter-button" data-filter="active">
+                                Active
+                            </button>
+                            <button class="filter-button" data-filter="interviews">
+                                Interviews
+                            </button>
+                            <button class="filter-button" data-filter="offers">
+                                Offers
+                            </button>
+                            <button class="filter-button" data-filter="closed">
+                                Closed
+                            </button>
+                        </div>
+                        
+                        <div class="flex items-center space-x-3">
+                            <div class="relative">
+                                <select id="sort-applications" class="neu-input py-2 pl-3 pr-10 text-sm">
+                                    <option value="recent">Most Recent</option>
+                                    <option value="oldest">Oldest First</option>
+                                    <option value="company">Company (A-Z)</option>
+                                    <option value="status">Status</option>
+                                </select>
+                                <div class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                                    <i class="fas fa-chevron-down text-gray-400"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="relative">
+                                <input 
+                                    type="text" 
+                                    id="search-applications"
+                                    class="neu-input w-full pl-9 pr-4 py-2 text-sm" 
+                                    placeholder="Search applications..."
+                                >
+                                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                    <i class="fas fa-search text-gray-400"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Applications List -->
+                    <div class="space-y-6 mb-8">
+                        <!-- Active Application 1 - Interview Scheduled -->
+                        <div class="neu-card card-hover overflow-hidden" data-aos="fade-up" data-aos-duration="800" data-status="active interviews">
+                            <div class="md:flex">
+                                <!-- Application Summary -->
+                                <div class="p-6 md:w-2/3">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <div class="flex items-center">
+                                            <img src="https://picsum.photos/id/0/60" alt="Company Logo" class="w-12 h-12 rounded-lg object-cover mr-4">
+                                            <div>
+                                                <h3 class="font-semibold text-gray-900 dark:text-gray-100">Software Engineering Intern</h3>
+                                                <p class="text-sm text-gray-600 dark:text-gray-400">TechZim Solutions</p>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <span class="status-badge status-interview">
+                                                <i class="fas fa-calendar-alt mr-1"></i>
+                                                <span>Interview Scheduled</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                            <i class="fas fa-map-marker-alt mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>Harare, Zimbabwe</span>
+                                        </div>
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                            <i class="fas fa-clock mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>Applied on June 5, 2023</span>
+                                        </div>
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                                            <i class="fas fa-calendar-day mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>Interview on June 15, 2023 at 10:00 AM</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex flex-wrap space-x-2">
+                                        <button class="neu-button py-1.5 px-3 text-xs font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none">
+                                            <i class="fas fa-eye mr-1"></i>
+                                            <span>View Details</span>
+                                        </button>
+                                        <button class="neu-button py-1.5 px-3 text-xs font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none add-notes-btn" data-id="1">
+                                            <i class="fas fa-sticky-note mr-1"></i>
+                                            <span>Add Notes</span>
+                                        </button>
+                                        <button class="neu-button py-1.5 px-3 text-xs font-medium text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 focus:outline-none withdraw-btn" data-id="1" data-position="Software Engineering Intern" data-company="TechZim Solutions">
+                                            <i class="fas fa-times-circle mr-1"></i>
+                                            <span>Withdraw</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Application Timeline -->
+                                <div class="bg-gray-50 dark:bg-gray-800 p-6 md:w-1/3 border-t md:border-t-0 md:border-l border-gray-200 dark:border-gray-700">
+                                    <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100 mb-4">Application Timeline</h4>
+                                    
+                                    <div class="timeline">
+                                        <div class="timeline-item">
+                                            <div class="timeline-marker interview"></div>
+                                            <div class="mb-1">
+                                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Interview Scheduled</span>
+                                                <span class="text-xs text-gray-500 dark:text-gray-400 ml-2">June 10, 2023</span>
+                                            </div>
+                                            <p class="text-xs text-gray-600 dark:text-gray-400">
+                                                Your interview has been scheduled for June 15, 2023 at 10:00 AM.
+                                            </p>
+                                        </div>
+                                        
+                                        <div class="timeline-item">
+                                            <div class="timeline-marker reviewing"></div>
+                                            <div class="mb-1">
+                                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Application Under Review</span>
+                                                <span class="text-xs text-gray-500 dark:text-gray-400 ml-2">June 7, 2023</span>
+                                            </div>
+                                            <p class="text-xs text-gray-600 dark:text-gray-400">
+                                                Your application is being reviewed by the hiring team.
+                                            </p>
+                                        </div>
+                                        
+                                        <div class="timeline-item">
+                                            <div class="timeline-marker"></div>
+                                            <div class="mb-1">
+                                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Application Submitted</span>
+                                                <span class="text-xs text-gray-500 dark:text-gray-400 ml-2">June 5, 2023</span>
+                                            </div>
+                                            <p class="text-xs text-gray-600 dark:text-gray-400">
+                                                Your application was successfully submitted.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Active Application 2 - Under Review -->
+                        <div class="neu-card card-hover overflow-hidden" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100" data-status="active">
+                            <div class="md:flex">
+                                <!-- Application Summary -->
+                                <div class="p-6 md:w-2/3">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <div class="flex items-center">
+                                            <img src="https://picsum.photos/id/1/60" alt="Company Logo" class="w-12 h-12 rounded-lg object-cover mr-4">
+                                            <div>
+                                                <h3 class="font-semibold text-gray-900 dark:text-gray-100">Data Science Intern</h3>
+                                                <p class="text-sm text-gray-600 dark:text-gray-400">Zimbabwe Financial Analytics</p>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <span class="status-badge status-reviewing">
+                                                <i class="fas fa-search mr-1"></i>
+                                                <span>Under Review</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                            <i class="fas fa-map-marker-alt mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>Harare, Zimbabwe</span>
+                                        </div>
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                            <i class="fas fa-clock mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>Applied on May 28, 2023</span>
+                                        </div>
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                                            <i class="fas fa-hourglass-half mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>Application under review for 2 weeks</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex flex-wrap space-x-2">
+                                        <button class="neu-button py-1.5 px-3 text-xs font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none">
+                                            <i class="fas fa-eye mr-1"></i>
+                                            <span>View Details</span>
+                                        </button>
+                                        <button class="neu-button py-1.5 px-3 text-xs font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none add-notes-btn" data-id="2">
+                                            <i class="fas fa-sticky-note mr-1"></i>
+                                            <span>Add Notes</span>
+                                        </button>
+                                        <button class="neu-button py-1.5 px-3 text-xs font-medium text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 focus:outline-none">
+                                            <i class="fas fa-paper-plane mr-1"></i>
+                                            <span>Follow Up</span>
+                                        </button>
+                                        <button class="neu-button py-1.5 px-3 text-xs font-medium text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 focus:outline-none withdraw-btn" data-id="2" data-position="Data Science Intern" data-company="Zimbabwe Financial Analytics">
+                                            <i class="fas fa-times-circle mr-1"></i>
+                                            <span>Withdraw</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Application Timeline -->
+                                <div class="bg-gray-50 dark:bg-gray-800 p-6 md:w-1/3 border-t md:border-t-0 md:border-l border-gray-200 dark:border-gray-700">
+                                    <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100 mb-4">Application Timeline</h4>
+                                    
+                                    <div class="timeline">
+                                        <div class="timeline-item">
+                                            <div class="timeline-marker reviewing"></div>
+                                            <div class="mb-1">
+                                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Application Under Review</span>
+                                                <span class="text-xs text-gray-500 dark:text-gray-400 ml-2">May 30, 2023</span>
+                                            </div>
+                                            <p class="text-xs text-gray-600 dark:text-gray-400">
+                                                Your application is being reviewed by the hiring team.
+                                            </p>
+                                        </div>
+                                        
+                                        <div class="timeline-item">
+                                            <div class="timeline-marker"></div>
+                                            <div class="mb-1">
+                                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Application Submitted</span>
+                                                <span class="text-xs text-gray-500 dark:text-gray-400 ml-2">May 28, 2023</span>
+                                            </div>
+                                            <p class="text-xs text-gray-600 dark:text-gray-400">
+                                                Your application was successfully submitted.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                                        <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100 mb-2">Your Notes</h4>
+                                        <p class="text-xs text-gray-600 dark:text-gray-400 italic">
+                                            Had a brief chat with HR at the career fair. They mentioned they're looking for candidates with Python and SQL experience.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Active Application 3 - Just Applied -->
+                        <div class="neu-card card-hover overflow-hidden" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200" data-status="active">
+                            <div class="md:flex">
+                                <!-- Application Summary -->
+                                <div class="p-6 md:w-2/3">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <div class="flex items-center">
+                                            <img src="https://picsum.photos/id/3/60" alt="Company Logo" class="w-12 h-12 rounded-lg object-cover mr-4">
+                                            <div>
+                                                <h3 class="font-semibold text-gray-900 dark:text-gray-100">Mobile App Developer Intern</h3>
+                                                <p class="text-sm text-gray-600 dark:text-gray-400">MobiTech Zimbabwe</p>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <span class="status-badge status-applied">
+                                                <i class="fas fa-paper-plane mr-1"></i>
+                                                <span>Applied</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                            <i class="fas fa-map-marker-alt mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>Harare, Zimbabwe</span>
+                                        </div>
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                            <i class="fas fa-clock mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>Applied on June 12, 2023</span>
+                                        </div>
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                                            <i class="fas fa-info-circle mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>Typically responds within 5 days</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex flex-wrap space-x-2">
+                                        <button class="neu-button py-1.5 px-3 text-xs font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none">
+                                            <i class="fas fa-eye mr-1"></i>
+                                            <span>View Details</span>
+                                        </button>
+                                        <button class="neu-button py-1.5 px-3 text-xs font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none add-notes-btn" data-id="3">
+                                            <i class="fas fa-sticky-note mr-1"></i>
+                                            <span>Add Notes</span>
+                                        </button>
+                                        <button class="neu-button py-1.5 px-3 text-xs font-medium text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 focus:outline-none withdraw-btn" data-id="3" data-position="Mobile App Developer Intern" data-company="MobiTech Zimbabwe">
+                                            <i class="fas fa-times-circle mr-1"></i>
+                                            <span>Withdraw</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Application Timeline -->
+                                <div class="bg-gray-50 dark:bg-gray-800 p-6 md:w-1/3 border-t md:border-t-0 md:border-l border-gray-200 dark:border-gray-700">
+                                    <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100 mb-4">Application Timeline</h4>
+                                    
+                                    <div class="timeline">
+                                        <div class="timeline-item">
+                                            <div class="timeline-marker"></div>
+                                            <div class="mb-1">
+                                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Application Submitted</span>
+                                                <span class="text-xs text-gray-500 dark:text-gray-400 ml-2">June 12, 2023</span>
+                                            </div>
+                                            <p class="text-xs text-gray-600 dark:text-gray-400">
+                                                Your application was successfully submitted.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Successful Application 1 - Offer Accepted -->
+                        <div class="neu-card card-hover overflow-hidden" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300" data-status="offers closed">
+                            <div class="md:flex">
+                                <!-- Application Summary -->
+                                <div class="p-6 md:w-2/3">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <div class="flex items-center">
+                                            <img src="https://picsum.photos/id/4/60" alt="Company Logo" class="w-12 h-12 rounded-lg object-cover mr-4">
+                                            <div>
+                                                <h3 class="font-semibold text-gray-900 dark:text-gray-100">Backend Developer Intern</h3>
+                                                <p class="text-sm text-gray-600 dark:text-gray-400">ServerTech Zimbabwe</p>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <span class="status-badge status-accepted">
+                                                <i class="fas fa-check-circle mr-1"></i>
+                                                <span>Offer Accepted</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                            <i class="fas fa-map-marker-alt mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>Harare, Zimbabwe</span>
+                                        </div>
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                            <i class="fas fa-clock mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>Applied on April 10, 2023</span>
+                                        </div>
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                                            <i class="fas fa-calendar-day mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>Start date: July 1, 2023</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex flex-wrap space-x-2">
+                                        <button class="neu-button py-1.5 px-3 text-xs font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none">
+                                            <i class="fas fa-eye mr-1"></i>
+                                            <span>View Details</span>
+                                        </button>
+                                        <button class="neu-button py-1.5 px-3 text-xs font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none add-notes-btn" data-id="4">
+                                            <i class="fas fa-sticky-note mr-1"></i>
+                                            <span>Add Notes</span>
+                                        </button>
+                                        <button class="neu-button py-1.5 px-3 text-xs font-medium text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 focus:outline-none">
+                                            <i class="fas fa-file-contract mr-1"></i>
+                                            <span>View Offer</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Application Timeline -->
+                                <div class="bg-gray-50 dark:bg-gray-800 p-6 md:w-1/3 border-t md:border-t-0 md:border-l border-gray-200 dark:border-gray-700">
+                                    <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100 mb-4">Application Timeline</h4>
+                                    
+                                    <div class="timeline">
+                                        <div class="timeline-item">
+                                            <div class="timeline-marker accepted"></div>
+                                            <div class="mb-1">
+                                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Offer Accepted</span>
+                                                <span class="text-xs text-gray-500 dark:text-gray-400 ml-2">May 15, 2023</span>
+                                            </div>
+                                            <p class="text-xs text-gray-600 dark:text-gray-400">
+                                                You accepted the internship offer. Congratulations!
+                                            </p>
+                                        </div>
+                                        
+                                        <div class="timeline-item">
+                                            <div class="timeline-marker offer"></div>
+                                            <div class="mb-1">
+                                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Offer Received</span>
+                                                <span class="text-xs text-gray-500 dark:text-gray-400 ml-2">May 10, 2023</span>
+                                            </div>
+                                            <p class="text-xs text-gray-600 dark:text-gray-400">
+                                                You received an offer for the Backend Developer Intern position.
+                                            </p>
+                                        </div>
+                                        
+                                        <div class="timeline-item">
+                                            <div class="timeline-marker interview"></div>
+                                            <div class="mb-1">
+                                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Technical Interview</span>
+                                                <span class="text-xs text-gray-500 dark:text-gray-400 ml-2">April 25, 2023</span>
+                                            </div>
+                                            <p class="text-xs text-gray-600 dark:text-gray-400">
+                                                Completed technical interview with the engineering team.
+                                            </p>
+                                        </div>
+                                        
+                                        <div class="timeline-item">
+                                            <div class="timeline-marker interview"></div>
+                                            <div class="mb-1">
+                                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">First Interview</span>
+                                                <span class="text-xs text-gray-500 dark:text-gray-400 ml-2">April 18, 2023</span>
+                                            </div>
+                                            <p class="text-xs text-gray-600 dark:text-gray-400">
+                                                Completed first interview with HR.
+                                            </p>
+                                        </div>
+                                        
+                                        <div class="timeline-item">
+                                            <div class="timeline-marker reviewing"></div>
+                                            <div class="mb-1">
+                                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Application Under Review</span>
+                                                <span class="text-xs text-gray-500 dark:text-gray-400 ml-2">April 12, 2023</span>
+                                            </div>
+                                            <p class="text-xs text-gray-600 dark:text-gray-400">
+                                                Your application is being reviewed by the hiring team.
+                                            </p>
+                                        </div>
+                                        
+                                        <div class="timeline-item">
+                                            <div class="timeline-marker"></div>
+                                            <div class="mb-1">
+                                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Application Submitted</span>
+                                                <span class="text-xs text-gray-500 dark:text-gray-400 ml-2">April 10, 2023</span>
+                                            </div>
+                                            <p class="text-xs text-gray-600 dark:text-gray-400">
+                                                Your application was successfully submitted.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Successful Application 2 - Offer Received -->
+                        <div class="neu-card card-hover overflow-hidden" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400" data-status="offers">
+                            <div class="md:flex">
+                                <!-- Application Summary -->
+                                <div class="p-6 md:w-2/3">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <div class="flex items-center">
+                                            <img src="https://picsum.photos/id/5/60" alt="Company Logo" class="w-12 h-12 rounded-lg object-cover mr-4">
+                                            <div>
+                                                <h3 class="font-semibold text-gray-900 dark:text-gray-100">Full Stack Developer Intern</h3>
+                                                <p class="text-sm text-gray-600 dark:text-gray-400">FullStack Solutions</p>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <span class="status-badge status-offer">
+                                                <i class="fas fa-file-contract mr-1"></i>
+                                                <span>Offer Received</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                            <i class="fas fa-map-marker-alt mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>Harare, Zimbabwe</span>
+                                        </div>
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                            <i class="fas fa-clock mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>Applied on May 5, 2023</span>
+                                        </div>
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                                            <i class="fas fa-hourglass-end mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>Offer expires in 5 days</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex flex-wrap space-x-2">
+                                        <button class="neu-button py-1.5 px-3 text-xs font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none">
+                                            <i class="fas fa-eye mr-1"></i>
+                                            <span>View Details</span>
+                                        </button>
+                                        <button class="neu-button py-1.5 px-3 text-xs font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none add-notes-btn" data-id="5">
+                                            <i class="fas fa-sticky-note mr-1"></i>
+                                            <span>Add Notes</span>
+                                        </button>
+                                        <button class="neu-button py-1.5 px-3 text-xs font-medium text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 focus:outline-none">
+                                            <i class="fas fa-check-circle mr-1"></i>
+                                            <span>Accept Offer</span>
+                                        </button>
+                                        <button class="neu-button py-1.5 px-3 text-xs font-medium text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 focus:outline-none">
+                                            <i class="fas fa-times-circle mr-1"></i>
+                                            <span>Decline</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Application Timeline -->
+                                <div class="bg-gray-50 dark:bg-gray-800 p-6 md:w-1/3 border-t md:border-t-0 md:border-l border-gray-200 dark:border-gray-700">
+                                    <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100 mb-4">Application Timeline</h4>
+                                    
+                                    <div class="timeline">
+                                        <div class="timeline-item">
+                                            <div class="timeline-marker offer"></div>
+                                            <div class="mb-1">
+                                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Offer Received</span>
+                                                <span class="text-xs text-gray-500 dark:text-gray-400 ml-2">June 8, 2023</span>
+                                            </div>
+                                            <p class="text-xs text-gray-600 dark:text-gray-400">
+                                                You received an offer for the Full Stack Developer Intern position.
+                                            </p>
+                                        </div>
+                                        
+                                        <div class="timeline-item">
+                                            <div class="timeline-marker interview"></div>
+                                            <div class="mb-1">
+                                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Final Interview</span>
+                                                <span class="text-xs text-gray-500 dark:text-gray-400 ml-2">June 1, 2023</span>
+                                            </div>
+                                            <p class="text-xs text-gray-600 dark:text-gray-400">
+                                                Completed final interview with the CTO and team lead.
+                                            </p>
+                                        </div>
+                                        
+                                        <div class="timeline-item">
+                                            <div class="timeline-marker interview"></div>
+                                            <div class="mb-1">
+                                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Technical Assessment</span>
+                                                <span class="text-xs text-gray-500 dark:text-gray-400 ml-2">May 25, 2023</span>
+                                            </div>
+                                            <p class="text-xs text-gray-600 dark:text-gray-400">
+                                                Completed technical coding assessment.
+                                            </p>
+                                        </div>
+                                        
+                                        <div class="timeline-item">
+                                            <div class="timeline-marker interview"></div>
+                                            <div class="mb-1">
+                                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">First Interview</span>
+                                                <span class="text-xs text-gray-500 dark:text-gray-400 ml-2">May 18, 2023</span>
+                                            </div>
+                                            <p class="text-xs text-gray-600 dark:text-gray-400">
+                                                Completed first interview with HR.
+                                            </p>
+                                        </div>
+                                        
+                                        <div class="timeline-item">
+                                            <div class="timeline-marker reviewing"></div>
+                                            <div class="mb-1">
+                                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Application Under Review</span>
+                                                <span class="text-xs text-gray-500 dark:text-gray-400 ml-2">May 8, 2023</span>
+                                            </div>
+                                            <p class="text-xs text-gray-600 dark:text-gray-400">
+                                                Your application is being reviewed by the hiring team.
+                                            </p>
+                                        </div>
+                                        
+                                        <div class="timeline-item">
+                                            <div class="timeline-marker"></div>
+                                            <div class="mb-1">
+                                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Application Submitted</span>
+                                                <span class="text-xs text-gray-500 dark:text-gray-400 ml-2">May 5, 2023</span>
+                                            </div>
+                                            <p class="text-xs text-gray-600 dark:text-gray-400">
+                                                Your application was successfully submitted.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Rejected Application -->
+                        <div class="neu-card card-hover overflow-hidden" data-aos="fade-up" data-aos-duration="800" data-aos-delay="500" data-status="closed">
+                            <div class="md:flex">
+                                <!-- Application Summary -->
+                                <div class="p-6 md:w-2/3">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <div class="flex items-center">
+                                            <img src="https://picsum.photos/id/2/60" alt="Company Logo" class="w-12 h-12 rounded-lg object-cover mr-4">
+                                            <div>
+                                                <h3 class="font-semibold text-gray-900 dark:text-gray-100">UI/UX Design Intern</h3>
+                                                <p class="text-sm text-gray-600 dark:text-gray-400">Creative Tech Hub</p>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <span class="status-badge status-rejected">
+                                                <i class="fas fa-times-circle mr-1"></i>
+                                                <span>Application Rejected</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                            <i class="fas fa-map-marker-alt mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>Bulawayo, Zimbabwe</span>
+                                        </div>
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                            <i class="fas fa-clock mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>Applied on May 15, 2023</span>
+                                        </div>
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                                            <i class="fas fa-info-circle mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>Feedback: Looking for candidates with more design experience</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex flex-wrap space-x-2">
+                                        <button class="neu-button py-1.5 px-3 text-xs font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none">
+                                            <i class="fas fa-eye mr-1"></i>
+                                            <span>View Details</span>
+                                        </button>
+                                        <button class="neu-button py-1.5 px-3 text-xs font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none add-notes-btn" data-id="6">
+                                            <i class="fas fa-sticky-note mr-1"></i>
+                                            <span>Add Notes</span>
+                                        </button>
+                                        <button class="neu-button py-1.5 px-3 text-xs font-medium text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 focus:outline-none">
+                                            <i class="fas fa-search mr-1"></i>
+                                            <span>Find Similar</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Application Timeline -->
+                                <div class="bg-gray-50 dark:bg-gray-800 p-6 md:w-1/3 border-t md:border-t-0 md:border-l border-gray-200 dark:border-gray-700">
+                                    <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100 mb-4">Application Timeline</h4>
+                                    
+                                    <div class="timeline">
+                                        <div class="timeline-item">
+                                            <div class="timeline-marker rejected"></div>
+                                            <div class="mb-1">
+                                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Application Rejected</span>
+                                                <span class="text-xs text-gray-500 dark:text-gray-400 ml-2">May 30, 2023</span>
+                                            </div>
+                                            <p class="text-xs text-gray-600 dark:text-gray-400">
+                                                Your application was not selected to move forward.
+                                            </p>
+                                        </div>
+                                        
+                                        <div class="timeline-item">
+                                            <div class="timeline-marker reviewing"></div>
+                                            <div class="mb-1">
+                                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Application Under Review</span>
+                                                <span class="text-xs text-gray-500 dark:text-gray-400 ml-2">May 18, 2023</span>
+                                            </div>
+                                            <p class="text-xs text-gray-600 dark:text-gray-400">
+                                                Your application is being reviewed by the hiring team.
+                                            </p>
+                                        </div>
+                                        
+                                        <div class="timeline-item">
+                                            <div class="timeline-marker"></div>
+                                            <div class="mb-1">
+                                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Application Submitted</span>
+                                                <span class="text-xs text-gray-500 dark:text-gray-400 ml-2">May 15, 2023</span>
+                                            </div>
+                                            <p class="text-xs text-gray-600 dark:text-gray-400">
+                                                Your application was successfully submitted.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                                        <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100 mb-2">Feedback & Improvements</h4>
+                                        <p class="text-xs text-gray-600 dark:text-gray-400">
+                                            Consider taking some UI/UX design courses or building a portfolio of design projects to strengthen future applications.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Withdrawn Application -->
+                        <div class="neu-card card-hover overflow-hidden" data-aos="fade-up" data-aos-duration="800" data-aos-delay="600" data-status="closed">
+                            <div class="md:flex">
+                                <!-- Application Summary -->
+                                <div class="p-6 md:w-2/3">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <div class="flex items-center">
+                                            <img src="https://picsum.photos/id/6/60" alt="Company Logo" class="w-12 h-12 rounded-lg object-cover mr-4">
+                                            <div>
+                                                <h3 class="font-semibold text-gray-900 dark:text-gray-100">Digital Marketing Intern</h3>
+                                                <p class="text-sm text-gray-600 dark:text-gray-400">DigitalEdge Marketing</p>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <span class="status-badge status-withdrawn">
+                                                <i class="fas fa-undo-alt mr-1"></i>
+                                                <span>Application Withdrawn</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                            <i class="fas fa-map-marker-alt mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>Harare, Zimbabwe</span>
+                                        </div>
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                            <i class="fas fa-clock mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>Applied on May 2, 2023</span>
+                                        </div>
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                                            <i class="fas fa-info-circle mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>Withdrawn on May 10, 2023</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex flex-wrap space-x-2">
+                                        <button class="neu-button py-1.5 px-3 text-xs font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none">
+                                            <i class="fas fa-eye mr-1"></i>
+                                            <span>View Details</span>
+                                        </button>
+                                        <button class="neu-button py-1.5 px-3 text-xs font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none add-notes-btn" data-id="7">
+                                            <i class="fas fa-sticky-note mr-1"></i>
+                                            <span>Add Notes</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Application Timeline -->
+                                <div class="bg-gray-50 dark:bg-gray-800 p-6 md:w-1/3 border-t md:border-t-0 md:border-l border-gray-200 dark:border-gray-700">
+                                    <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100 mb-4">Application Timeline</h4>
+                                    
+                                    <div class="timeline">
+                                        <div class="timeline-item">
+                                            <div class="timeline-marker withdrawn"></div>
+                                            <div class="mb-1">
+                                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Application Withdrawn</span>
+                                                <span class="text-xs text-gray-500 dark:text-gray-400 ml-2">May 10, 2023</span>
+                                            </div>
+                                            <p class="text-xs text-gray-600 dark:text-gray-400">
+                                                You withdrew your application. Reason: Accepted another offer.
+                                            </p>
+                                        </div>
+                                        
+                                        <div class="timeline-item">
+                                            <div class="timeline-marker reviewing"></div>
+                                            <div class="mb-1">
+                                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Application Under Review</span>
+                                                <span class="text-xs text-gray-500 dark:text-gray-400 ml-2">May 5, 2023</span>
+                                            </div>
+                                            <p class="text-xs text-gray-600 dark:text-gray-400">
+                                                Your application is being reviewed by the hiring team.
+                                            </p>
+                                        </div>
+                                        
+                                        <div class="timeline-item">
+                                            <div class="timeline-marker"></div>
+                                            <div class="mb-1">
+                                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Application Submitted</span>
+                                                <span class="text-xs text-gray-500 dark:text-gray-400 ml-2">May 2, 2023</span>
+                                            </div>
+                                            <p class="text-xs text-gray-600 dark:text-gray-400">
+                                                Your application was successfully submitted.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Empty State (Hidden by default, shown when no applications) -->
+                    <div id="empty-state" class="neu-card p-6 empty-state hidden">
+                        <div class="empty-state-icon">
+                            <i class="fas fa-file-alt text-gray-400 dark:text-gray-600 text-6xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold font-display mb-2">No Applications Yet</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-6 max-w-md mx-auto">
+                            You haven't applied to any internships yet. Start exploring opportunities and submit your first application.
+                        </p>
+                        <a href="internships.html" class="inline-flex items-center justify-center py-2 px-6 text-sm font-medium text-white bg-gradient-to-r from-primary-600 to-secondary-600 rounded-lg shadow-md hover:from-primary-700 hover:to-secondary-700 focus:outline-none">
+                            <i class="fas fa-search mr-2"></i>
+                            <span>Explore Internships</span>
+                        </a>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Notyf for notifications -->
+    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+    
+    <!-- Flatpickr for Date Picker -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        // Initialize AOS Animation
+        AOS.init();
+        
+        // Initialize Notyf
+        const notyf = new Notyf({
+            duration: 3000,
+            position: {
+                x: 'right',
+                y: 'top',
+            },
+            types: [
+                {
+                    type: 'success',
+                    background: '#10B981',
+                    icon: {
+                        className: 'fas fa-check',
+                        tagName: 'i',
+                        color: 'white'
+                    }
+                },
+                {
+                    type: 'error',
+                    background: '#EF4444',
+                    icon: {
+                        className: 'fas fa-times',
+                        tagName: 'i',
+                        color: 'white'
+                    }
+                }
+            ]
+        });
+        
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        
+        // Check for saved theme preference or use the system preference
+        const savedTheme = localStorage.getItem('theme') || 
+                          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        // Apply the saved theme
+        if (savedTheme === 'dark') {
+            htmlElement.classList.remove('light');
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+            htmlElement.classList.add('light');
+        }
+        
+        // Toggle theme when button is clicked
+        themeToggle.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                htmlElement.classList.add('light');
+                localStorage.setItem('theme', 'light');
+            } else {
+                htmlElement.classList.remove('light');
+                htmlElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+        
+        // Mobile Sidebar Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebar-overlay');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+            sidebarOverlay.classList.toggle('open');
+            
+            // Toggle icon
+            const icon = mobileMenuButton.querySelector('i');
+            if (icon.classList.contains('fa-bars')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+        
+        sidebarOverlay.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            sidebarOverlay.classList.remove('open');
+            
+            // Reset icon
+            const icon = mobileMenuButton.querySelector('i');
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        });
+        
+        // Application Filters
+        const filterButtons = document.querySelectorAll('.filter-button');
+        const applicationCards = document.querySelectorAll('[data-status]');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                // Get filter value
+                const filter = button.getAttribute('data-filter');
+                
+                // Show/hide applications based on filter
+                applicationCards.forEach(card => {
+                    const status = card.getAttribute('data-status');
+                    
+                    if (filter === 'all' || status.includes(filter)) {
+                        card.style.display = '';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                // Check if any cards are visible
+                const visibleCards = Array.from(applicationCards).filter(card => card.style.display !== 'none');
+                const emptyState = document.getElementById('empty-state');
+                
+                if (visibleCards.length === 0) {
+                    emptyState.style.display = 'block';
+                    
+                    if (filter !== 'all') {
+                        emptyState.querySelector('h3').textContent = `No ${filter} Applications`;
+                        emptyState.querySelector('p').textContent = `You don't have any ${filter} applications at the moment.`;
+                    }
+                } else {
+                    emptyState.style.display = 'none';
+                }
+            });
+        });
+        
+        // Sort Applications
+        const sortSelect = document.getElementById('sort-applications');
+        
+        sortSelect.addEventListener('change', () => {
+            const sortBy = sortSelect.value;
+            const applications = Array.from(applicationCards);
+            
+            // Sort applications based on selection
+            // This is a simplified example - in a real application, you would sort based on actual data
+            if (sortBy === 'recent') {
+                // Sort by most recent first (newest at the top)
+                applications.sort((a, b) => {
+                    return b.querySelector('.timeline-item:last-child .text-xs').textContent.localeCompare(
+                        a.querySelector('.timeline-item:last-child .text-xs').textContent
+                    );
+                });
+            } else if (sortBy === 'oldest') {
+                // Sort by oldest first
+                applications.sort((a, b) => {
+                    return a.querySelector('.timeline-item:last-child .text-xs').textContent.localeCompare(
+                        b.querySelector('.timeline-item:last-child .text-xs').textContent
+                    );
+                });
+            } else if (sortBy === 'company') {
+                // Sort by company name (A-Z)
+                applications.sort((a, b) => {
+                    return a.querySelector('h3 + p').textContent.localeCompare(
+                        b.querySelector('h3 + p').textContent
+                    );
+                });
+            } else if (sortBy === 'status') {
+                // Sort by status
+                applications.sort((a, b) => {
+                    return a.querySelector('.status-badge').textContent.localeCompare(
+                        b.querySelector('.status-badge').textContent
+                    );
+                });
+            }
+            
+            // Reorder applications in the DOM
+            const container = applicationCards[0].parentNode;
+            applications.forEach(app => container.appendChild(app));
+            
+            // Show notification
+            notyf.success(`Applications sorted by ${sortBy}`);
+        });
+        
+        // Search Applications
+        const searchInput = document.getElementById('search-applications');
+        
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.trim().toLowerCase();
+            
+            applicationCards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const company = card.querySelector('h3 + p').textContent.toLowerCase();
+                const status = card.querySelector('.status-badge').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || company.includes(searchTerm) || status.includes(searchTerm)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            // Check if any cards are visible
+            const visibleCards = Array.from(applicationCards).filter(card => card.style.display !== 'none');
+            const emptyState = document.getElementById('empty-state');
+            
+            if (visibleCards.length === 0) {
+                emptyState.style.display = 'block';
+                emptyState.querySelector('h3').textContent = 'No Matching Applications';
+                emptyState.querySelector('p').textContent = `No applications match your search for "${searchTerm}". Try a different search term or clear the search.`;
+            } else {
+                emptyState.style.display = 'none';
+            }
+        });
+        
+        // Notes Modal
+        const notesModal = document.getElementById('notes-modal');
+        const closeNotesModal = document.getElementById('close-notes-modal');
+        const cancelNotes = document.getElementById('cancel-notes');
+        const notesForm = document.getElementById('notes-form');
+        const addNotesButtons = document.querySelectorAll('.add-notes-btn');
+        
+        addNotesButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const applicationId = button.getAttribute('data-id');
+                
+                // In a real application, you would fetch existing notes for this application
+                // For now, just open the modal
+                notesModal.classList.add('open');
+            });
+        });
+        
+        closeNotesModal.addEventListener('click', () => {
+            notesModal.classList.remove('open');
+        });
+        
+        cancelNotes.addEventListener('click', () => {
+            notesModal.classList.remove('open');
+        });
+        
+        // Click outside to close notes modal
+        notesModal.addEventListener('click', (e) => {
+            if (e.target === notesModal) {
+                notesModal.classList.remove('open');
+            }
+        });
+        
+        // Save Notes
+        notesForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const notes = document.getElementById('application-notes').value;
+            
+            // Show loading state
+            const submitButton = notesForm.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton.innerHTML;
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Saving...';
+            
+            // Simulate API call delay
+            setTimeout(() => {
+                // Reset form
+                notesForm.reset();
+                
+                // Reset button
+                submitButton.disabled = false;
+                submitButton.innerHTML = originalButtonText;
+                
+                // Close modal
+                notesModal.classList.remove('open');
+                
+                // Show success notification
+                notyf.success('Notes saved successfully');
+            }, 1000);
+        });
+        
+        // Interview Modal
+        const interviewModal = document.getElementById('interview-modal');
+        const closeInterviewModal = document.getElementById('close-interview-modal');
+        const cancelInterview = document.getElementById('cancel-interview');
+        const interviewForm = document.getElementById('interview-form');
+        
+        // Initialize Flatpickr for date picker
+        flatpickr("#interview-date", {
+            enableTime: true,
+            dateFormat: "Y-m-d H:i",
+            minDate: "today",
+            time_24hr: true
+        });
+        
+        closeInterviewModal.addEventListener('click', () => {
+            interviewModal.classList.remove('open');
+        });
+        
+        cancelInterview.addEventListener('click', () => {
+            interviewModal.classList.remove('open');
+        });
+        
+        // Click outside to close interview modal
+        interviewModal.addEventListener('click', (e) => {
+            if (e.target === interviewModal) {
+                interviewModal.classList.remove('open');
+            }
+        });
+        
+        // Save Interview
+        interviewForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Show loading state
+            const submitButton = interviewForm.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton.innerHTML;
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Saving...';
+            
+            // Simulate API call delay
+            setTimeout(() => {
+                // Reset form
+                interviewForm.reset();
+                
+                // Reset button
+                submitButton.disabled = false;
+                submitButton.innerHTML = originalButtonText;
+                
+                // Close modal
+                interviewModal.classList.remove('open');
+                
+                // Show success notification
+                notyf.success('Interview details saved successfully');
+            }, 1000);
+        });
+        
+        // Withdraw Application Modal
+        const withdrawModal = document.getElementById('withdraw-modal');
+        const withdrawPositionEl = document.getElementById('withdraw-position');
+        const withdrawCompanyEl = document.getElementById('withdraw-company');
+        const cancelWithdraw = document.getElementById('cancel-withdraw');
+        const withdrawForm = document.getElementById('withdraw-form');
+        const withdrawButtons = document.querySelectorAll('.withdraw-btn');
+        
+        withdrawButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const applicationId = button.getAttribute('data-id');
+                const position = button.getAttribute('data-position');
+                const company = button.getAttribute('data-company');
+                
+                // Set modal content
+                withdrawPositionEl.textContent = position;
+                withdrawCompanyEl.textContent = company;
+                
+                // Open modal
+                withdrawModal.classList.add('open');
+            });
+        });
+        
+        cancelWithdraw.addEventListener('click', () => {
+            withdrawModal.classList.remove('open');
+        });
+        
+        // Click outside to close withdraw modal
+        withdrawModal.addEventListener('click', (e) => {
+            if (e.target === withdrawModal) {
+                withdrawModal.classList.remove('open');
+            }
+        });
+        
+        // Show/hide other reason field
+        const withdrawReason = document.getElementById('withdraw-reason');
+        const otherReasonContainer = document.getElementById('other-reason-container');
+        
+        withdrawReason.addEventListener('change', () => {
+            if (withdrawReason.value === 'other') {
+                otherReasonContainer.classList.remove('hidden');
+            } else {
+                otherReasonContainer.classList.add('hidden');
+            }
+        });
+        
+        // Withdraw Application
+        withdrawForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Show loading state
+            const submitButton = withdrawForm.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton.innerHTML;
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Withdrawing...';
+            
+            // Simulate API call delay
+            setTimeout(() => {
+                // Reset form
+                withdrawForm.reset();
+                
+                // Reset button
+                submitButton.disabled = false;
+                submitButton.innerHTML = originalButtonText;
+                
+                // Close modal
+                withdrawModal.classList.remove('open');
+                
+                // Show success notification
+                notyf.success('Application withdrawn successfully');
+            }, 1000);
+        });
+        
+        // IndexedDB Setup for offline functionality
+        let db;
+        
+        function initDB() {
+            const request = indexedDB.open('InternMatchDB', 1);
+            
+            request.onerror = function(event) {
+                console.error('IndexedDB error:', event.target.error);
+            };
+            
+            request.onupgradeneeded = function(event) {
+                const db = event.target.result;
+                
+                // Create object stores
+                if (!db.objectStoreNames.contains('applications')) {
+                    db.createObjectStore('applications', { keyPath: 'id' });
+                }
+                
+                if (!db.objectStoreNames.contains('applicationNotes')) {
+                    db.createObjectStore('applicationNotes', { keyPath: 'applicationId' });
+                }
+            };
+            
+            request.onsuccess = function(event) {
+                db = event.target.result;
+                console.log('IndexedDB initialized successfully');
+                
+                // Load applications data
+                loadApplicationsData();
+            };
+        }
+        
+        function loadApplicationsData() {
+            if (!db) return;
+            
+            const transaction = db.transaction(['applications'], 'readonly');
+            const store = transaction.objectStore('applications');
+            const request = store.getAll();
+            
+            request.onsuccess = function(event) {
+                const applications = event.target.result;
+                
+                if (applications && applications.length > 0) {
+                    console.log('Loaded applications from IndexedDB:', applications);
+                    // In a real application, we would update the UI with this data
+                } else {
+                    console.log('No applications found in IndexedDB');
+                }
+            };
+            
+            request.onerror = function(event) {
+                console.error('Error loading applications:', event.target.error);
+            };
+        }
+        
+        // Initialize IndexedDB
+        initDB();
+    </script>
+</body>
+</html>

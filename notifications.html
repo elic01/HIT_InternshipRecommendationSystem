@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications | InternMatch - Harare Institute of Technology</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Notyf for notifications -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        secondary: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            200: '#99f6e4',
+                            300: '#5eead4',
+                            400: '#2dd4bf',
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                            700: '#0f766e',
+                            800: '#115e59',
+                            900: '#134e4a',
+                        },
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Poppins', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'neu-light': '9px 9px 18px #e0e0e0, -9px -9px 18px #ffffff',
+                        'neu-dark': '9px 9px 18px #151515, -9px -9px 18px #252525',
+                        'neu-button-light': '5px 5px 10px #e0e0e0, -5px -5px 10px #ffffff',
+                        'neu-button-dark': '5px 5px 10px #151515, -5px -5px 10px #252525',
+                        'inner-neu-light': 'inset 3px 3px 6px #e0e0e0, inset -3px -3px 6px #ffffff',
+                        'inner-neu-dark': 'inset 3px 3px 6px #151515, inset -3px -3px 6px #252525',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom Styles */
+        .neu-card {
+            border-radius: 20px;
+            transition: all 0.3s ease-in-out;
+        }
+        
+        .dark .neu-card {
+            background: #1f2937;
+            box-shadow: 9px 9px 18px #151515, -9px -9px 18px #252525;
+        }
+        
+        .light .neu-card {
+            background: #ffffff;
+            box-shadow: 9px 9px 18px #e0e0e0, -9px -9px 18px #ffffff;
+        }
+        
+        .neu-button {
+            border-radius: 12px;
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .dark .neu-button {
+            background: #1f2937;
+            box-shadow: 5px 5px 10px #151515, -5px -5px 10px #252525;
+        }
+        
+        .light .neu-button {
+            background: #ffffff;
+            box-shadow: 5px 5px 10px #e0e0e0, -5px -5px 10px #ffffff;
+        }
+        
+        .neu-button:hover {
+            transform: translateY(-3px);
+        }
+        
+        .neu-button:active {
+            transform: translateY(0);
+        }
+        
+        .neu-input {
+            border-radius: 12px;
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .dark .neu-input {
+            background: #1f2937;
+            box-shadow: inset 3px 3px 6px #151515, inset -3px -3px 6px #252525;
+            color: #e5e7eb;
+            border: 1px solid #374151;
+        }
+        
+        .light .neu-input {
+            background: #f9fafb;
+            box-shadow: inset 3px 3px 6px #e0e0e0, inset -3px -3px 6px #ffffff;
+            color: #1f2937;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .neu-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            transition: all 0.3s ease-in-out;
+        }
+        
+        @media (max-width: 1023px) {
+            .sidebar {
+                transform: translateX(-100%);
+                position: fixed;
+                z-index: 50;
+                height: 100vh;
+            }
+            
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            
+            .sidebar-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 40;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.3s ease-in-out;
+            }
+            
+            .sidebar-overlay.open {
+                opacity: 1;
+                pointer-events: auto;
+            }
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        .dark ::-webkit-scrollbar-track {
+            background: #1f2937;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2563eb;
+        }
+        
+        /* Notification Badge */
+        .notification-badge {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background-color: #ef4444;
+            color: white;
+            font-size: 0.625rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Notification Item */
+        .notification-item {
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .notification-item:hover {
+            background-color: #f9fafb;
+        }
+        
+        .dark .notification-item:hover {
+            background-color: #1f2937;
+        }
+        
+        .notification-item.unread {
+            border-left: 3px solid #3b82f6;
+        }
+        
+        .dark .notification-item.unread {
+            border-left: 3px solid #60a5fa;
+        }
+        
+        .notification-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .icon-application {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+        }
+        
+        .dark .icon-application {
+            background-color: rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+        }
+        
+        .icon-interview {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
+        }
+        
+        .dark .icon-interview {
+            background-color: rgba(245, 158, 11, 0.2);
+            color: #fbbf24;
+        }
+        
+        .icon-offer {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+        }
+        
+        .dark .icon-offer {
+            background-color: rgba(16, 185, 129, 0.2);
+            color: #34d399;
+        }
+        
+        .icon-deadline {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+        }
+        
+        .dark .icon-deadline {
+            background-color: rgba(239, 68, 68, 0.2);
+            color: #f87171;
+        }
+        
+        .icon-system {
+            background-color: rgba(107, 114, 128, 0.1);
+            color: #6b7280;
+        }
+        
+        .dark .icon-system {
+            background-color: rgba(107, 114, 128, 0.2);
+            color: #9ca3af;
+        }
+        
+        .icon-recommendation {
+            background-color: rgba(139, 92, 246, 0.1);
+            color: #8b5cf6;
+        }
+        
+        .dark .icon-recommendation {
+            background-color: rgba(139, 92, 246, 0.2);
+            color: #a78bfa;
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+        
+        .empty-state-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            opacity: 0.7;
+        }
+        
+        /* Notification Filters */
+        .filter-button {
+            border-radius: 9999px;
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        
+        .filter-button.active {
+            background-color: #eff6ff;
+            color: #3b82f6;
+        }
+        
+        .dark .filter-button.active {
+            background-color: rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+        }
+        
+        /* Notification Settings Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        .modal-content {
+            width: 90%;
+            max-width: 600px;
+            border-radius: 20px;
+            transition: transform 0.3s ease;
+            transform: scale(0.9);
+        }
+        
+        .modal.open .modal-content {
+            transform: scale(1);
+        }
+        
+        /* Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 48px;
+            height: 24px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #e5e7eb;
+            transition: .4s;
+            border-radius: 24px;
+        }
+        
+        .dark .toggle-slider {
+            background-color: #4b5563;
+        }
+        
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .toggle-slider {
+            background-color: #3b82f6;
+        }
+        
+        input:checked + .toggle-slider:before {
+            transform: translateX(24px);
+        }
+    </style>
+</head>
+<body class="font-sans light transition-colors duration-300 bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-100 min-h-screen flex flex-col">
+    <!-- Sidebar Overlay (Mobile) -->
+    <div id="sidebar-overlay" class="sidebar-overlay lg:hidden"></div>
+    
+    <!-- Notification Settings Modal -->
+    <div id="notification-settings-modal" class="modal">
+        <div class="modal-content neu-card light:bg-white dark:bg-gray-800 p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold">Notification Settings</h3>
+                <button id="close-settings-modal" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <form id="notification-settings-form">
+                <div class="space-y-6">
+                    <div>
+                        <h4 class="text-base font-medium text-gray-900 dark:text-gray-100 mb-4">Email Notifications</h4>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h5 class="text-sm font-medium text-gray-700 dark:text-gray-300">Application Updates</h5>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">
+                                        Receive updates about your internship applications
+                                    </p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" name="email_application" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h5 class="text-sm font-medium text-gray-700 dark:text-gray-300">Interview Reminders</h5>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">
+                                        Receive reminders about upcoming interviews
+                                    </p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" name="email_interview" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h5 class="text-sm font-medium text-gray-700 dark:text-gray-300">New Recommendations</h5>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">
+                                        Receive notifications about new internship recommendations
+                                    </p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" name="email_recommendation" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h5 class="text-sm font-medium text-gray-700 dark:text-gray-300">Deadline Reminders</h5>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">
+                                        Receive reminders about application deadlines
+                                    </p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" name="email_deadline" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h5 class="text-sm font-medium text-gray-700 dark:text-gray-300">System Announcements</h5>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">
+                                        Receive important system announcements and updates
+                                    </p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" name="email_system" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
+                        <h4 class="text-base font-medium text-gray-900 dark:text-gray-100 mb-4">In-App Notifications</h4>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h5 class="text-sm font-medium text-gray-700 dark:text-gray-300">Application Updates</h5>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">
+                                        Receive updates about your internship applications
+                                    </p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" name="inapp_application" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h5 class="text-sm font-medium text-gray-700 dark:text-gray-300">Interview Reminders</h5>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">
+                                        Receive reminders about upcoming interviews
+                                    </p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" name="inapp_interview" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h5 class="text-sm font-medium text-gray-700 dark:text-gray-300">New Recommendations</h5>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">
+                                        Receive notifications about new internship recommendations
+                                    </p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" name="inapp_recommendation" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h5 class="text-sm font-medium text-gray-700 dark:text-gray-300">Deadline Reminders</h5>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">
+                                        Receive reminders about application deadlines
+                                    </p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" name="inapp_deadline" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h5 class="text-sm font-medium text-gray-700 dark:text-gray-300">System Announcements</h5>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">
+                                        Receive important system announcements and updates
+                                    </p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" name="inapp_system" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
+                        <h4 class="text-base font-medium text-gray-900 dark:text-gray-100 mb-4">Notification Frequency</h4>
+                        
+                        <div class="mb-4">
+                            <label for="notification-frequency" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email Digest Frequency</label>
+                            <select id="notification-frequency" name="frequency" class="neu-input w-full px-4 py-2">
+                                <option value="realtime">Real-time (Immediate)</option>
+                                <option value="daily" selected>Daily Digest</option>
+                                <option value="weekly">Weekly Digest</option>
+                            </select>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                Choose how often you want to receive email digests of your notifications
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex justify-end mt-6 space-x-3">
+                    <button type="button" id="cancel-settings" class="neu-button py-2 px-4 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none">
+                        Cancel
+                    </button>
+                    <button type="submit" class="py-2 px-4 bg-gradient-to-r from-primary-600 to-secondary-600 text-white rounded-lg shadow-md hover:from-primary-700 hover:to-secondary-700 focus:outline-none">
+                        Save Settings
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Main Container -->
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar w-72 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex-shrink-0">
+            <!-- Sidebar Header -->
+            <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                <a href="index.html" class="flex items-center space-x-2">
+                    <div class="h-10 w-10 rounded-lg bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center">
+                        <i class="fas fa-briefcase text-white text-xl"></i>
+                    </div>
+                    <span class="text-xl font-bold font-display bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-secondary-500">InternMatch</span>
+                </a>
+            </div>
+            
+            <!-- User Profile Summary -->
+            <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                <div class="flex items-center space-x-4">
+                    <img src="https://picsum.photos/id/1005/100" alt="User Profile" class="w-12 h-12 rounded-full object-cover border-2 border-primary-500">
+                    <div>
+                        <h3 class="font-medium text-gray-900 dark:text-gray-100">Tatenda Chikwanha</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Computer Science, 3rd Year</p>
+                    </div>
+                </div>
+                
+                <!-- Profile Completion -->
+                <div class="mt-6">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-sm text-gray-600 dark:text-gray-400">Profile Completion</span>
+                        <span class="text-sm font-medium text-primary-600 dark:text-primary-400">75%</span>
+                    </div>
+                    <div class="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full" style="width: 75%"></div>
+                    </div>
+                    <a href="profile.html" class="text-xs text-primary-600 dark:text-primary-400 mt-2 inline-block hover:underline">
+                        Complete your profile
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Navigation Menu -->
+            <nav class="p-4">
+                <ul class="space-y-1">
+                    <li>
+                        <a href="dashboard.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-home"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/internshipListing.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-briefcase"></i>
+                            <span>Internships</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="recommendations.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-star"></i>
+                            <span>Recommendations</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/savedInternships.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-bookmark"></i>
+                            <span>Saved</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="applications.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-file-alt"></i>
+                            <span>Applications</span>
+                            <span class="ml-auto bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-xs font-medium px-2 py-0.5 rounded-full">7</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/notifications.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300">
+                            <i class="fas fa-bell"></i>
+                            <span>Notifications</span>
+                            <span class="ml-auto bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 text-xs font-medium px-2 py-0.5 rounded-full">12</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <hr class="my-6 border-gray-200 dark:border-gray-700">
+                
+                <ul class="space-y-1">
+                    <li>
+                        <a href="profile.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-user-circle"></i>
+                            <span>Profile</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settings.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/contactPage.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Help & Support</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/auth.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Log Out</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top Navigation -->
+            <header class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+                <div class="flex items-center justify-between p-4">
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-button" class="lg:hidden p-2 rounded-md text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 focus:outline-none">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    
+                    <!-- Page Title -->
+                    <h1 class="text-xl font-bold font-display text-gray-900 dark:text-gray-100 hidden md:block">Notifications</h1>
+                    
+                    <!-- Right Navigation Items -->
+                    <div class="flex items-center space-x-4">
+                        <!-- Theme Toggle -->
+                        <button id="theme-toggle" class="p-2 rounded-full text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 focus:outline-none">
+                            <i class="fas fa-moon dark:hidden"></i>
+                            <i class="fas fa-sun hidden dark:block"></i>
+                        </button>
+                        
+                        <!-- Notifications -->
+                        <div class="relative">
+                            <button class="p-2 rounded-full text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 focus:outline-none">
+                                <i class="fas fa-bell"></i>
+                                <span class="notification-badge">12</span>
+                            </button>
+                        </div>
+                        
+                        <!-- Messages -->
+                        <div class="relative">
+                            <button class="p-2 rounded-full text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 focus:outline-none">
+                                <i class="fas fa-comment-alt"></i>
+                                <span class="notification-badge">2</span>
+                            </button>
+                        </div>
+                        
+                        <!-- User Menu -->
+                        <div class="relative">
+                            <button class="flex items-center focus:outline-none">
+                                <img src="https://picsum.photos/id/1005/100" alt="User Profile" class="w-8 h-8 rounded-full object-cover">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Notifications Content -->
+            <main class="flex-1 overflow-y-auto">
+                <div class="container mx-auto px-4 py-6">
+                    <!-- Notification Header -->
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+                        <div class="mb-4 md:mb-0">
+                            <h2 class="text-xl font-semibold font-display">Your Notifications</h2>
+                            <p class="text-gray-600 dark:text-gray-400">You have 12 unread notifications</p>
+                        </div>
+                        
+                        <div class="flex space-x-3">
+                            <button id="mark-all-read" class="neu-button py-2 px-4 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none">
+                                <i class="fas fa-check-double mr-2"></i>
+                                <span>Mark All as Read</span>
+                            </button>
+                            
+                            <button id="notification-settings-btn" class="neu-button py-2 px-4 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none">
+                                <i class="fas fa-cog mr-2"></i>
+                                <span>Settings</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Notification Filters -->
+                    <div class="flex flex-wrap items-center space-x-2 mb-6 overflow-x-auto">
+                        <button class="filter-button active" data-filter="all">
+                            All Notifications
+                        </button>
+                        <button class="filter-button" data-filter="application">
+                            Applications
+                        </button>
+                        <button class="filter-button" data-filter="interview">
+                            Interviews
+                        </button>
+                        <button class="filter-button" data-filter="offer">
+                            Offers
+                        </button>
+                        <button class="filter-button" data-filter="recommendation">
+                            Recommendations
+                        </button>
+                        <button class="filter-button" data-filter="deadline">
+                            Deadlines
+                        </button>
+                        <button class="filter-button" data-filter="system">
+                            System
+                        </button>
+                    </div>
+                    
+                    <!-- Notifications List -->
+                    <div class="neu-card p-0 overflow-hidden" data-aos="fade-up" data-aos-duration="800">
+                        <div class="divide-y divide-gray-200 dark:divide-gray-700">
+                            <!-- Notification Item 1 - Application Status Update -->
+                            <div class="notification-item unread p-4 hover:bg-gray-50 dark:hover:bg-gray-800" data-type="application">
+                                <div class="flex">
+                                    <div class="notification-icon icon-application mr-4">
+                                        <i class="fas fa-file-alt"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="flex justify-between mb-1">
+                                            <h3 class="text-sm font-medium text-gray-900 dark:text-gray-100">Application Status Update</h3>
+                                            <span class="text-xs text-gray-500 dark:text-gray-400">10 minutes ago</span>
+                                        </div>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                                            Your application for <span class="font-medium">Software Engineering Intern</span> at <span class="font-medium">TechZim Solutions</span> has been moved to the interview stage.
+                                        </p>
+                                        <div class="mt-2 flex">
+                                            <a href="applications.html" class="text-xs text-primary-600 dark:text-primary-400 hover:underline">
+                                                View Application
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="ml-4 flex-shrink-0">
+                                        <button class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 mark-read-btn" data-id="1">
+                                            <i class="fas fa-circle text-xs"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Notification Item 2 - Interview Reminder -->
+                            <div class="notification-item unread p-4 hover:bg-gray-50 dark:hover:bg-gray-800" data-type="interview">
+                                <div class="flex">
+                                    <div class="notification-icon icon-interview mr-4">
+                                        <i class="fas fa-calendar-alt"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="flex justify-between mb-1">
+                                            <h3 class="text-sm font-medium text-gray-900 dark:text-gray-100">Interview Reminder</h3>
+                                            <span class="text-xs text-gray-500 dark:text-gray-400">1 hour ago</span>
+                                        </div>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                                            Reminder: You have an interview scheduled for <span class="font-medium">Software Engineering Intern</span> at <span class="font-medium">TechZim Solutions</span> tomorrow at 10:00 AM.
+                                        </p>
+                                        <div class="mt-2 flex space-x-4">
+                                            <a href="#" class="text-xs text-primary-600 dark:text-primary-400 hover:underline">
+                                                View Details
+                                            </a>
+                                            <a href="#" class="text-xs text-primary-600 dark:text-primary-400 hover:underline">
+                                                Add to Calendar
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="ml-4 flex-shrink-0">
+                                        <button class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 mark-read-btn" data-id="2">
+                                            <i class="fas fa-circle text-xs"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Notification Item 3 - New Recommendation -->
+                            <div class="notification-item unread p-4 hover:bg-gray-50 dark:hover:bg-gray-800" data-type="recommendation">
+                                <div class="flex">
+                                    <div class="notification-icon icon-recommendation mr-4">
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="flex justify-between mb-1">
+                                            <h3 class="text-sm font-medium text-gray-900 dark:text-gray-100">New Internship Recommendation</h3>
+                                            <span class="text-xs text-gray-500 dark:text-gray-400">3 hours ago</span>
+                                        </div>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                                            We've found a new internship that matches your profile: <span class="font-medium">Frontend Developer Intern</span> at <span class="font-medium">WebSolutions Zimbabwe</span>.
+                                        </p>
+                                        <div class="mt-2 flex">
+                                            <a href="recommendations.html" class="text-xs text-primary-600 dark:text-primary-400 hover:underline">
+                                                View Recommendation
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="ml-4 flex-shrink-0">
+                                        <button class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 mark-read-btn" data-id="3">
+                                            <i class="fas fa-circle text-xs"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Notification Item 4 - Application Deadline -->
+                            <div class="notification-item unread p-4 hover:bg-gray-50 dark:hover:bg-gray-800" data-type="deadline">
+                                <div class="flex">
+                                    <div class="notification-icon icon-deadline mr-4">
+                                        <i class="fas fa-hourglass-end"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="flex justify-between mb-1">
+                                            <h3 class="text-sm font-medium text-gray-900 dark:text-gray-100">Application Deadline Approaching</h3>
+                                            <span class="text-xs text-gray-500 dark:text-gray-400">5 hours ago</span>
+                                        </div>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                                            The application deadline for <span class="font-medium">Data Science Intern</span> at <span class="font-medium">DataMinds Zimbabwe</span> is in 2 days. Don't miss out!
+                                        </p>
+                                        <div class="mt-2 flex space-x-4">
+                                            <a href="#" class="text-xs text-primary-600 dark:text-primary-400 hover:underline">
+                                                View Internship
+                                            </a>
+                                            <a href="#" class="text-xs text-primary-600 dark:text-primary-400 hover:underline">
+                                                Apply Now
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="ml-4 flex-shrink-0">
+                                        <button class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 mark-read-btn" data-id="4">
+                                            <i class="fas fa-circle text-xs"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Notification Item 5 - Offer Received -->
+                            <div class="notification-item unread p-4 hover:bg-gray-50 dark:hover:bg-gray-800" data-type="offer">
+                                <div class="flex">
+                                    <div class="notification-icon icon-offer mr-4">
+                                        <i class="fas fa-file-contract"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="flex justify-between mb-1">
+                                            <h3 class="text-sm font-medium text-gray-900 dark:text-gray-100">Internship Offer Received</h3>
+                                            <span class="text-xs text-gray-500 dark:text-gray-400">1 day ago</span>
+                                        </div>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                                            Congratulations! You've received an offer for <span class="font-medium">Full Stack Developer Intern</span> at <span class="font-medium">FullStack Solutions</span>. The offer expires in 7 days.
+                                        </p>
+                                        <div class="mt-2 flex space-x-4">
+                                            <a href="applications.html" class="text-xs text-primary-600 dark:text-primary-400 hover:underline">
+                                                View Offer
+                                            </a>
+                                            <a href="#" class="text-xs text-primary-600 dark:text-primary-400 hover:underline">
+                                                Accept Offer
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="ml-4 flex-shrink-0">
+                                        <button class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 mark-read-btn" data-id="5">
+                                            <i class="fas fa-circle text-xs"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Notification Item 6 - System Update -->
+                            <div class="notification-item unread p-4 hover:bg-gray-50 dark:hover:bg-gray-800" data-type="system">
+                                <div class="flex">
+                                    <div class="notification-icon icon-system mr-4">
+                                        <i class="fas fa-info-circle"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="flex justify-between mb-1">
+                                            <h3 class="text-sm font-medium text-gray-900 dark:text-gray-100">System Update</h3>
+                                            <span class="text-xs text-gray-500 dark:text-gray-400">2 days ago</span>
+                                        </div>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                                            We've updated our platform with new features to help you find and apply for internships more effectively. Check out the new recommendation engine!
+                                        </p>
+                                        <div class="mt-2 flex">
+                                            <a href="#" class="text-xs text-primary-600 dark:text-primary-400 hover:underline">
+                                                Learn More
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="ml-4 flex-shrink-0">
+                                        <button class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 mark-read-btn" data-id="6">
+                                            <i class="fas fa-circle text-xs"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Notification Item 7 - Profile View -->
+                            <div class="notification-item unread p-4 hover:bg-gray-50 dark:hover:bg-gray-800" data-type="system">
+                                <div class="flex">
+                                    <div class="notification-icon icon-system mr-4">
+                                        <i class="fas fa-eye"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="flex justify-between mb-1">
+                                            <h3 class="text-sm font-medium text-gray-900 dark:text-gray-100">Profile Viewed</h3>
+                                            <span class="text-xs text-gray-500 dark:text-gray-400">2 days ago</span>
+                                        </div>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                                            <span class="font-medium">TechZim Solutions</span> viewed your profile. Keep your profile updated to increase your chances of getting noticed!
+                                        </p>
+                                        <div class="mt-2 flex">
+                                            <a href="profile.html" class="text-xs text-primary-600 dark:text-primary-400 hover:underline">
+                                                Update Profile
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="ml-4 flex-shrink-0">
+                                        <button class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 mark-read-btn" data-id="7">
+                                            <i class="fas fa-circle text-xs"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Notification Item 8 - New Recommendations -->
+                            <div class="notification-item unread p-4 hover:bg-gray-50 dark:hover:bg-gray-800" data-type="recommendation">
+                                <div class="flex">
+                                    <div class="notification-icon icon-recommendation mr-4">
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="flex justify-between mb-1">
+                                            <h3 class="text-sm font-medium text-gray-900 dark:text-gray-100">New Internship Recommendations</h3>
+                                            <span class="text-xs text-gray-500 dark:text-gray-400">3 days ago</span>
+                                        </div>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                                            We've found 5 new internships that match your profile and preferences. Check them out!
+                                        </p>
+                                        <div class="mt-2 flex">
+                                            <a href="recommendations.html" class="text-xs text-primary-600 dark:text-primary-400 hover:underline">
+                                                View Recommendations
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="ml-4 flex-shrink-0">
+                                        <button class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 mark-read-btn" data-id="8">
+                                            <i class="fas fa-circle text-xs"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Notification Item 9 - Application Rejected -->
+                            <div class="notification-item unread p-4 hover:bg-gray-50 dark:hover:bg-gray-800" data-type="application">
+                                <div class="flex">
+                                    <div class="notification-icon icon-application mr-4">
+                                        <i class="fas fa-file-alt"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="flex justify-between mb-1">
+                                            <h3 class="text-sm font-medium text-gray-900 dark:text-gray-100">Application Status Update</h3>
+                                            <span class="text-xs text-gray-500 dark:text-gray-400">4 days ago</span>
+                                        </div>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                                            We regret to inform you that your application for <span class="font-medium">UI/UX Design Intern</span> at <span class="font-medium">Creative Tech Hub</span> was not selected to move forward.
+                                        </p>
+                                        <div class="mt-2 flex space-x-4">
+                                            <a href="applications.html" class="text-xs text-primary-600 dark:text-primary-400 hover:underline">
+                                                View Application
+                                            </a>
+                                            <a href="recommendations.html" class="text-xs text-primary-600 dark:text-primary-400 hover:underline">
+                                                Find Similar Opportunities
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="ml-4 flex-shrink-0">
+                                        <button class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 mark-read-btn" data-id="9">
+                                            <i class="fas fa-circle text-xs"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Notification Item 10 - Career Fair -->
+                            <div class="notification-item unread p-4 hover:bg-gray-50 dark:hover:bg-gray-800" data-type="system">
+                                <div class="flex">
+                                    <div class="notification-icon icon-system mr-4">
+                                        <i class="fas fa-users"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="flex justify-between mb-1">
+                                            <h3 class="text-sm font-medium text-gray-900 dark:text-gray-100">Upcoming Career Fair</h3>
+                                            <span class="text-xs text-gray-500 dark:text-gray-400">5 days ago</span>
+                                        </div>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                                            Don't miss the HIT Career Fair on July 15, 2023. Meet potential employers and learn about internship opportunities.
+                                        </p>
+                                        <div class="mt-2 flex space-x-4">
+                                            <a href="#" class="text-xs text-primary-600 dark:text-primary-400 hover:underline">
+                                                Event Details
+                                            </a>
+                                            <a href="#" class="text-xs text-primary-600 dark:text-primary-400 hover:underline">
+                                                Add to Calendar
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="ml-4 flex-shrink-0">
+                                        <button class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 mark-read-btn" data-id="10">
+                                            <i class="fas fa-circle text-xs"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Notification Item 11 - Offer Deadline -->
+                            <div class="notification-item unread p-4 hover:bg-gray-50 dark:hover:bg-gray-800" data-type="offer">
+                                <div class="flex">
+                                    <div class="notification-icon icon-offer mr-4">
+                                        <i class="fas fa-file-contract"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="flex justify-between mb-1">
+                                            <h3 class="text-sm font-medium text-gray-900 dark:text-gray-100">Offer Deadline Reminder</h3>
+                                            <span class="text-xs text-gray-500 dark:text-gray-400">6 days ago</span>
+                                        </div>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                                            Your offer for <span class="font-medium">Full Stack Developer Intern</span> at <span class="font-medium">FullStack Solutions</span> expires in 2 days. Please respond soon.
+                                        </p>
+                                        <div class="mt-2 flex space-x-4">
+                                            <a href="applications.html" class="text-xs text-primary-600 dark:text-primary-400 hover:underline">
+                                                View Offer
+                                            </a>
+                                            <a href="#" class="text-xs text-primary-600 dark:text-primary-400 hover:underline">
+                                                Accept Offer
+                                            </a>
+                                            <a href="#" class="text-xs text-primary-600 dark:text-primary-400 hover:underline">
+                                                Decline Offer
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="ml-4 flex-shrink-0">
+                                        <button class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 mark-read-btn" data-id="11">
+                                            <i class="fas fa-circle text-xs"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Notification Item 12 - Profile Completion -->
+                            <div class="notification-item unread p-4 hover:bg-gray-50 dark:hover:bg-gray-800" data-type="system">
+                                <div class="flex">
+                                    <div class="notification-icon icon-system mr-4">
+                                        <i class="fas fa-user-edit"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="flex justify-between mb-1">
+                                            <h3 class="text-sm font-medium text-gray-900 dark:text-gray-100">Complete Your Profile</h3>
+                                            <span class="text-xs text-gray-500 dark:text-gray-400">1 week ago</span>
+                                        </div>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                                            Your profile is 75% complete. Add more skills and projects to increase your chances of getting matched with the right internships.
+                                        </p>
+                                        <div class="mt-2 flex">
+                                            <a href="profile.html" class="text-xs text-primary-600 dark:text-primary-400 hover:underline">
+                                                Complete Profile
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="ml-4 flex-shrink-0">
+                                        <button class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 mark-read-btn" data-id="12">
+                                            <i class="fas fa-circle text-xs"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Read Notifications -->
+                            
+                            <!-- Notification Item 13 - Application Status -->
+                            <div class="notification-item p-4 hover:bg-gray-50 dark:hover:bg-gray-800" data-type="application">
+                                <div class="flex">
+                                    <div class="notification-icon icon-application mr-4">
+                                        <i class="fas fa-file-alt"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="flex justify-between mb-1">
+                                            <h3 class="text-sm font-medium text-gray-900 dark:text-gray-100">Application Status Update</h3>
+                                            <span class="text-xs text-gray-500 dark:text-gray-400">1 week ago</span>
+                                        </div>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                                            Your application for <span class="font-medium">Data Science Intern</span> at <span class="font-medium">Zimbabwe Financial Analytics</span> is now under review.
+                                        </p>
+                                        <div class="mt-2 flex">
+                                            <a href="applications.html" class="text-xs text-primary-600 dark:text-primary-400 hover:underline">
+                                                View Application
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Notification Item 14 - Application Submitted -->
+                            <div class="notification-item p-4 hover:bg-gray-50 dark:hover:bg-gray-800" data-type="application">
+                                <div class="flex">
+                                    <div class="notification-icon icon-application mr-4">
+                                        <i class="fas fa-file-alt"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="flex justify-between mb-1">
+                                            <h3 class="text-sm font-medium text-gray-900 dark:text-gray-100">Application Submitted</h3>
+                                            <span class="text-xs text-gray-500 dark:text-gray-400">2 weeks ago</span>
+                                        </div>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                                            Your application for <span class="font-medium">Mobile App Developer Intern</span> at <span class="font-medium">MobiTech Zimbabwe</span> has been successfully submitted.
+                                        </p>
+                                        <div class="mt-2 flex">
+                                            <a href="applications.html" class="text-xs text-primary-600 dark:text-primary-400 hover:underline">
+                                                View Application
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Notification Item 15 - System Update -->
+                            <div class="notification-item p-4 hover:bg-gray-50 dark:hover:bg-gray-800" data-type="system">
+                                <div class="flex">
+                                    <div class="notification-icon icon-system mr-4">
+                                        <i class="fas fa-info-circle"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="flex justify-between mb-1">
+                                            <h3 class="text-sm font-medium text-gray-900 dark:text-gray-100">Welcome to InternMatch</h3>
+                                            <span class="text-xs text-gray-500 dark:text-gray-400">1 month ago</span>
+                                        </div>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                                            Welcome to InternMatch! We're excited to help you find the perfect internship opportunity. Complete your profile to get started.
+                                        </p>
+                                        <div class="mt-2 flex">
+                                            <a href="profile.html" class="text-xs text-primary-600 dark:text-primary-400 hover:underline">
+                                                Complete Profile
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Empty State (Hidden by default, shown when no notifications) -->
+                    <div id="empty-state" class="neu-card p-6 empty-state hidden">
+                        <div class="empty-state-icon">
+                            <i class="fas fa-bell-slash text-gray-400 dark:text-gray-600 text-6xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold font-display mb-2">No Notifications</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-6 max-w-md mx-auto">
+                            You don't have any notifications yet. We'll notify you about application updates, interviews, and new opportunities.
+                        </p>
+                        <a href="internships.html" class="inline-flex items-center justify-center py-2 px-6 text-sm font-medium text-white bg-gradient-to-r from-primary-600 to-secondary-600 rounded-lg shadow-md hover:from-primary-700 hover:to-secondary-700 focus:outline-none">
+                            <i class="fas fa-search mr-2"></i>
+                            <span>Explore Internships</span>
+                        </a>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Notyf for notifications -->
+    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        // Initialize AOS Animation
+        AOS.init();
+        
+        // Initialize Notyf
+        const notyf = new Notyf({
+            duration: 3000,
+            position: {
+                x: 'right',
+                y: 'top',
+            },
+            types: [
+                {
+                    type: 'success',
+                    background: '#10B981',
+                    icon: {
+                        className: 'fas fa-check',
+                        tagName: 'i',
+                        color: 'white'
+                    }
+                },
+                {
+                    type: 'error',
+                    background: '#EF4444',
+                    icon: {
+                        className: 'fas fa-times',
+                        tagName: 'i',
+                        color: 'white'
+                    }
+                }
+            ]
+        });
+        
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        
+        // Check for saved theme preference or use the system preference
+        const savedTheme = localStorage.getItem('theme') || 
+                          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        // Apply the saved theme
+        if (savedTheme === 'dark') {
+            htmlElement.classList.remove('light');
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+            htmlElement.classList.add('light');
+        }
+        
+        // Toggle theme when button is clicked
+        themeToggle.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                htmlElement.classList.add('light');
+                localStorage.setItem('theme', 'light');
+            } else {
+                htmlElement.classList.remove('light');
+                htmlElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+        
+        // Mobile Sidebar Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebar-overlay');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+            sidebarOverlay.classList.toggle('open');
+            
+            // Toggle icon
+            const icon = mobileMenuButton.querySelector('i');
+            if (icon.classList.contains('fa-bars')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+        
+        sidebarOverlay.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            sidebarOverlay.classList.remove('open');
+            
+            // Reset icon
+            const icon = mobileMenuButton.querySelector('i');
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        });
+        
+        // Notification Filters
+        const filterButtons = document.querySelectorAll('.filter-button');
+        const notificationItems = document.querySelectorAll('.notification-item');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                // Get filter value
+                const filter = button.getAttribute('data-filter');
+                
+                // Show/hide notifications based on filter
+                notificationItems.forEach(item => {
+                    const type = item.getAttribute('data-type');
+                    
+                    if (filter === 'all' || type === filter) {
+                        item.style.display = '';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+                
+                // Check if any notifications are visible
+                const visibleNotifications = Array.from(notificationItems).filter(item => item.style.display !== 'none');
+                const emptyState = document.getElementById('empty-state');
+                
+                if (visibleNotifications.length === 0) {
+                    emptyState.style.display = 'block';
+                    
+                    if (filter !== 'all') {
+                        emptyState.querySelector('h3').textContent = `No ${filter.charAt(0).toUpperCase() + filter.slice(1)} Notifications`;
+                        emptyState.querySelector('p').textContent = `You don't have any ${filter} notifications at the moment.`;
+                    }
+                } else {
+                    emptyState.style.display = 'none';
+                }
+            });
+        });
+        
+        // Mark as Read Buttons
+        const markReadButtons = document.querySelectorAll('.mark-read-btn');
+        
+        markReadButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const notificationId = button.getAttribute('data-id');
+                const notificationItem = button.closest('.notification-item');
+                
+                // Remove unread class and indicator
+                notificationItem.classList.remove('unread');
+                button.style.display = 'none';
+                
+                // Update unread count
+                updateUnreadCount();
+                
+                // Update in database (in a real application)
+                // For now, just show a notification
+                notyf.success('Notification marked as read');
+            });
+        });
+        
+        // Mark All as Read Button
+        const markAllReadButton = document.getElementById('mark-all-read');
+        
+        markAllReadButton.addEventListener('click', () => {
+            const unreadNotifications = document.querySelectorAll('.notification-item.unread');
+            
+            unreadNotifications.forEach(notification => {
+                notification.classList.remove('unread');
+                const markReadButton = notification.querySelector('.mark-read-btn');
+                if (markReadButton) {
+                    markReadButton.style.display = 'none';
+                }
+            });
+            
+            // Update unread count
+            updateUnreadCount();
+            
+            // Show notification
+            notyf.success('All notifications marked as read');
+        });
+        
+        // Update Unread Count
+        function updateUnreadCount() {
+            const unreadNotifications = document.querySelectorAll('.notification-item.unread');
+            const unreadCount = unreadNotifications.length;
+            
+            // Update header text
+            const notificationHeader = document.querySelector('.container > div:first-child p');
+            notificationHeader.textContent = unreadCount > 0 ? 
+                `You have ${unreadCount} unread notification${unreadCount !== 1 ? 's' : ''}` : 
+                'You have no unread notifications';
+            
+            // Update notification badge in sidebar
+            const sidebarBadge = document.querySelector('a[href="#"] .ml-auto');
+            if (sidebarBadge) {
+                sidebarBadge.textContent = unreadCount > 0 ? unreadCount : '0';
+            }
+            
+            // Update notification badge in header
+            const headerBadge = document.querySelector('.notification-badge');
+            if (headerBadge) {
+                headerBadge.textContent = unreadCount > 0 ? unreadCount : '0';
+            }
+        }
+        
+        // Notification Settings Modal
+        const notificationSettingsModal = document.getElementById('notification-settings-modal');
+        const notificationSettingsBtn = document.getElementById('notification-settings-btn');
+        const closeSettingsModal = document.getElementById('close-settings-modal');
+        const cancelSettings = document.getElementById('cancel-settings');
+        const notificationSettingsForm = document.getElementById('notification-settings-form');
+        
+        notificationSettingsBtn.addEventListener('click', () => {
+            notificationSettingsModal.classList.add('open');
+        });
+        
+        closeSettingsModal.addEventListener('click', () => {
+            notificationSettingsModal.classList.remove('open');
+        });
+        
+        cancelSettings.addEventListener('click', () => {
+            notificationSettingsModal.classList.remove('open');
+        });
+        
+        // Click outside to close notification settings modal
+        notificationSettingsModal.addEventListener('click', (e) => {
+            if (e.target === notificationSettingsModal) {
+                notificationSettingsModal.classList.remove('open');
+            }
+        });
+        
+        // Save Notification Settings
+        notificationSettingsForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Show loading state
+            const submitButton = notificationSettingsForm.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton.innerHTML;
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Saving...';
+            
+            // Simulate API call delay
+            setTimeout(() => {
+                // Reset button
+                submitButton.disabled = false;
+                submitButton.innerHTML = originalButtonText;
+                
+                // Close modal
+                notificationSettingsModal.classList.remove('open');
+                
+                // Show success notification
+                notyf.success('Notification settings saved successfully');
+            }, 1000);
+        });
+        
+        // IndexedDB Setup for offline functionality
+        let db;
+        
+        function initDB() {
+            const request = indexedDB.open('InternMatchDB', 1);
+            
+            request.onerror = function(event) {
+                console.error('IndexedDB error:', event.target.error);
+            };
+            
+            request.onupgradeneeded = function(event) {
+                const db = event.target.result;
+                
+                // Create object stores
+                if (!db.objectStoreNames.contains('notifications')) {
+                    db.createObjectStore('notifications', { keyPath: 'id' });
+                }
+                
+                if (!db.objectStoreNames.contains('notificationSettings')) {
+                    db.createObjectStore('notificationSettings', { keyPath: 'id' });
+                }
+            };
+            
+            request.onsuccess = function(event) {
+                db = event.target.result;
+                console.log('IndexedDB initialized successfully');
+                
+                // Load notifications data
+                loadNotificationsData();
+            };
+        }
+        
+        function loadNotificationsData() {
+            if (!db) return;
+            
+            const transaction = db.transaction(['notifications'], 'readonly');
+            const store = transaction.objectStore('notifications');
+            const request = store.getAll();
+            
+            request.onsuccess = function(event) {
+                const notifications = event.target.result;
+                
+                if (notifications && notifications.length > 0) {
+                    console.log('Loaded notifications from IndexedDB:', notifications);
+                    // In a real application, we would update the UI with this data
+                } else {
+                    console.log('No notifications found in IndexedDB');
+                }
+            };
+            
+            request.onerror = function(event) {
+                console.error('Error loading notifications:', event.target.error);
+            };
+        }
+        
+        // Initialize IndexedDB
+        initDB();
+    </script>
+</body>
+</html>
