@@ -3,217 +3,1835 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Settings | HIT IRS</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>Account Settings | InternMatch - Harare Institute of Technology</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Notyf for notifications -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        secondary: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            200: '#99f6e4',
+                            300: '#5eead4',
+                            400: '#2dd4bf',
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                            700: '#0f766e',
+                            800: '#115e59',
+                            900: '#134e4a',
+                        },
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Poppins', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'neu-light': '9px 9px 18px #e0e0e0, -9px -9px 18px #ffffff',
+                        'neu-dark': '9px 9px 18px #151515, -9px -9px 18px #252525',
+                        'neu-button-light': '5px 5px 10px #e0e0e0, -5px -5px 10px #ffffff',
+                        'neu-button-dark': '5px 5px 10px #151515, -5px -5px 10px #252525',
+                        'inner-neu-light': 'inset 3px 3px 6px #e0e0e0, inset -3px -3px 6px #ffffff',
+                        'inner-neu-dark': 'inset 3px 3px 6px #151515, inset -3px -3px 6px #252525',
+                    }
+                }
+            }
+        }
+    </script>
+    
     <style>
-        :root {
-            --primary-light: #3B82F6;
-            --secondary-light: #60A5FA;
-            --background-light: #F3F4F6;
-            --text-light: #1F2937;
-            --primary-dark: #1E40AF;
-            --secondary-dark: #1D4ED8;
-            --background-dark: #111827;
-            --text-dark: #F9FAFB;
+        /* Custom Styles */
+        .neu-card {
+            border-radius: 20px;
+            transition: all 0.3s ease-in-out;
         }
-
-        .dark {
-            --primary: var(--primary-dark);
-            --secondary: var(--secondary-dark);
-            --background: var(--background-dark);
-            --text: var(--text-dark);
+        
+        .dark .neu-card {
+            background: #1f2937;
+            box-shadow: 9px 9px 18px #151515, -9px -9px 18px #252525;
         }
-
-        .light {
-            --primary: var(--primary-light);
-            --secondary: var(--secondary-light);
-            --background: var(--background-light);
-            --text: var(--text-light);
+        
+        .light .neu-card {
+            background: #ffffff;
+            box-shadow: 9px 9px 18px #e0e0e0, -9px -9px 18px #ffffff;
         }
-
-        body {
-            background-color: var(--background);
-            color: var(--text);
-            transition: all 0.3s ease;
+        
+        .neu-button {
+            border-radius: 12px;
+            transition: all 0.2s ease-in-out;
         }
-
-        .glass-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        
+        .dark .neu-button {
+            background: #1f2937;
+            box-shadow: 5px 5px 10px #151515, -5px -5px 10px #252525;
         }
-
-        .settings-section {
-            transition: transform 0.3s ease;
+        
+        .light .neu-button {
+            background: #ffffff;
+            box-shadow: 5px 5px 10px #e0e0e0, -5px -5px 10px #ffffff;
         }
-
-        .settings-section:hover {
-            transform: translateY(-2px);
+        
+        .neu-button:hover {
+            transform: translateY(-3px);
         }
-
-        .switch {
+        
+        .neu-button:active {
+            transform: translateY(0);
+        }
+        
+        .neu-input {
+            border-radius: 12px;
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .dark .neu-input {
+            background: #1f2937;
+            box-shadow: inset 3px 3px 6px #151515, inset -3px -3px 6px #252525;
+            color: #e5e7eb;
+            border: 1px solid #374151;
+        }
+        
+        .light .neu-input {
+            background: #f9fafb;
+            box-shadow: inset 3px 3px 6px #e0e0e0, inset -3px -3px 6px #ffffff;
+            color: #1f2937;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .neu-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            transition: all 0.3s ease-in-out;
+        }
+        
+        @media (max-width: 1023px) {
+            .sidebar {
+                transform: translateX(-100%);
+                position: fixed;
+                z-index: 50;
+                height: 100vh;
+            }
+            
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            
+            .sidebar-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 40;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.3s ease-in-out;
+            }
+            
+            .sidebar-overlay.open {
+                opacity: 1;
+                pointer-events: auto;
+            }
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        .dark ::-webkit-scrollbar-track {
+            background: #1f2937;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2563eb;
+        }
+        
+        /* Notification Badge */
+        .notification-badge {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background-color: #ef4444;
+            color: white;
+            font-size: 0.625rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Settings Navigation */
+        .settings-nav-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease;
+            margin-bottom: 0.5rem;
+        }
+        
+        .settings-nav-item:hover {
+            background-color: #f3f4f6;
+        }
+        
+        .dark .settings-nav-item:hover {
+            background-color: #374151;
+        }
+        
+        .settings-nav-item.active {
+            background-color: #eff6ff;
+            color: #2563eb;
+        }
+        
+        .dark .settings-nav-item.active {
+            background-color: rgba(37, 99, 235, 0.1);
+            color: #60a5fa;
+        }
+        
+        .settings-nav-icon {
+            width: 1.5rem;
+            height: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.75rem;
+        }
+        
+        /* Settings Content */
+        .settings-content {
+            display: none;
+        }
+        
+        .settings-content.active {
+            display: block;
+        }
+        
+        /* Toggle Switch */
+        .toggle-switch {
             position: relative;
             display: inline-block;
-            width: 60px;
-            height: 34px;
+            width: 48px;
+            height: 24px;
         }
-
-        .switch input {
+        
+        .toggle-switch input {
             opacity: 0;
             width: 0;
             height: 0;
         }
-
-        .slider {
+        
+        .toggle-slider {
             position: absolute;
             cursor: pointer;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: #ccc;
+            background-color: #e5e7eb;
             transition: .4s;
-            border-radius: 34px;
+            border-radius: 24px;
         }
-
-        .slider:before {
+        
+        .dark .toggle-slider {
+            background-color: #4b5563;
+        }
+        
+        .toggle-slider:before {
             position: absolute;
             content: "";
-            height: 26px;
-            width: 26px;
-            left: 4px;
-            bottom: 4px;
+            height: 20px;
+            width: 20px;
+            left: 2px;
+            bottom: 2px;
             background-color: white;
             transition: .4s;
             border-radius: 50%;
         }
-
-        input:checked + .slider {
-            background-color: var(--primary-light);
+        
+        input:checked + .toggle-slider {
+            background-color: #3b82f6;
         }
-
-        input:checked + .slider:before {
-            transform: translateX(26px);
+        
+        input:checked + .toggle-slider:before {
+            transform: translateX(24px);
+        }
+        
+        /* Session Card */
+        .session-card {
+            border-radius: 12px;
+            padding: 1rem;
+            border: 1px solid #e5e7eb;
+            transition: all 0.2s ease;
+        }
+        
+        .dark .session-card {
+            border-color: #374151;
+        }
+        
+        .session-card:hover {
+            border-color: #d1d5db;
+            background-color: #f9fafb;
+        }
+        
+        .dark .session-card:hover {
+            border-color: #4b5563;
+            background-color: #1f2937;
+        }
+        
+        .current-session {
+            border-color: #3b82f6;
+            background-color: #eff6ff;
+        }
+        
+        .dark .current-session {
+            border-color: #60a5fa;
+            background-color: rgba(37, 99, 235, 0.1);
+        }
+        
+        .current-session:hover {
+            border-color: #2563eb;
+            background-color: #dbeafe;
+        }
+        
+        .dark .current-session:hover {
+            border-color: #3b82f6;
+            background-color: rgba(37, 99, 235, 0.2);
+        }
+        
+        /* Delete Account Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        .modal-content {
+            width: 90%;
+            max-width: 500px;
+            border-radius: 20px;
+            transition: transform 0.3s ease;
+            transform: scale(0.9);
+        }
+        
+        .modal.open .modal-content {
+            transform: scale(1);
         }
     </style>
 </head>
-<body class="light">
-    <div class="flex h-screen">
-        <aside class="sidebar w-64 h-screen fixed left-0 overflow-y-auto custom-scrollbar">
-            <!-- Sidebar content same as applications.html -->
-        </aside>
-
-        <main class="ml-64 flex-1 p-8">
-            <!-- Top Bar -->
-            <div class="flex justify-between items-center mb-8">
-                <div>
-                    <h2 class="text-2xl font-bold">Settings</h2>
-                    <p class="text-gray-500">Manage your account preferences</p>
+<body class="font-sans light transition-colors duration-300 bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-100 min-h-screen flex flex-col">
+    <!-- Sidebar Overlay (Mobile) -->
+    <div id="sidebar-overlay" class="sidebar-overlay lg:hidden"></div>
+    
+    <!-- Delete Account Modal -->
+    <div id="delete-account-modal" class="modal">
+        <div class="modal-content neu-card light:bg-white dark:bg-gray-800 p-6">
+            <div class="text-center mb-6">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 mb-4">
+                    <i class="fas fa-exclamation-triangle text-2xl"></i>
                 </div>
-                <div class="flex items-center space-x-4">
-                    <button id="themeToggle" class="p-2 rounded-full hover:bg-gray-700">
-                        <i class="fas fa-moon"></i>
-                    </button>
-                    <div class="relative">
-                        <button class="p-2 rounded-full hover:bg-gray-700">
-                            <i class="fas fa-bell"></i>
-                        </button>
-                    </div>
-                    <img src="https://picsum.photos/40/40?random=1" alt="Profile" class="w-10 h-10 rounded-full">
-                </div>
+                <h3 class="text-xl font-bold font-display mb-2">Delete Your Account</h3>
+                <p class="text-gray-600 dark:text-gray-400">
+                    This action is permanent and cannot be undone. All your data will be permanently deleted.
+                </p>
             </div>
-
-            <!-- Settings Sections -->
-            <div class="space-y-6">
-                <!-- Profile Settings -->
-                <div class="glass-card p-6 settings-section">
-                    <h3 class="text-xl font-bold mb-4">Profile Settings</h3>
-                    <div class="grid grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-sm font-medium mb-2">Full Name</label>
-                            <input type="text" class="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10" value="John Doe">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium mb-2">Email</label>
-                            <input type="email" class="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10" value="john.doe@hit.edu.cn">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium mb-2">Student ID</label>
-                            <input type="text" class="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10" value="12345678">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium mb-2">Major</label>
-                            <input type="text" class="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10" value="Computer Science">
-                        </div>
-                    </div>
+            
+            <form id="delete-account-form">
+                <div class="mb-6">
+                    <label for="delete-password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Enter your password to confirm</label>
+                    <input type="password" id="delete-password" name="delete-password" class="neu-input w-full px-4 py-2" placeholder="Your password" required>
                 </div>
-
-                <!-- Notification Settings -->
-                <div class="glass-card p-6 settings-section">
-                    <h3 class="text-xl font-bold mb-4">Notification Settings</h3>
-                    <div class="space-y-4">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <h4 class="font-medium">Email Notifications</h4>
-                                <p class="text-sm text-gray-500">Receive email updates about your applications</p>
-                            </div>
-                            <label class="switch">
-                                <input type="checkbox" checked>
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <h4 class="font-medium">Application Updates</h4>
-                                <p class="text-sm text-gray-500">Get notified about status changes</p>
-                            </div>
-                            <label class="switch">
-                                <input type="checkbox" checked>
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                    </div>
+                
+                <div class="mb-6">
+                    <label class="flex items-center">
+                        <input type="checkbox" id="delete-confirm" name="delete-confirm" class="rounded border-gray-300 text-primary-600 focus:ring-primary-500" required>
+                        <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">
+                            I understand that this action is permanent and cannot be undone
+                        </span>
+                    </label>
                 </div>
-
-                <!-- Privacy Settings -->
-                <div class="glass-card p-6 settings-section">
-                    <h3 class="text-xl font-bold mb-4">Privacy Settings</h3>
-                    <div class="space-y-4">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <h4 class="font-medium">Profile Visibility</h4>
-                                <p class="text-sm text-gray-500">Make your profile visible to companies</p>
-                            </div>
-                            <label class="switch">
-                                <input type="checkbox" checked>
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Save Button -->
-                <div class="flex justify-end">
-                    <button class="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors">
-                        Save Changes
+                
+                <div class="flex space-x-3">
+                    <button type="button" id="cancel-delete" class="neu-button flex-1 py-2 px-4 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none">
+                        Cancel
+                    </button>
+                    <button type="submit" class="flex-1 py-2 px-4 bg-red-600 hover:bg-red-700 text-white rounded-lg shadow-md focus:outline-none">
+                        Delete Account
                     </button>
                 </div>
-            </div>
-        </main>
+            </form>
+        </div>
     </div>
-
+    
+    <!-- Main Container -->
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar w-72 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex-shrink-0">
+            <!-- Sidebar Header -->
+            <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                <a href="index.html" class="flex items-center space-x-2">
+                    <div class="h-10 w-10 rounded-lg bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center">
+                        <i class="fas fa-briefcase text-white text-xl"></i>
+                    </div>
+                    <span class="text-xl font-bold font-display bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-secondary-500">InternMatch</span>
+                </a>
+            </div>
+            
+            <!-- User Profile Summary -->
+            <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                <div class="flex items-center space-x-4">
+                    <img src="https://picsum.photos/id/1005/100" alt="User Profile" class="w-12 h-12 rounded-full object-cover border-2 border-primary-500">
+                    <div>
+                        <h3 class="font-medium text-gray-900 dark:text-gray-100">Tatenda Chikwanha</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Computer Science, 3rd Year</p>
+                    </div>
+                </div>
+                
+                <!-- Profile Completion -->
+                <div class="mt-6">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-sm text-gray-600 dark:text-gray-400">Profile Completion</span>
+                        <span class="text-sm font-medium text-primary-600 dark:text-primary-400">75%</span>
+                    </div>
+                    <div class="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full" style="width: 75%"></div>
+                    </div>
+                    <a href="profile.html" class="text-xs text-primary-600 dark:text-primary-400 mt-2 inline-block hover:underline">
+                        Complete your profile
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Navigation Menu -->
+            <nav class="p-4">
+                <ul class="space-y-1">
+                    <li>
+                        <a href="dashboard.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-home"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="internships.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-briefcase"></i>
+                            <span>Internships</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="recommendations.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-star"></i>
+                            <span>Recommendations</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="saved.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-bookmark"></i>
+                            <span>Saved</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-file-alt"></i>
+                            <span>Applications</span>
+                            <span class="ml-auto bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-xs font-medium px-2 py-0.5 rounded-full">3</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-bell"></i>
+                            <span>Notifications</span>
+                            <span class="ml-auto bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 text-xs font-medium px-2 py-0.5 rounded-full">5</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <hr class="my-6 border-gray-200 dark:border-gray-700">
+                
+                <ul class="space-y-1">
+                    <li>
+                        <a href="profile.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-user-circle"></i>
+                            <span>Profile</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="support.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Help & Support</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Log Out</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top Navigation -->
+            <header class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+                <div class="flex items-center justify-between p-4">
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-button" class="lg:hidden p-2 rounded-md text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 focus:outline-none">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    
+                    <!-- Page Title -->
+                    <h1 class="text-xl font-bold font-display text-gray-900 dark:text-gray-100 hidden md:block">Account Settings</h1>
+                    
+                    <!-- Right Navigation Items -->
+                    <div class="flex items-center space-x-4">
+                        <!-- Theme Toggle -->
+                        <button id="theme-toggle" class="p-2 rounded-full text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 focus:outline-none">
+                            <i class="fas fa-moon dark:hidden"></i>
+                            <i class="fas fa-sun hidden dark:block"></i>
+                        </button>
+                        
+                        <!-- Notifications -->
+                        <div class="relative">
+                            <button class="p-2 rounded-full text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 focus:outline-none">
+                                <i class="fas fa-bell"></i>
+                                <span class="notification-badge">5</span>
+                            </button>
+                        </div>
+                        
+                        <!-- Messages -->
+                        <div class="relative">
+                            <button class="p-2 rounded-full text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 focus:outline-none">
+                                <i class="fas fa-comment-alt"></i>
+                                <span class="notification-badge">2</span>
+                            </button>
+                        </div>
+                        
+                        <!-- User Menu -->
+                        <div class="relative">
+                            <button class="flex items-center focus:outline-none">
+                                <img src="https://picsum.photos/id/1005/100" alt="User Profile" class="w-8 h-8 rounded-full object-cover">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Settings Content -->
+            <main class="flex-1 overflow-y-auto">
+                <div class="container mx-auto px-4 py-6">
+                    <div class="flex flex-col lg:flex-row gap-6">
+                        <!-- Settings Navigation -->
+                        <div class="w-full lg:w-64 flex-shrink-0">
+                            <div class="neu-card p-4 sticky top-6">
+                                <nav>
+                                    <a href="#" class="settings-nav-item active" data-section="account">
+                                        <div class="settings-nav-icon">
+                                            <i class="fas fa-user"></i>
+                                        </div>
+                                        <span>Account</span>
+                                    </a>
+                                    <a href="#" class="settings-nav-item" data-section="security">
+                                        <div class="settings-nav-icon">
+                                            <i class="fas fa-shield-alt"></i>
+                                        </div>
+                                        <span>Security</span>
+                                    </a>
+                                    <a href="#" class="settings-nav-item" data-section="notifications">
+                                        <div class="settings-nav-icon">
+                                            <i class="fas fa-bell"></i>
+                                        </div>
+                                        <span>Notifications</span>
+                                    </a>
+                                    <a href="#" class="settings-nav-item" data-section="appearance">
+                                        <div class="settings-nav-icon">
+                                            <i class="fas fa-palette"></i>
+                                        </div>
+                                        <span>Appearance</span>
+                                    </a>
+                                    <a href="#" class="settings-nav-item" data-section="privacy">
+                                        <div class="settings-nav-icon">
+                                            <i class="fas fa-lock"></i>
+                                        </div>
+                                        <span>Privacy</span>
+                                    </a>
+                                    <a href="#" class="settings-nav-item" data-section="sessions">
+                                        <div class="settings-nav-icon">
+                                            <i class="fas fa-laptop"></i>
+                                        </div>
+                                        <span>Sessions</span>
+                                    </a>
+                                    <a href="#" class="settings-nav-item" data-section="data">
+                                        <div class="settings-nav-icon">
+                                            <i class="fas fa-database"></i>
+                                        </div>
+                                        <span>Data & Storage</span>
+                                    </a>
+                                    <a href="#" class="settings-nav-item" data-section="delete">
+                                        <div class="settings-nav-icon text-red-600 dark:text-red-400">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </div>
+                                        <span class="text-red-600 dark:text-red-400">Delete Account</span>
+                                    </a>
+                                </nav>
+                            </div>
+                        </div>
+                        
+                        <!-- Settings Content -->
+                        <div class="flex-1">
+                            <!-- Account Settings -->
+                            <div id="account" class="settings-content active">
+                                <div class="neu-card p-6 mb-6" data-aos="fade-up" data-aos-duration="800">
+                                    <h2 class="text-xl font-semibold font-display mb-6">Account Information</h2>
+                                    
+                                    <form id="account-form">
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                            <div>
+                                                <label for="first-name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">First Name</label>
+                                                <input type="text" id="first-name" name="first-name" class="neu-input w-full px-4 py-2" value="Tatenda">
+                                            </div>
+                                            <div>
+                                                <label for="last-name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Last Name</label>
+                                                <input type="text" id="last-name" name="last-name" class="neu-input w-full px-4 py-2" value="Chikwanha">
+                                            </div>
+                                            <div>
+                                                <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email Address</label>
+                                                <input type="email" id="email" name="email" class="neu-input w-full px-4 py-2" value="t.chikwanha@hit.ac.zw" readonly>
+                                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Your HIT email address cannot be changed</p>
+                                            </div>
+                                            <div>
+                                                <label for="phone" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Phone Number</label>
+                                                <input type="tel" id="phone" name="phone" class="neu-input w-full px-4 py-2" value="+263 77 123 4567">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mb-6">
+                                            <label for="bio" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Bio</label>
+                                            <textarea id="bio" name="bio" rows="3" class="neu-input w-full px-4 py-2 resize-none">Third-year Computer Science student at Harare Institute of Technology with a passion for software development and data science.</textarea>
+                                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Brief description about yourself (max 160 characters)</p>
+                                        </div>
+                                        
+                                        <div class="flex justify-end">
+                                            <button type="submit" class="py-2 px-6 bg-gradient-to-r from-primary-600 to-secondary-600 text-white rounded-lg shadow-md hover:from-primary-700 hover:to-secondary-700 focus:outline-none">
+                                                Save Changes
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                                
+                                <div class="neu-card p-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                                    <h2 class="text-xl font-semibold font-display mb-6">Academic Information</h2>
+                                    
+                                    <form id="academic-form">
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                            <div>
+                                                <label for="student-id" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Student ID</label>
+                                                <input type="text" id="student-id" name="student-id" class="neu-input w-full px-4 py-2" value="H190123B" readonly>
+                                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Your student ID cannot be changed</p>
+                                            </div>
+                                            <div>
+                                                <label for="department" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Department</label>
+                                                <select id="department" name="department" class="neu-input w-full px-4 py-2">
+                                                    <option value="computer-science" selected>Computer Science</option>
+                                                    <option value="information-systems">Information Systems</option>
+                                                    <option value="software-engineering">Software Engineering</option>
+                                                    <option value="electronic-engineering">Electronic Engineering</option>
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <label for="year-of-study" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Year of Study</label>
+                                                <select id="year-of-study" name="year-of-study" class="neu-input w-full px-4 py-2">
+                                                    <option value="1">1st Year</option>
+                                                    <option value="2">2nd Year</option>
+                                                    <option value="3" selected>3rd Year</option>
+                                                    <option value="4">4th Year</option>
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <label for="graduation-year" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Expected Graduation Year</label>
+                                                <select id="graduation-year" name="graduation-year" class="neu-input w-full px-4 py-2">
+                                                    <option value="2023">2023</option>
+                                                    <option value="2024" selected>2024</option>
+                                                    <option value="2025">2025</option>
+                                                    <option value="2026">2026</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="flex justify-end">
+                                            <button type="submit" class="py-2 px-6 bg-gradient-to-r from-primary-600 to-secondary-600 text-white rounded-lg shadow-md hover:from-primary-700 hover:to-secondary-700 focus:outline-none">
+                                                Save Changes
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            
+                            <!-- Security Settings -->
+                            <div id="security" class="settings-content">
+                                <div class="neu-card p-6 mb-6" data-aos="fade-up" data-aos-duration="800">
+                                    <h2 class="text-xl font-semibold font-display mb-6">Change Password</h2>
+                                    
+                                    <form id="password-form">
+                                        <div class="space-y-4 mb-6">
+                                            <div>
+                                                <label for="current-password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Current Password</label>
+                                                <input type="password" id="current-password" name="current-password" class="neu-input w-full px-4 py-2" placeholder="Enter your current password">
+                                            </div>
+                                            <div>
+                                                <label for="new-password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">New Password</label>
+                                                <input type="password" id="new-password" name="new-password" class="neu-input w-full px-4 py-2" placeholder="Enter your new password">
+                                            </div>
+                                            <div>
+                                                <label for="confirm-password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Confirm New Password</label>
+                                                <input type="password" id="confirm-password" name="confirm-password" class="neu-input w-full px-4 py-2" placeholder="Confirm your new password">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mb-6">
+                                            <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Password Requirements</h3>
+                                            <ul class="space-y-1 text-xs text-gray-500 dark:text-gray-400">
+                                                <li class="flex items-center">
+                                                    <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                                    <span>At least 8 characters long</span>
+                                                </li>
+                                                <li class="flex items-center">
+                                                    <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                                    <span>Contains at least one uppercase letter</span>
+                                                </li>
+                                                <li class="flex items-center">
+                                                    <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                                    <span>Contains at least one number</span>
+                                                </li>
+                                                <li class="flex items-center">
+                                                    <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                                    <span>Contains at least one special character</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        
+                                        <div class="flex justify-end">
+                                            <button type="submit" class="py-2 px-6 bg-gradient-to-r from-primary-600 to-secondary-600 text-white rounded-lg shadow-md hover:from-primary-700 hover:to-secondary-700 focus:outline-none">
+                                                Update Password
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                                
+                                <div class="neu-card p-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                                    <h2 class="text-xl font-semibold font-display mb-6">Two-Factor Authentication</h2>
+                                    
+                                    <div class="flex items-center justify-between mb-6">
+                                        <div>
+                                            <h3 class="text-base font-medium text-gray-900 dark:text-gray-100">Enable Two-Factor Authentication</h3>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400">
+                                                Add an extra layer of security to your account by requiring a verification code in addition to your password.
+                                            </p>
+                                        </div>
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" id="two-factor-toggle">
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                    
+                                    <div id="two-factor-setup" class="hidden border-t border-gray-200 dark:border-gray-700 pt-6">
+                                        <h3 class="text-base font-medium text-gray-900 dark:text-gray-100 mb-4">Setup Two-Factor Authentication</h3>
+                                        
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            <div>
+                                                <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                                                    Scan the QR code with an authenticator app like Google Authenticator or Authy.
+                                                </p>
+                                                <div class="bg-white dark:bg-gray-700 p-4 rounded-lg inline-block">
+                                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png" alt="2FA QR Code" class="w-40 h-40">
+                                                </div>
+                                            </div>
+                                            
+                                            <div>
+                                                <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                                                    Enter the verification code from your authenticator app to verify setup.
+                                                </p>
+                                                <div class="mb-4">
+                                                    <label for="verification-code" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Verification Code</label>
+                                                    <input type="text" id="verification-code" name="verification-code" class="neu-input w-full px-4 py-2" placeholder="Enter 6-digit code">
+                                                </div>
+                                                <button type="button" class="py-2 px-6 bg-gradient-to-r from-primary-600 to-secondary-600 text-white rounded-lg shadow-md hover:from-primary-700 hover:to-secondary-700 focus:outline-none">
+                                                    Verify & Enable
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Notification Settings -->
+                            <div id="notifications" class="settings-content">
+                                <div class="neu-card p-6" data-aos="fade-up" data-aos-duration="800">
+                                    <h2 class="text-xl font-semibold font-display mb-6">Notification Preferences</h2>
+                                    
+                                    <form id="notifications-form">
+                                        <div class="space-y-6">
+                                            <div>
+                                                <h3 class="text-base font-medium text-gray-900 dark:text-gray-100 mb-4">Email Notifications</h3>
+                                                
+                                                <div class="space-y-4">
+                                                    <div class="flex items-center justify-between">
+                                                        <div>
+                                                            <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300">Internship Recommendations</h4>
+                                                            <p class="text-xs text-gray-500 dark:text-gray-400">
+                                                                Receive personalized internship recommendations based on your profile
+                                                            </p>
+                                                        </div>
+                                                        <label class="toggle-switch">
+                                                            <input type="checkbox" checked>
+                                                            <span class="toggle-slider"></span>
+                                                        </label>
+                                                    </div>
+                                                    
+                                                    <div class="flex items-center justify-between">
+                                                        <div>
+                                                            <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300">Application Updates</h4>
+                                                            <p class="text-xs text-gray-500 dark:text-gray-400">
+                                                                Receive updates about your internship applications
+                                                            </p>
+                                                        </div>
+                                                        <label class="toggle-switch">
+                                                            <input type="checkbox" checked>
+                                                            <span class="toggle-slider"></span>
+                                                        </label>
+                                                    </div>
+                                                    
+                                                    <div class="flex items-center justify-between">
+                                                        <div>
+                                                            <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300">Interview Reminders</h4>
+                                                            <p class="text-xs text-gray-500 dark:text-gray-400">
+                                                                Receive reminders about upcoming interviews
+                                                            </p>
+                                                        </div>
+                                                        <label class="toggle-switch">
+                                                            <input type="checkbox" checked>
+                                                            <span class="toggle-slider"></span>
+                                                        </label>
+                                                    </div>
+                                                    
+                                                    <div class="flex items-center justify-between">
+                                                        <div>
+                                                            <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300">Deadline Notifications</h4>
+                                                            <p class="text-xs text-gray-500 dark:text-gray-400">
+                                                                Receive notifications when saved internships are about to close
+                                                            </p>
+                                                        </div>
+                                                        <label class="toggle-switch">
+                                                            <input type="checkbox" checked>
+                                                            <span class="toggle-slider"></span>
+                                                        </label>
+                                                    </div>
+                                                    
+                                                    <div class="flex items-center justify-between">
+                                                        <div>
+                                                            <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300">Marketing & Promotions</h4>
+                                                            <p class="text-xs text-gray-500 dark:text-gray-400">
+                                                                Receive marketing communications and promotional offers
+                                                            </p>
+                                                        </div>
+                                                        <label class="toggle-switch">
+                                                            <input type="checkbox">
+                                                            <span class="toggle-slider"></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
+                                                <h3 class="text-base font-medium text-gray-900 dark:text-gray-100 mb-4">In-App Notifications</h3>
+                                                
+                                                <div class="space-y-4">
+                                                    <div class="flex items-center justify-between">
+                                                        <div>
+                                                            <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300">Application Status Changes</h4>
+                                                            <p class="text-xs text-gray-500 dark:text-gray-400">
+                                                                Receive notifications when your application status changes
+                                                            </p>
+                                                        </div>
+                                                        <label class="toggle-switch">
+                                                            <input type="checkbox" checked>
+                                                            <span class="toggle-slider"></span>
+                                                        </label>
+                                                    </div>
+                                                    
+                                                    <div class="flex items-center justify-between">
+                                                        <div>
+                                                            <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300">New Messages</h4>
+                                                            <p class="text-xs text-gray-500 dark:text-gray-400">
+                                                                Receive notifications for new messages
+                                                            </p>
+                                                        </div>
+                                                        <label class="toggle-switch">
+                                                            <input type="checkbox" checked>
+                                                            <span class="toggle-slider"></span>
+                                                        </label>
+                                                    </div>
+                                                    
+                                                    <div class="flex items-center justify-between">
+                                                        <div>
+                                                            <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300">Profile Views</h4>
+                                                            <p class="text-xs text-gray-500 dark:text-gray-400">
+                                                                Receive notifications when companies view your profile
+                                                            </p>
+                                                        </div>
+                                                        <label class="toggle-switch">
+                                                            <input type="checkbox" checked>
+                                                            <span class="toggle-slider"></span>
+                                                        </label>
+                                                    </div>
+                                                    
+                                                    <div class="flex items-center justify-between">
+                                                        <div>
+                                                            <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300">System Announcements</h4>
+                                                            <p class="text-xs text-gray-500 dark:text-gray-400">
+                                                                Receive important system announcements and updates
+                                                            </p>
+                                                        </div>
+                                                        <label class="toggle-switch">
+                                                            <input type="checkbox" checked>
+                                                            <span class="toggle-slider"></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="flex justify-end mt-6">
+                                            <button type="submit" class="py-2 px-6 bg-gradient-to-r from-primary-600 to-secondary-600 text-white rounded-lg shadow-md hover:from-primary-700 hover:to-secondary-700 focus:outline-none">
+                                                Save Preferences
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            
+                            <!-- Appearance Settings -->
+                            <div id="appearance" class="settings-content">
+                                <div class="neu-card p-6" data-aos="fade-up" data-aos-duration="800">
+                                    <h2 class="text-xl font-semibold font-display mb-6">Appearance Settings</h2>
+                                    
+                                    <form id="appearance-form">
+                                        <div class="space-y-6">
+                                            <div>
+                                                <h3 class="text-base font-medium text-gray-900 dark:text-gray-100 mb-4">Theme</h3>
+                                                
+                                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                                    <div class="relative">
+                                                        <input type="radio" id="theme-light" name="theme" value="light" class="sr-only" checked>
+                                                        <label for="theme-light" class="block cursor-pointer rounded-lg border-2 border-gray-200 dark:border-gray-700 p-4 hover:border-primary-500 dark:hover:border-primary-500">
+                                                            <div class="bg-white rounded-lg p-2 mb-2 flex items-center justify-center h-24">
+                                                                <i class="fas fa-sun text-yellow-500 text-3xl"></i>
+                                                            </div>
+                                                            <div class="text-center">
+                                                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Light Mode</span>
+                                                            </div>
+                                                        </label>
+                                                        <div class="absolute top-2 right-2 opacity-0 peer-checked:opacity-100">
+                                                            <i class="fas fa-check-circle text-primary-600 dark:text-primary-400"></i>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="relative">
+                                                        <input type="radio" id="theme-dark" name="theme" value="dark" class="sr-only">
+                                                        <label for="theme-dark" class="block cursor-pointer rounded-lg border-2 border-gray-200 dark:border-gray-700 p-4 hover:border-primary-500 dark:hover:border-primary-500">
+                                                            <div class="bg-gray-900 rounded-lg p-2 mb-2 flex items-center justify-center h-24">
+                                                                <i class="fas fa-moon text-blue-400 text-3xl"></i>
+                                                            </div>
+                                                            <div class="text-center">
+                                                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Dark Mode</span>
+                                                            </div>
+                                                        </label>
+                                                        <div class="absolute top-2 right-2 opacity-0 peer-checked:opacity-100">
+                                                            <i class="fas fa-check-circle text-primary-600 dark:text-primary-400"></i>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="relative">
+                                                        <input type="radio" id="theme-system" name="theme" value="system" class="sr-only">
+                                                        <label for="theme-system" class="block cursor-pointer rounded-lg border-2 border-gray-200 dark:border-gray-700 p-4 hover:border-primary-500 dark:hover:border-primary-500">
+                                                            <div class="bg-gradient-to-r from-white to-gray-900 rounded-lg p-2 mb-2 flex items-center justify-center h-24">
+                                                                <i class="fas fa-laptop text-gray-700 text-3xl"></i>
+                                                            </div>
+                                                            <div class="text-center">
+                                                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">System Default</span>
+                                                            </div>
+                                                        </label>
+                                                        <div class="absolute top-2 right-2 opacity-0 peer-checked:opacity-100">
+                                                            <i class="fas fa-check-circle text-primary-600 dark:text-primary-400"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
+                                                <h3 class="text-base font-medium text-gray-900 dark:text-gray-100 mb-4">Font Size</h3>
+                                                
+                                                <div class="space-y-4">
+                                                    <div>
+                                                        <label for="font-size" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Adjust Font Size</label>
+                                                        <input type="range" id="font-size" name="font-size" min="80" max="120" step="10" value="100" class="w-full">
+                                                        <div class="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                                            <span>Small</span>
+                                                            <span>Default</span>
+                                                            <span>Large</span>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="p-4 rounded-lg border border-gray-200 dark:border-gray-700">
+                                                        <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Preview</h4>
+                                                        <p id="font-preview" class="text-gray-600 dark:text-gray-400">
+                                                            This is how text will appear throughout the application. Adjust the slider to find a comfortable reading size.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
+                                                <h3 class="text-base font-medium text-gray-900 dark:text-gray-100 mb-4">Motion & Animations</h3>
+                                                
+                                                <div class="flex items-center justify-between">
+                                                    <div>
+                                                        <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300">Reduce Motion</h4>
+                                                        <p class="text-xs text-gray-500 dark:text-gray-400">
+                                                            Minimize animations for better accessibility
+                                                        </p>
+                                                    </div>
+                                                    <label class="toggle-switch">
+                                                        <input type="checkbox" id="reduce-motion">
+                                                        <span class="toggle-slider"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="flex justify-end mt-6">
+                                            <button type="submit" class="py-2 px-6 bg-gradient-to-r from-primary-600 to-secondary-600 text-white rounded-lg shadow-md hover:from-primary-700 hover:to-secondary-700 focus:outline-none">
+                                                Save Preferences
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            
+                            <!-- Privacy Settings -->
+                            <div id="privacy" class="settings-content">
+                                <div class="neu-card p-6" data-aos="fade-up" data-aos-duration="800">
+                                    <h2 class="text-xl font-semibold font-display mb-6">Privacy Settings</h2>
+                                    
+                                    <form id="privacy-form">
+                                        <div class="space-y-6">
+                                            <div>
+                                                <h3 class="text-base font-medium text-gray-900 dark:text-gray-100 mb-4">Profile Visibility</h3>
+                                                
+                                                <div class="space-y-4">
+                                                    <div class="flex items-center justify-between">
+                                                        <div>
+                                                            <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300">Profile Discovery</h4>
+                                                            <p class="text-xs text-gray-500 dark:text-gray-400">
+                                                                Allow companies to discover your profile when looking for candidates
+                                                            </p>
+                                                        </div>
+                                                        <label class="toggle-switch">
+                                                            <input type="checkbox" checked>
+                                                            <span class="toggle-slider"></span>
+                                                        </label>
+                                                    </div>
+                                                    
+                                                    <div class="flex items-center justify-between">
+                                                        <div>
+                                                            <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300">Contact Information</h4>
+                                                            <p class="text-xs text-gray-500 dark:text-gray-400">
+                                                                Show your contact information to companies you've applied to
+                                                            </p>
+                                                        </div>
+                                                        <label class="toggle-switch">
+                                                            <input type="checkbox" checked>
+                                                            <span class="toggle-slider"></span>
+                                                        </label>
+                                                    </div>
+                                                    
+                                                    <div class="flex items-center justify-between">
+                                                        <div>
+                                                            <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300">Academic Information</h4>
+                                                            <p class="text-xs text-gray-500 dark:text-gray-400">
+                                                                Show your academic information on your public profile
+                                                            </p>
+                                                        </div>
+                                                        <label class="toggle-switch">
+                                                            <input type="checkbox" checked>
+                                                            <span class="toggle-slider"></span>
+                                                        </label>
+                                                    </div>
+                                                    
+                                                    <div class="flex items-center justify-between">
+                                                        <div>
+                                                            <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300">Application History</h4>
+                                                            <p class="text-xs text-gray-500 dark:text-gray-400">
+                                                                Allow companies to see other internships you've applied to
+                                                            </p>
+                                                        </div>
+                                                        <label class="toggle-switch">
+                                                            <input type="checkbox">
+                                                            <span class="toggle-slider"></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
+                                                <h3 class="text-base font-medium text-gray-900 dark:text-gray-100 mb-4">Data Usage</h3>
+                                                
+                                                <div class="space-y-4">
+                                                    <div class="flex items-center justify-between">
+                                                        <div>
+                                                            <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300">Personalization</h4>
+                                                            <p class="text-xs text-gray-500 dark:text-gray-400">
+                                                                Allow us to use your data to personalize your experience
+                                                            </p>
+                                                        </div>
+                                                        <label class="toggle-switch">
+                                                            <input type="checkbox" checked>
+                                                            <span class="toggle-slider"></span>
+                                                        </label>
+                                                    </div>
+                                                    
+                                                    <div class="flex items-center justify-between">
+                                                        <div>
+                                                            <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300">Analytics</h4>
+                                                            <p class="text-xs text-gray-500 dark:text-gray-400">
+                                                                Allow us to collect anonymous usage data to improve our services
+                                                            </p>
+                                                        </div>
+                                                        <label class="toggle-switch">
+                                                            <input type="checkbox" checked>
+                                                            <span class="toggle-slider"></span>
+                                                        </label>
+                                                    </div>
+                                                    
+                                                    <div class="flex items-center justify-between">
+                                                        <div>
+                                                            <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300">Third-Party Data Sharing</h4>
+                                                            <p class="text-xs text-gray-500 dark:text-gray-400">
+                                                                Allow us to share your data with trusted third parties
+                                                            </p>
+                                                        </div>
+                                                        <label class="toggle-switch">
+                                                            <input type="checkbox">
+                                                            <span class="toggle-slider"></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
+                                                <h3 class="text-base font-medium text-gray-900 dark:text-gray-100 mb-4">Cookies</h3>
+                                                
+                                                <div class="space-y-4">
+                                                    <div class="flex items-center justify-between">
+                                                        <div>
+                                                            <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300">Essential Cookies</h4>
+                                                            <p class="text-xs text-gray-500 dark:text-gray-400">
+                                                                Cookies required for the website to function properly
+                                                            </p>
+                                                        </div>
+                                                        <label class="toggle-switch">
+                                                            <input type="checkbox" checked disabled>
+                                                            <span class="toggle-slider"></span>
+                                                        </label>
+                                                    </div>
+                                                    
+                                                    <div class="flex items-center justify-between">
+                                                        <div>
+                                                            <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300">Functional Cookies</h4>
+                                                            <p class="text-xs text-gray-500 dark:text-gray-400">
+                                                                Cookies that remember your preferences and settings
+                                                            </p>
+                                                        </div>
+                                                        <label class="toggle-switch">
+                                                            <input type="checkbox" checked>
+                                                            <span class="toggle-slider"></span>
+                                                        </label>
+                                                    </div>
+                                                    
+                                                    <div class="flex items-center justify-between">
+                                                        <div>
+                                                            <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300">Analytics Cookies</h4>
+                                                            <p class="text-xs text-gray-500 dark:text-gray-400">
+                                                                Cookies that help us understand how you use our website
+                                                            </p>
+                                                        </div>
+                                                        <label class="toggle-switch">
+                                                            <input type="checkbox" checked>
+                                                            <span class="toggle-slider"></span>
+                                                        </label>
+                                                    </div>
+                                                    
+                                                    <div class="flex items-center justify-between">
+                                                        <div>
+                                                            <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300">Marketing Cookies</h4>
+                                                            <p class="text-xs text-gray-500 dark:text-gray-400">
+                                                                Cookies used to deliver personalized advertisements
+                                                            </p>
+                                                        </div>
+                                                        <label class="toggle-switch">
+                                                            <input type="checkbox">
+                                                            <span class="toggle-slider"></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="flex justify-end mt-6">
+                                            <button type="submit" class="py-2 px-6 bg-gradient-to-r from-primary-600 to-secondary-600 text-white rounded-lg shadow-md hover:from-primary-700 hover:to-secondary-700 focus:outline-none">
+                                                Save Preferences
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            
+                            <!-- Sessions Settings -->
+                            <div id="sessions" class="settings-content">
+                                <div class="neu-card p-6" data-aos="fade-up" data-aos-duration="800">
+                                    <h2 class="text-xl font-semibold font-display mb-6">Active Sessions</h2>
+                                    
+                                    <div class="space-y-4 mb-6">
+                                        <div class="session-card current-session">
+                                            <div class="flex items-center justify-between">
+                                                <div class="flex items-center">
+                                                    <div class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400 mr-4">
+                                                        <i class="fas fa-laptop"></i>
+                                                    </div>
+                                                    <div>
+                                                        <h3 class="text-sm font-medium text-gray-900 dark:text-gray-100">Chrome on Windows</h3>
+                                                        <p class="text-xs text-gray-500 dark:text-gray-400">
+                                                            Harare, Zimbabwe • Current Session
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-300">
+                                                        Active Now
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="session-card">
+                                            <div class="flex items-center justify-between">
+                                                <div class="flex items-center">
+                                                    <div class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-gray-600 dark:text-gray-400 mr-4">
+                                                        <i class="fas fa-mobile-alt"></i>
+                                                    </div>
+                                                    <div>
+                                                        <h3 class="text-sm font-medium text-gray-900 dark:text-gray-100">Safari on iPhone</h3>
+                                                        <p class="text-xs text-gray-500 dark:text-gray-400">
+                                                            Harare, Zimbabwe • Last active 2 hours ago
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <button class="text-sm text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 focus:outline-none">
+                                                        Logout
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="session-card">
+                                            <div class="flex items-center justify-between">
+                                                <div class="flex items-center">
+                                                    <div class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-gray-600 dark:text-gray-400 mr-4">
+                                                        <i class="fas fa-laptop"></i>
+                                                    </div>
+                                                    <div>
+                                                        <h3 class="text-sm font-medium text-gray-900 dark:text-gray-100">Firefox on Windows</h3>
+                                                        <p class="text-xs text-gray-500 dark:text-gray-400">
+                                                            Harare, Zimbabwe • Last active 2 days ago
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <button class="text-sm text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 focus:outline-none">
+                                                        Logout
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex justify-end">
+                                        <button type="button" class="py-2 px-6 text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 font-medium focus:outline-none">
+                                            Logout of All Other Sessions
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="neu-card p-6 mt-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                                    <h2 class="text-xl font-semibold font-display mb-6">Session Settings</h2>
+                                    
+                                    <form id="session-form">
+                                        <div class="space-y-6">
+                                            <div>
+                                                <label for="session-timeout" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Session Timeout</label>
+                                                <select id="session-timeout" name="session-timeout" class="neu-input w-full px-4 py-2">
+                                                    <option value="30">30 minutes</option>
+                                                    <option value="60" selected>1 hour</option>
+                                                    <option value="120">2 hours</option>
+                                                    <option value="240">4 hours</option>
+                                                    <option value="480">8 hours</option>
+                                                </select>
+                                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                                    You will be automatically logged out after this period of inactivity
+                                                </p>
+                                            </div>
+                                            
+                                            <div class="flex items-center justify-between">
+                                                <div>
+                                                    <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300">Remember Me</h4>
+                                                    <p class="text-xs text-gray-500 dark:text-gray-400">
+                                                        Stay logged in on this device (not recommended for shared devices)
+                                                    </p>
+                                                </div>
+                                                <label class="toggle-switch">
+                                                    <input type="checkbox" checked>
+                                                    <span class="toggle-slider"></span>
+                                                </label>
+                                            </div>
+                                            
+                                            <div class="flex items-center justify-between">
+                                                <div>
+                                                    <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300">Login Notifications</h4>
+                                                    <p class="text-xs text-gray-500 dark:text-gray-400">
+                                                        Receive email notifications for new login attempts
+                                                    </p>
+                                                </div>
+                                                <label class="toggle-switch">
+                                                    <input type="checkbox" checked>
+                                                    <span class="toggle-slider"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="flex justify-end mt-6">
+                                            <button type="submit" class="py-2 px-6 bg-gradient-to-r from-primary-600 to-secondary-600 text-white rounded-lg shadow-md hover:from-primary-700 hover:to-secondary-700 focus:outline-none">
+                                                Save Settings
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            
+                            <!-- Data & Storage Settings -->
+                            <div id="data" class="settings-content">
+                                <div class="neu-card p-6" data-aos="fade-up" data-aos-duration="800">
+                                    <h2 class="text-xl font-semibold font-display mb-6">Data & Storage</h2>
+                                    
+                                    <div class="space-y-6">
+                                        <div>
+                                            <h3 class="text-base font-medium text-gray-900 dark:text-gray-100 mb-4">Data Usage</h3>
+                                            
+                                            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+                                                <div class="flex items-center justify-between mb-2">
+                                                    <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Storage Used</span>
+                                                    <span class="text-sm text-gray-600 dark:text-gray-400">12.4 MB / 50 MB</span>
+                                                </div>
+                                                <div class="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                                                    <div class="h-full bg-primary-600 rounded-full" style="width: 25%"></div>
+                                                </div>
+                                                <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                                                    <div>
+                                                        <h4 class="text-xs font-medium text-gray-500 dark:text-gray-400">Profile Data</h4>
+                                                        <p class="text-sm font-medium text-gray-900 dark:text-gray-100 mt-1">2.8 MB</p>
+                                                    </div>
+                                                    <div>
+                                                        <h4 class="text-xs font-medium text-gray-500 dark:text-gray-400">Saved Internships</h4>
+                                                        <p class="text-sm font-medium text-gray-900 dark:text-gray-100 mt-1">4.2 MB</p>
+                                                    </div>
+                                                    <div>
+                                                        <h4 class="text-xs font-medium text-gray-500 dark:text-gray-400">Application Data</h4>
+                                                        <p class="text-sm font-medium text-gray-900 dark:text-gray-100 mt-1">5.4 MB</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
+                                            <h3 class="text-base font-medium text-gray-900 dark:text-gray-100 mb-4">Data Management</h3>
+                                            
+                                            <div class="space-y-4">
+                                                <div class="flex items-center justify-between">
+                                                    <div>
+                                                        <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300">Offline Access</h4>
+                                                        <p class="text-xs text-gray-500 dark:text-gray-400">
+                                                            Store data locally for offline access
+                                                        </p>
+                                                    </div>
+                                                    <label class="toggle-switch">
+                                                        <input type="checkbox" checked>
+                                                        <span class="toggle-slider"></span>
+                                                    </label>
+                                                </div>
+                                                
+                                                <div class="flex items-center justify-between">
+                                                    <div>
+                                                        <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300">Cache Management</h4>
+                                                        <p class="text-xs text-gray-500 dark:text-gray-400">
+                                                            Automatically clear cache when storage is full
+                                                        </p>
+                                                    </div>
+                                                    <label class="toggle-switch">
+                                                        <input type="checkbox" checked>
+                                                        <span class="toggle-slider"></span>
+                                                    </label>
+                                                </div>
+                                                
+                                                <div class="flex items-center justify-between">
+                                                    <div>
+                                                        <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300">Sync Across Devices</h4>
+                                                        <p class="text-xs text-gray-500 dark:text-gray-400">
+                                                            Sync your data across all your devices
+                                                        </p>
+                                                    </div>
+                                                    <label class="toggle-switch">
+                                                        <input type="checkbox" checked>
+                                                        <span class="toggle-slider"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
+                                            <h3 class="text-base font-medium text-gray-900 dark:text-gray-100 mb-4">Data Export & Deletion</h3>
+                                            
+                                            <div class="space-y-4">
+                                                <div>
+                                                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                                                        You can export all your personal data or delete specific data from our servers.
+                                                    </p>
+                                                    
+                                                    <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3">
+                                                        <button type="button" class="neu-button py-2 px-4 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none inline-flex items-center justify-center">
+                                                            <i class="fas fa-download mr-2"></i>
+                                                            <span>Export All Data</span>
+                                                        </button>
+                                                        
+                                                        <button type="button" class="neu-button py-2 px-4 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none inline-flex items-center justify-center">
+                                                            <i class="fas fa-eraser mr-2"></i>
+                                                            <span>Clear Local Data</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Delete Account Settings -->
+                            <div id="delete" class="settings-content">
+                                <div class="neu-card p-6" data-aos="fade-up" data-aos-duration="800">
+                                    <h2 class="text-xl font-semibold font-display text-red-600 dark:text-red-400 mb-6">Delete Account</h2>
+                                    
+                                    <div class="p-4 bg-red-50 dark:bg-red-900/10 border border-red-100 dark:border-red-900/20 rounded-lg mb-6">
+                                        <div class="flex">
+                                            <div class="flex-shrink-0">
+                                                <i class="fas fa-exclamation-triangle text-red-600 dark:text-red-400 mt-0.5"></i>
+                                            </div>
+                                            <div class="ml-3">
+                                                <h3 class="text-sm font-medium text-red-800 dark:text-red-300">Warning: This action is permanent</h3>
+                                                <div class="mt-2 text-sm text-red-700 dark:text-red-400">
+                                                    <p>Deleting your account will:</p>
+                                                    <ul class="list-disc pl-5 mt-1 space-y-1">
+                                                        <li>Permanently remove all your personal information</li>
+                                                        <li>Delete all your saved internships and applications</li>
+                                                        <li>Remove your profile from our platform</li>
+                                                        <li>Cancel any ongoing application processes</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="space-y-6">
+                                        <div>
+                                            <h3 class="text-base font-medium text-gray-900 dark:text-gray-100 mb-4">Before You Delete</h3>
+                                            
+                                            <div class="space-y-4">
+                                                <div class="flex items-start">
+                                                    <div class="flex-shrink-0 w-5 h-5 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400 mt-0.5 mr-3">
+                                                        <i class="fas fa-info-circle text-xs"></i>
+                                                    </div>
+                                                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                                                        Consider exporting your data before deleting your account. You can do this from the Data & Storage settings.
+                                                    </p>
+                                                </div>
+                                                
+                                                <div class="flex items-start">
+                                                    <div class="flex-shrink-0 w-5 h-5 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400 mt-0.5 mr-3">
+                                                        <i class="fas fa-info-circle text-xs"></i>
+                                                    </div>
+                                                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                                                        If you're having issues with the platform, consider contacting our support team before deleting your account.
+                                                    </p>
+                                                </div>
+                                                
+                                                <div class="flex items-start">
+                                                    <div class="flex-shrink-0 w-5 h-5 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400 mt-0.5 mr-3">
+                                                        <i class="fas fa-info-circle text-xs"></i>
+                                                    </div>
+                                                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                                                        You can temporarily deactivate your account instead of deleting it. This will hide your profile but preserve your data.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
+                                            <h3 class="text-base font-medium text-gray-900 dark:text-gray-100 mb-4">Delete Your Account</h3>
+                                            
+                                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-6">
+                                                Once you delete your account, all your data will be permanently removed from our servers. This action cannot be undone.
+                                            </p>
+                                            
+                                            <div class="flex">
+                                                <button type="button" id="delete-account-button" class="py-2 px-6 bg-red-600 hover:bg-red-700 text-white rounded-lg shadow-md focus:outline-none">
+                                                    Delete Account
+                                                </button>
+                                                
+                                                <button type="button" class="ml-4 neu-button py-2 px-6 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none">
+                                                    Deactivate Instead
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Notyf for notifications -->
+    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+    
+    <!-- Custom JavaScript -->
     <script>
-        const themeToggle = document.getElementById('themeToggle');
-        const body = document.body;
-        let isDark = false;
-
+        // Initialize AOS Animation
+        AOS.init();
+        
+        // Initialize Notyf
+        const notyf = new Notyf({
+            duration: 3000,
+            position: {
+                x: 'right',
+                y: 'top',
+            },
+            types: [
+                {
+                    type: 'success',
+                    background: '#10B981',
+                    icon: {
+                        className: 'fas fa-check',
+                        tagName: 'i',
+                        color: 'white'
+                    }
+                },
+                {
+                    type: 'error',
+                    background: '#EF4444',
+                    icon: {
+                        className: 'fas fa-times',
+                        tagName: 'i',
+                        color: 'white'
+                    }
+                }
+            ]
+        });
+        
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        
+        // Check for saved theme preference or use the system preference
+        const savedTheme = localStorage.getItem('theme') || 
+                          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        // Apply the saved theme
+        if (savedTheme === 'dark') {
+            htmlElement.classList.remove('light');
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+            htmlElement.classList.add('light');
+        }
+        
+        // Toggle theme when button is clicked
         themeToggle.addEventListener('click', () => {
-            isDark = !isDark;
-            body.className = isDark ? 'dark' : 'light';
-            themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                htmlElement.classList.add('light');
+                localStorage.setItem('theme', 'light');
+            } else {
+                htmlElement.classList.remove('light');
+                htmlElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+        
+        // Mobile Sidebar Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebar-overlay');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+            sidebarOverlay.classList.toggle('open');
+            
+            // Toggle icon
+            const icon = mobileMenuButton.querySelector('i');
+            if (icon.classList.contains('fa-bars')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+        
+        sidebarOverlay.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            sidebarOverlay.classList.remove('open');
+            
+            // Reset icon
+            const icon = mobileMenuButton.querySelector('i');
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        });
+        
+        // Settings Navigation
+        const settingsNavItems = document.querySelectorAll('.settings-nav-item');
+        const settingsContents = document.querySelectorAll('.settings-content');
+        
+        settingsNavItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Remove active class from all items
+                settingsNavItems.forEach(item => item.classList.remove('active'));
+                settingsContents.forEach(content => content.classList.remove('active'));
+                
+                // Add active class to clicked item
+                item.classList.add('active');
+                
+                // Show corresponding content
+                const section = item.getAttribute('data-section');
+                document.getElementById(section).classList.add('active');
+            });
+        });
+        
+        // Form Submissions
+        const forms = document.querySelectorAll('form');
+        
+        forms.forEach(form => {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // Show loading state
+                const submitButton = form.querySelector('button[type="submit"]');
+                const originalButtonText = submitButton.innerHTML;
+                submitButton.disabled = true;
+                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Saving...';
+                
+                // Simulate API call delay
+                setTimeout(() => {
+                    // Reset button
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = originalButtonText;
+                    
+                    // Show success notification
+                    notyf.success('Changes saved successfully');
+                }, 1000);
+            });
+        });
+        
+        // Two-Factor Authentication Toggle
+        const twoFactorToggle = document.getElementById('two-factor-toggle');
+        const twoFactorSetup = document.getElementById('two-factor-setup');
+        
+        twoFactorToggle.addEventListener('change', () => {
+            if (twoFactorToggle.checked) {
+                twoFactorSetup.classList.remove('hidden');
+            } else {
+                twoFactorSetup.classList.add('hidden');
+            }
+        });
+        
+        // Font Size Slider
+        const fontSizeSlider = document.getElementById('font-size');
+        const fontPreview = document.getElementById('font-preview');
+        
+        fontSizeSlider.addEventListener('input', () => {
+            const fontSize = fontSizeSlider.value;
+            fontPreview.style.fontSize = `${fontSize}%`;
+        });
+        
+        // Theme Selection
+        const themeOptions = document.querySelectorAll('input[name="theme"]');
+        
+        themeOptions.forEach(option => {
+            option.addEventListener('change', () => {
+                const theme = option.value;
+                
+                if (theme === 'light') {
+                    htmlElement.classList.remove('dark');
+                    htmlElement.classList.add('light');
+                    localStorage.setItem('theme', 'light');
+                } else if (theme === 'dark') {
+                    htmlElement.classList.remove('light');
+                    htmlElement.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                } else if (theme === 'system') {
+                    localStorage.removeItem('theme');
+                    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                        htmlElement.classList.remove('light');
+                        htmlElement.classList.add('dark');
+                    } else {
+                        htmlElement.classList.remove('dark');
+                        htmlElement.classList.add('light');
+                    }
+                }
+            });
+        });
+        
+        // Delete Account Modal
+        const deleteAccountButton = document.getElementById('delete-account-button');
+        const deleteAccountModal = document.getElementById('delete-account-modal');
+        const cancelDeleteButton = document.getElementById('cancel-delete');
+        const deleteAccountForm = document.getElementById('delete-account-form');
+        
+        deleteAccountButton.addEventListener('click', () => {
+            deleteAccountModal.classList.add('open');
+        });
+        
+        cancelDeleteButton.addEventListener('click', () => {
+            deleteAccountModal.classList.remove('open');
+        });
+        
+        // Close modal when clicking outside
+        deleteAccountModal.addEventListener('click', (e) => {
+            if (e.target === deleteAccountModal) {
+                deleteAccountModal.classList.remove('open');
+            }
+        });
+        
+        // Delete Account Form
+        deleteAccountForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Show loading state
+            const submitButton = deleteAccountForm.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton.innerHTML;
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Deleting...';
+            
+            // Simulate API call delay
+            setTimeout(() => {
+                // Reset button
+                submitButton.disabled = false;
+                submitButton.innerHTML = originalButtonText;
+                
+                // Close modal
+                deleteAccountModal.classList.remove('open');
+                
+                // Show success notification
+                notyf.success('Your account has been deleted successfully');
+                
+                // Redirect to login page in a real application
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 2000);
+            }, 2000);
         });
     </script>
 </body>

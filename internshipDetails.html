@@ -1,0 +1,1617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software Engineering Intern at TechZim Solutions | InternMatch</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Notyf for notifications -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        secondary: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            200: '#99f6e4',
+                            300: '#5eead4',
+                            400: '#2dd4bf',
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                            700: '#0f766e',
+                            800: '#115e59',
+                            900: '#134e4a',
+                        },
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Poppins', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'neu-light': '9px 9px 18px #e0e0e0, -9px -9px 18px #ffffff',
+                        'neu-dark': '9px 9px 18px #151515, -9px -9px 18px #252525',
+                        'neu-button-light': '5px 5px 10px #e0e0e0, -5px -5px 10px #ffffff',
+                        'neu-button-dark': '5px 5px 10px #151515, -5px -5px 10px #252525',
+                        'inner-neu-light': 'inset 3px 3px 6px #e0e0e0, inset -3px -3px 6px #ffffff',
+                        'inner-neu-dark': 'inset 3px 3px 6px #151515, inset -3px -3px 6px #252525',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom Styles */
+        .neu-card {
+            border-radius: 20px;
+            transition: all 0.3s ease-in-out;
+        }
+        
+        .dark .neu-card {
+            background: #1f2937;
+            box-shadow: 9px 9px 18px #151515, -9px -9px 18px #252525;
+        }
+        
+        .light .neu-card {
+            background: #ffffff;
+            box-shadow: 9px 9px 18px #e0e0e0, -9px -9px 18px #ffffff;
+        }
+        
+        .neu-button {
+            border-radius: 12px;
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .dark .neu-button {
+            background: #1f2937;
+            box-shadow: 5px 5px 10px #151515, -5px -5px 10px #252525;
+        }
+        
+        .light .neu-button {
+            background: #ffffff;
+            box-shadow: 5px 5px 10px #e0e0e0, -5px -5px 10px #ffffff;
+        }
+        
+        .neu-button:hover {
+            transform: translateY(-3px);
+        }
+        
+        .neu-button:active {
+            transform: translateY(0);
+        }
+        
+        .neu-input {
+            border-radius: 12px;
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .dark .neu-input {
+            background: #1f2937;
+            box-shadow: inset 3px 3px 6px #151515, inset -3px -3px 6px #252525;
+            color: #e5e7eb;
+            border: 1px solid #374151;
+        }
+        
+        .light .neu-input {
+            background: #f9fafb;
+            box-shadow: inset 3px 3px 6px #e0e0e0, inset -3px -3px 6px #ffffff;
+            color: #1f2937;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .neu-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            transition: all 0.3s ease-in-out;
+        }
+        
+        @media (max-width: 1023px) {
+            .sidebar {
+                transform: translateX(-100%);
+                position: fixed;
+                z-index: 50;
+                height: 100vh;
+            }
+            
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            
+            .sidebar-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 40;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.3s ease-in-out;
+            }
+            
+            .sidebar-overlay.open {
+                opacity: 1;
+                pointer-events: auto;
+            }
+        }
+        
+        /* Match Percentage Indicator */
+        .match-indicator {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        
+        .match-high {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+        }
+        
+        .match-medium {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
+        }
+        
+        .match-low {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+        }
+        
+        /* Skill Tags */
+        .skill-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        .dark ::-webkit-scrollbar-track {
+            background: #1f2937;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2563eb;
+        }
+        
+        /* Notification Badge */
+        .notification-badge {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background-color: #ef4444;
+            color: white;
+            font-size: 0.625rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Card Hover Effects */
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Progress Steps */
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+        
+        .progress-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 1;
+        }
+        
+        .step-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .step-line {
+            position: absolute;
+            top: 20px;
+            height: 2px;
+            width: calc(100% - 50px);
+            left: 25px;
+            z-index: 0;
+        }
+        
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 120px;
+            background-color: #374151;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.75rem;
+        }
+
+        .tooltip .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #374151 transparent transparent transparent;
+        }
+
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        /* Map Container */
+        .map-container {
+            height: 300px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        /* Share Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease-in-out;
+        }
+        
+        .modal.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        .modal-content {
+            width: 90%;
+            max-width: 500px;
+            border-radius: 20px;
+            transition: transform 0.3s ease-in-out;
+            transform: scale(0.9);
+        }
+        
+        .modal.open .modal-content {
+            transform: scale(1);
+        }
+        
+        /* Rating Stars */
+        .rating {
+            display: flex;
+            align-items: center;
+        }
+        
+        .star {
+            font-size: 1.25rem;
+            color: #d1d5db;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        
+        .star.filled {
+            color: #f59e0b;
+        }
+        
+        .star:hover {
+            color: #f59e0b;
+        }
+        
+        /* Company Overview Details */
+        .company-detail {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .company-detail-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+        }
+    </style>
+</head>
+<body class="font-sans light transition-colors duration-300 bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-100 min-h-screen flex flex-col">
+    <!-- Sidebar Overlay (Mobile) -->
+    <div id="sidebar-overlay" class="sidebar-overlay lg:hidden"></div>
+    
+    <!-- Share Modal -->
+    <div id="share-modal" class="modal">
+        <div class="modal-content neu-card light:bg-white dark:bg-gray-800 p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-lg font-bold">Share this internship</h3>
+                <button id="close-modal" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="mb-6">
+                <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Share this internship opportunity with your friends or classmates</p>
+                <div class="flex flex-wrap gap-4 justify-center">
+                    <button class="neu-button p-4 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 focus:outline-none">
+                        <i class="fab fa-facebook-f text-xl"></i>
+                    </button>
+                    <button class="neu-button p-4 text-blue-400 dark:text-blue-300 hover:text-blue-500 dark:hover:text-blue-200 focus:outline-none">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </button>
+                    <button class="neu-button p-4 text-blue-700 dark:text-blue-500 hover:text-blue-800 dark:hover:text-blue-400 focus:outline-none">
+                        <i class="fab fa-linkedin-in text-xl"></i>
+                    </button>
+                    <button class="neu-button p-4 text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 focus:outline-none">
+                        <i class="fab fa-whatsapp text-xl"></i>
+                    </button>
+                    <button class="neu-button p-4 text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 focus:outline-none">
+                        <i class="fab fa-telegram-plane text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="mb-6">
+                <label for="share-link" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Copy link</label>
+                <div class="flex">
+                    <input 
+                        type="text" 
+                        id="share-link" 
+                        class="neu-input flex-grow px-4 py-2 text-sm" 
+                        value="https://internmatch.co.zw/internships/software-engineering-techzim"
+                        readonly
+                    >
+                    <button id="copy-link" class="ml-2 py-2 px-4 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg focus:outline-none">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Container -->
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar w-72 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex-shrink-0">
+            <!-- Sidebar Header -->
+            <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                <a href="index.html" class="flex items-center space-x-2">
+                    <div class="h-10 w-10 rounded-lg bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center">
+                        <i class="fas fa-briefcase text-white text-xl"></i>
+                    </div>
+                    <span class="text-xl font-bold font-display bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-secondary-500">InternMatch</span>
+                </a>
+            </div>
+            
+            <!-- User Profile Summary -->
+            <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                <div class="flex items-center space-x-4">
+                    <img src="https://picsum.photos/id/1005/100" alt="User Profile" class="w-12 h-12 rounded-full object-cover border-2 border-primary-500">
+                    <div>
+                        <h3 class="font-medium text-gray-900 dark:text-gray-100">Tatenda Chikwanha</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Computer Science, 3rd Year</p>
+                    </div>
+                </div>
+                
+                <!-- Profile Completion -->
+                <div class="mt-6">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-sm text-gray-600 dark:text-gray-400">Profile Completion</span>
+                        <span class="text-sm font-medium text-primary-600 dark:text-primary-400">75%</span>
+                    </div>
+                    <div class="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full" style="width: 75%"></div>
+                    </div>
+                    <a href="#" class="text-xs text-primary-600 dark:text-primary-400 mt-2 inline-block hover:underline">
+                        Complete your profile
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Navigation Menu -->
+            <nav class="p-4">
+                <ul class="space-y-1">
+                    <li>
+                        <a href="dashboard.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-home"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="internships.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300">
+                            <i class="fas fa-briefcase"></i>
+                            <span>Internships</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-star"></i>
+                            <span>Recommendations</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-bookmark"></i>
+                            <span>Saved</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-file-alt"></i>
+                            <span>Applications</span>
+                            <span class="ml-auto bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-xs font-medium px-2 py-0.5 rounded-full">3</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-bell"></i>
+                            <span>Notifications</span>
+                            <span class="ml-auto bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 text-xs font-medium px-2 py-0.5 rounded-full">5</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <hr class="my-6 border-gray-200 dark:border-gray-700">
+                
+                <ul class="space-y-1">
+                    <li>
+                        <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-user-circle"></i>
+                            <span>Profile</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Help & Support</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Log Out</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top Navigation -->
+            <header class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+                <div class="flex items-center justify-between p-4">
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-button" class="lg:hidden p-2 rounded-md text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 focus:outline-none">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    
+                    <!-- Breadcrumbs -->
+                    <div class="hidden md:flex items-center space-x-2 text-sm">
+                        <a href="index.html" class="text-gray-500 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400">Home</a>
+                        <i class="fas fa-chevron-right text-xs text-gray-400"></i>
+                        <a href="internships.html" class="text-gray-500 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400">Internships</a>
+                        <i class="fas fa-chevron-right text-xs text-gray-400"></i>
+                        <span class="text-gray-800 dark:text-gray-200">Software Engineering Intern</span>
+                    </div>
+                    
+                    <!-- Right Navigation Items -->
+                    <div class="flex items-center space-x-4">
+                        <!-- Theme Toggle -->
+                        <button id="theme-toggle" class="p-2 rounded-full text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 focus:outline-none">
+                            <i class="fas fa-moon dark:hidden"></i>
+                            <i class="fas fa-sun hidden dark:block"></i>
+                        </button>
+                        
+                        <!-- Notifications -->
+                        <div class="relative">
+                            <button class="p-2 rounded-full text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 focus:outline-none">
+                                <i class="fas fa-bell"></i>
+                                <span class="notification-badge">5</span>
+                            </button>
+                        </div>
+                        
+                        <!-- Messages -->
+                        <div class="relative">
+                            <button class="p-2 rounded-full text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 focus:outline-none">
+                                <i class="fas fa-comment-alt"></i>
+                                <span class="notification-badge">2</span>
+                            </button>
+                        </div>
+                        
+                        <!-- User Menu -->
+                        <div class="relative">
+                            <button class="flex items-center focus:outline-none">
+                                <img src="https://picsum.photos/id/1005/100" alt="User Profile" class="w-8 h-8 rounded-full object-cover">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Internship Details Content -->
+            <main class="flex-1 overflow-y-auto">
+                <div class="container mx-auto px-4 py-6">
+                    <!-- Back Button (Mobile Only) -->
+                    <div class="mb-4 lg:hidden">
+                        <a href="internships.html" class="inline-flex items-center text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400">
+                            <i class="fas fa-arrow-left mr-2"></i>
+                            <span>Back to listings</span>
+                        </a>
+                    </div>
+                    
+                    <!-- Internship Header -->
+                    <div class="neu-card p-6 mb-6" data-aos="fade-up" data-aos-duration="800">
+                        <div class="flex flex-col md:flex-row md:items-start">
+                            <div class="md:flex-shrink-0 mb-4 md:mb-0 md:mr-6">
+                                <img src="https://picsum.photos/id/0/200" alt="TechZim Solutions Logo" class="w-20 h-20 md:w-24 md:h-24 rounded-lg object-cover">
+                            </div>
+                            
+                            <div class="flex-1">
+                                <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                                    <div>
+                                        <h1 class="text-2xl font-bold font-display text-gray-900 dark:text-gray-100 mb-1">Software Engineering Intern</h1>
+                                        <div class="flex items-center mb-2">
+                                            <span class="text-lg text-gray-700 dark:text-gray-300">TechZim Solutions</span>
+                                            <span class="mx-2 text-gray-400">•</span>
+                                            <span class="text-gray-600 dark:text-gray-400">Harare, Zimbabwe</span>
+                                        </div>
+                                        <div class="flex flex-wrap items-center gap-3 mb-4">
+                                            <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300">
+                                                Full-time
+                                            </div>
+                                            <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300">
+                                                3 months
+                                            </div>
+                                            <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300">
+                                                $500 monthly stipend
+                                            </div>
+                                            <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-300">
+                                                Software Development
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex flex-col items-center">
+                                        <div class="match-indicator match-high text-xl mb-1">
+                                            95%
+                                        </div>
+                                        <span class="text-xs text-gray-600 dark:text-gray-400">Match Score</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex flex-col sm:flex-row sm:items-center gap-3">
+                                    <a href="#apply-section" class="inline-flex items-center justify-center py-3 px-6 font-medium text-white bg-gradient-to-r from-primary-600 to-secondary-600 rounded-lg shadow-lg hover:from-primary-700 hover:to-secondary-700 focus:outline-none transition-transform transform hover:-translate-y-1">
+                                        <i class="fas fa-paper-plane mr-2"></i>
+                                        <span>Apply Now</span>
+                                    </a>
+                                    <button id="save-button" class="neu-button inline-flex items-center justify-center py-3 px-6 font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none transition-transform transform hover:-translate-y-1">
+                                        <i class="far fa-bookmark mr-2"></i>
+                                        <span>Save</span>
+                                    </button>
+                                    <button id="share-button" class="neu-button inline-flex items-center justify-center py-3 px-6 font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none transition-transform transform hover:-translate-y-1">
+                                        <i class="fas fa-share-alt mr-2"></i>
+                                        <span>Share</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Posted Date and Views -->
+                        <div class="flex items-center justify-between mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                            <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                                <i class="far fa-calendar-alt mr-2"></i>
+                                <span>Posted 2 days ago</span>
+                                <span class="mx-2">•</span>
+                                <span>Applications close on July 15, 2023</span>
+                            </div>
+                            <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                                <i class="far fa-eye mr-2"></i>
+                                <span>247 views</span>
+                                <span class="mx-2">•</span>
+                                <span>42 applications</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Main Content Grid -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <!-- Left Column - Internship Details -->
+                        <div class="lg:col-span-2">
+                            <!-- Internship Description -->
+                            <div class="neu-card p-6 mb-6" data-aos="fade-up" data-aos-duration="800">
+                                <h2 class="text-xl font-semibold font-display mb-4">Internship Description</h2>
+                                <div class="prose max-w-none text-gray-700 dark:text-gray-300">
+                                    <p class="mb-4">
+                                        TechZim Solutions is seeking a talented and motivated Software Engineering Intern to join our dynamic development team in Harare. This internship offers an exceptional opportunity for a third-year computer science student to gain hands-on experience in real-world software development projects while working alongside experienced professionals.
+                                    </p>
+                                    <p class="mb-4">
+                                        As a Software Engineering Intern, you will be involved in the full software development lifecycle, from requirements gathering and design to implementation, testing, and deployment. You will work on challenging projects using modern JavaScript frameworks and technologies, contributing to our suite of web applications that serve clients across Zimbabwe and beyond.
+                                    </p>
+                                    <p>
+                                        This is a paid internship position with the potential for full-time employment upon successful completion and graduation.
+                                    </p>
+                                </div>
+                                
+                                <h3 class="text-lg font-semibold mt-6 mb-3">Key Responsibilities:</h3>
+                                <ul class="list-disc pl-6 space-y-2 text-gray-700 dark:text-gray-300">
+                                    <li>Develop and maintain web applications using React, Node.js, and MongoDB</li>
+                                    <li>Collaborate with senior developers to design, implement, and test new features</li>
+                                    <li>Write clean, efficient, and well-documented code</li>
+                                    <li>Participate in code reviews and contribute to improving development practices</li>
+                                    <li>Debug and fix issues in existing applications</li>
+                                    <li>Learn and implement best practices for web development and security</li>
+                                    <li>Assist in API development and integration</li>
+                                    <li>Contribute to technical documentation</li>
+                                </ul>
+                                
+                                <h3 class="text-lg font-semibold mt-6 mb-3">Requirements:</h3>
+                                <ul class="list-disc pl-6 space-y-2 text-gray-700 dark:text-gray-300">
+                                    <li>Currently enrolled in the third year of a Computer Science, Software Engineering, or related program at Harare Institute of Technology</li>
+                                    <li>Strong knowledge of JavaScript, HTML, and CSS</li>
+                                    <li>Familiarity with React.js and Node.js is highly desirable</li>
+                                    <li>Basic understanding of database systems (SQL or NoSQL)</li>
+                                    <li>Good problem-solving skills and attention to detail</li>
+                                    <li>Ability to work in a team environment</li>
+                                    <li>Strong communication skills in English, both written and verbal</li>
+                                    <li>Eager to learn and adapt to new technologies</li>
+                                    <li>Previous project experience (academic or personal) is a plus</li>
+                                </ul>
+                                
+                                <h3 class="text-lg font-semibold mt-6 mb-3">Benefits:</h3>
+                                <ul class="list-disc pl-6 space-y-2 text-gray-700 dark:text-gray-300">
+                                    <li>Competitive monthly stipend of $500</li>
+                                    <li>Flexible working hours compatible with academic schedule</li>
+                                    <li>Mentorship from experienced software engineers</li>
+                                    <li>Exposure to real-world projects and industry best practices</li>
+                                    <li>Modern office environment with necessary equipment provided</li>
+                                    <li>Weekly team lunches and social events</li>
+                                    <li>Networking opportunities with industry professionals</li>
+                                    <li>Potential for full-time employment after graduation</li>
+                                </ul>
+                            </div>
+                            
+                            <!-- Skills and Requirements -->
+                            <div class="neu-card p-6 mb-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                                <h2 class="text-xl font-semibold font-display mb-4">Skills and Technologies</h2>
+                                
+                                <!-- Skills Match -->
+                                <div class="mb-6 p-4 bg-green-50 dark:bg-green-900/10 rounded-lg border border-green-100 dark:border-green-900/20">
+                                    <div class="flex items-center mb-3">
+                                        <div class="w-10 h-10 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-600 dark:text-green-400 mr-3">
+                                            <i class="fas fa-check"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-semibold text-gray-900 dark:text-gray-100">Your skills match 95% of the requirements</h3>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400">You have 8 out of 9 required skills</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                            <span class="text-gray-700 dark:text-gray-300">JavaScript</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                            <span class="text-gray-700 dark:text-gray-300">React.js</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                            <span class="text-gray-700 dark:text-gray-300">HTML/CSS</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                            <span class="text-gray-700 dark:text-gray-300">Node.js</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                            <span class="text-gray-700 dark:text-gray-300">MongoDB</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                            <span class="text-gray-700 dark:text-gray-300">Git</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                            <span class="text-gray-700 dark:text-gray-300">Problem Solving</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                            <span class="text-gray-700 dark:text-gray-300">Communication</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i class="fas fa-times-circle text-red-500 mr-2"></i>
+                                            <span class="text-gray-700 dark:text-gray-300">DevOps</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Required Skills -->
+                                <h3 class="text-lg font-semibold mb-3">Required Skills</h3>
+                                <div class="flex flex-wrap gap-2 mb-6">
+                                    <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">JavaScript</div>
+                                    <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">React.js</div>
+                                    <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">HTML/CSS</div>
+                                    <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">Node.js</div>
+                                    <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">MongoDB</div>
+                                </div>
+                                
+                                <!-- Preferred Skills -->
+                                <h3 class="text-lg font-semibold mb-3">Preferred Skills</h3>
+                                <div class="flex flex-wrap gap-2">
+                                    <div class="skill-tag bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400">TypeScript</div>
+                                    <div class="skill-tag bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400">Redux</div>
+                                    <div class="skill-tag bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400">Express.js</div>
+                                    <div class="skill-tag bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400">REST APIs</div>
+                                    <div class="skill-tag bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400">Git</div>
+                                    <div class="skill-tag bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400">DevOps</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Application Process -->
+                            <div id="apply-section" class="neu-card p-6 mb-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                                <h2 class="text-xl font-semibold font-display mb-4">Application Process</h2>
+                                
+                                <!-- Progress Steps -->
+                                <div class="relative mb-8">
+                                    <div class="progress-steps">
+                                        <div class="progress-step">
+                                            <div class="step-circle bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400">
+                                                <i class="fas fa-paper-plane"></i>
+                                            </div>
+                                            <span class="text-xs text-gray-600 dark:text-gray-400 text-center">Apply</span>
+                                        </div>
+                                        <div class="progress-step">
+                                            <div class="step-circle bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400">
+                                                <i class="fas fa-file-alt"></i>
+                                            </div>
+                                            <span class="text-xs text-gray-600 dark:text-gray-400 text-center">Review</span>
+                                        </div>
+                                        <div class="progress-step">
+                                            <div class="step-circle bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400">
+                                                <i class="fas fa-phone-alt"></i>
+                                            </div>
+                                            <span class="text-xs text-gray-600 dark:text-gray-400 text-center">Interview</span>
+                                        </div>
+                                        <div class="progress-step">
+                                            <div class="step-circle bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400">
+                                                <i class="fas fa-check"></i>
+                                            </div>
+                                            <span class="text-xs text-gray-600 dark:text-gray-400 text-center">Decision</span>
+                                        </div>
+                                        <div class="step-line bg-gray-200 dark:bg-gray-700"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-6">
+                                    <h3 class="text-lg font-semibold mb-3">How to Apply</h3>
+                                    <p class="text-gray-700 dark:text-gray-300 mb-4">
+                                        To apply for this internship position, please submit your application through our online portal. The application process involves the following steps:
+                                    </p>
+                                    <ol class="list-decimal pl-6 space-y-2 text-gray-700 dark:text-gray-300">
+                                        <li>Submit your application with your CV/resume and cover letter</li>
+                                        <li>Applications will be reviewed within 5-7 business days</li>
+                                        <li>Shortlisted candidates will be invited for a technical interview</li>
+                                        <li>Final selection will be made based on interview performance and skills match</li>
+                                    </ol>
+                                </div>
+                                
+                                <div class="mb-6">
+                                    <h3 class="text-lg font-semibold mb-3">Required Documents</h3>
+                                    <ul class="list-disc pl-6 space-y-2 text-gray-700 dark:text-gray-300">
+                                        <li>Updated CV/resume</li>
+                                        <li>Cover letter explaining your interest in the position</li>
+                                        <li>Academic transcript (unofficial is acceptable)</li>
+                                        <li>Portfolio or links to previous projects (if available)</li>
+                                        <li>Reference letter from a professor or previous employer (optional)</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="flex flex-col sm:flex-row gap-4">
+                                    <a href="https://techzim.co.zw/careers/apply" target="_blank" class="inline-flex items-center justify-center py-3 px-6 font-medium text-white bg-gradient-to-r from-primary-600 to-secondary-600 rounded-lg shadow-lg hover:from-primary-700 hover:to-secondary-700 focus:outline-none transition-transform transform hover:-translate-y-1">
+                                        <i class="fas fa-external-link-alt mr-2"></i>
+                                        <span>Apply on Company Website</span>
+                                    </a>
+                                    <button class="neu-button inline-flex items-center justify-center py-3 px-6 font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none transition-transform transform hover:-translate-y-1">
+                                        <i class="fas fa-file-download mr-2"></i>
+                                        <span>Download Job Description</span>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Company Reviews -->
+                            <div class="neu-card p-6 mb-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
+                                <div class="flex justify-between items-center mb-4">
+                                    <h2 class="text-xl font-semibold font-display">Company Reviews</h2>
+                                    <a href="#" class="text-sm text-primary-600 dark:text-primary-400 hover:underline">See all 24 reviews</a>
+                                </div>
+                                
+                                <div class="flex items-center mb-6">
+                                    <div class="flex items-center mr-4">
+                                        <span class="text-3xl font-bold text-gray-900 dark:text-gray-100 mr-2">4.7</span>
+                                        <div class="flex text-amber-400">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star-half-alt"></i>
+                                        </div>
+                                    </div>
+                                    <span class="text-gray-600 dark:text-gray-400">Based on 24 reviews</span>
+                                </div>
+                                
+                                <!-- Review Cards -->
+                                <div class="space-y-4">
+                                    <!-- Review 1 -->
+                                    <div class="p-4 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <div>
+                                                <div class="flex items-center mb-1">
+                                                    <span class="font-medium text-gray-900 dark:text-gray-100 mr-2">Former Software Engineering Intern</span>
+                                                    <div class="flex text-amber-400 text-sm">
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                    </div>
+                                                </div>
+                                                <p class="text-xs text-gray-500 dark:text-gray-400">Internship Period: January - April 2023</p>
+                                            </div>
+                                            <span class="text-xs text-gray-500 dark:text-gray-400">2 months ago</span>
+                                        </div>
+                                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                                            "I had an amazing experience as an intern at TechZim Solutions. The team was very supportive and I learned a lot about modern web development practices. The mentorship program was excellent, and I got to work on real projects that are now in production. The work environment is collaborative and friendly. Highly recommend this internship for any CS student!"
+                                        </p>
+                                    </div>
+                                    
+                                    <!-- Review 2 -->
+                                    <div class="p-4 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <div>
+                                                <div class="flex items-center mb-1">
+                                                    <span class="font-medium text-gray-900 dark:text-gray-100 mr-2">Current Software Developer</span>
+                                                    <div class="flex text-amber-400 text-sm">
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="far fa-star"></i>
+                                                    </div>
+                                                </div>
+                                                <p class="text-xs text-gray-500 dark:text-gray-400">Started as Intern: June - September 2022</p>
+                                            </div>
+                                            <span class="text-xs text-gray-500 dark:text-gray-400">4 months ago</span>
+                                        </div>
+                                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                                            "I started as an intern at TechZim and was later hired full-time after graduation. The internship program is well-structured with clear expectations and regular feedback. You get to work with the latest technologies and contribute to meaningful projects. The stipend is competitive for Zimbabwe. The only downside is sometimes the workload can be heavy, but it's worth it for the experience gained."
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <!-- Add Review Button -->
+                                <div class="mt-6">
+                                    <button class="neu-button inline-flex items-center justify-center py-2 px-4 w-full font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none">
+                                        <i class="fas fa-star mr-2"></i>
+                                        <span>Write a Review</span>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Similar Internships -->
+                            <div class="neu-card p-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
+                                <div class="flex justify-between items-center mb-6">
+                                    <h2 class="text-xl font-semibold font-display">Similar Internships</h2>
+                                    <a href="internships.html" class="text-sm text-primary-600 dark:text-primary-400 hover:underline">View all</a>
+                                </div>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <!-- Similar Internship 1 -->
+                                    <div class="p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-primary-300 dark:hover:border-primary-700 transition-all card-hover">
+                                        <div class="flex items-center mb-3">
+                                            <img src="https://picsum.photos/id/1/60" alt="Company Logo" class="w-10 h-10 rounded-lg object-cover mr-3">
+                                            <div>
+                                                <h3 class="font-semibold text-gray-900 dark:text-gray-100 text-sm">Frontend Developer Intern</h3>
+                                                <p class="text-xs text-gray-600 dark:text-gray-400">WebSolutions Zimbabwe</p>
+                                            </div>
+                                            <div class="match-indicator match-high ml-auto text-xs">
+                                                87%
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="flex flex-wrap gap-2 mb-3">
+                                            <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-xs py-0.5 px-2">React</div>
+                                            <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-xs py-0.5 px-2">JavaScript</div>
+                                        </div>
+                                        
+                                        <div class="flex justify-between items-center text-xs">
+                                            <span class="text-gray-600 dark:text-gray-400">Harare • $450/month</span>
+                                            <a href="#" class="text-primary-600 dark:text-primary-400 hover:underline">View Details</a>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Similar Internship 2 -->
+                                    <div class="p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-primary-300 dark:hover:border-primary-700 transition-all card-hover">
+                                        <div class="flex items-center mb-3">
+                                            <img src="https://picsum.photos/id/3/60" alt="Company Logo" class="w-10 h-10 rounded-lg object-cover mr-3">
+                                            <div>
+                                                <h3 class="font-semibold text-gray-900 dark:text-gray-100 text-sm">Backend Developer Intern</h3>
+                                                <p class="text-xs text-gray-600 dark:text-gray-400">ServerTech Zimbabwe</p>
+                                            </div>
+                                            <div class="match-indicator match-medium ml-auto text-xs">
+                                                75%
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="flex flex-wrap gap-2 mb-3">
+                                            <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-xs py-0.5 px-2">Node.js</div>
+                                            <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-xs py-0.5 px-2">Express</div>
+                                        </div>
+                                        
+                                        <div class="flex justify-between items-center text-xs">
+                                            <span class="text-gray-600 dark:text-gray-400">Harare • $500/month</span>
+                                            <a href="#" class="text-primary-600 dark:text-primary-400 hover:underline">View Details</a>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Similar Internship 3 -->
+                                    <div class="p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-primary-300 dark:hover:border-primary-700 transition-all card-hover">
+                                        <div class="flex items-center mb-3">
+                                            <img src="https://picsum.photos/id/5/60" alt="Company Logo" class="w-10 h-10 rounded-lg object-cover mr-3">
+                                            <div>
+                                                <h3 class="font-semibold text-gray-900 dark:text-gray-100 text-sm">Full Stack Developer Intern</h3>
+                                                <p class="text-xs text-gray-600 dark:text-gray-400">FullStack Solutions</p>
+                                            </div>
+                                            <div class="match-indicator match-medium ml-auto text-xs">
+                                                72%
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="flex flex-wrap gap-2 mb-3">
+                                            <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-xs py-0.5 px-2">JavaScript</div>
+                                            <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-xs py-0.5 px-2">React</div>
+                                        </div>
+                                        
+                                        <div class="flex justify-between items-center text-xs">
+                                            <span class="text-gray-600 dark:text-gray-400">Harare • $600/month</span>
+                                            <a href="#" class="text-primary-600 dark:text-primary-400 hover:underline">View Details</a>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Similar Internship 4 -->
+                                    <div class="p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-primary-300 dark:hover:border-primary-700 transition-all card-hover">
+                                        <div class="flex items-center mb-3">
+                                            <img src="https://picsum.photos/id/4/60" alt="Company Logo" class="w-10 h-10 rounded-lg object-cover mr-3">
+                                            <div>
+                                                <h3 class="font-semibold text-gray-900 dark:text-gray-100 text-sm">Mobile App Developer Intern</h3>
+                                                <p class="text-xs text-gray-600 dark:text-gray-400">MobiTech Zimbabwe</p>
+                                            </div>
+                                            <div class="match-indicator match-medium ml-auto text-xs">
+                                                68%
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="flex flex-wrap gap-2 mb-3">
+                                            <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-xs py-0.5 px-2">React Native</div>
+                                            <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-xs py-0.5 px-2">JavaScript</div>
+                                        </div>
+                                        
+                                        <div class="flex justify-between items-center text-xs">
+                                            <span class="text-gray-600 dark:text-gray-400">Harare • $550/month</span>
+                                            <a href="#" class="text-primary-600 dark:text-primary-400 hover:underline">View Details</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Right Column - Company Info -->
+                        <div class="lg:col-span-1">
+                            <!-- Company Overview -->
+                            <div class="neu-card p-6 mb-6" data-aos="fade-up" data-aos-duration="800">
+                                <h2 class="text-xl font-semibold font-display mb-4">Company Overview</h2>
+                                
+                                <div class="flex items-center mb-6">
+                                    <img src="https://picsum.photos/id/0/200" alt="TechZim Solutions Logo" class="w-16 h-16 rounded-lg object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-semibold text-gray-900 dark:text-gray-100">TechZim Solutions</h3>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">Software Development</p>
+                                        <div class="flex items-center mt-1">
+                                            <div class="flex text-amber-400 text-sm">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star-half-alt"></i>
+                                            </div>
+                                            <span class="text-xs text-gray-600 dark:text-gray-400 ml-2">4.7 (24 reviews)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <p class="text-gray-700 dark:text-gray-300 text-sm mb-6">
+                                    TechZim Solutions is a leading software development company in Zimbabwe, specializing in web and mobile applications, enterprise solutions, and digital transformation services. Founded in 2015, we have grown to become one of the most respected tech companies in the region.
+                                </p>
+                                
+                                <div class="space-y-4">
+                                    <div class="company-detail">
+                                        <div class="company-detail-icon bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100">Location</h4>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400">
+                                                76 Samora Machel Avenue, Harare, Zimbabwe
+                                            </p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="company-detail">
+                                        <div class="company-detail-icon bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400">
+                                            <i class="fas fa-users"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100">Company Size</h4>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400">
+                                                51-200 employees
+                                            </p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="company-detail">
+                                        <div class="company-detail-icon bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400">
+                                            <i class="fas fa-globe"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100">Website</h4>
+                                            <a href="https://techzim.co.zw" target="_blank" class="text-sm text-primary-600 dark:text-primary-400 hover:underline">
+                                                https://techzim.co.zw
+                                            </a>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="company-detail">
+                                        <div class="company-detail-icon bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400">
+                                            <i class="fas fa-building"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100">Industry</h4>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400">
+                                                Information Technology & Services
+                                            </p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="company-detail">
+                                        <div class="company-detail-icon bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400">
+                                            <i class="fas fa-calendar-alt"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100">Founded</h4>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400">
+                                                2015
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-6">
+                                    <a href="#" class="text-sm text-primary-600 dark:text-primary-400 hover:underline flex items-center justify-center">
+                                        <span>View company profile</span>
+                                        <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <!-- Location Map -->
+                            <div class="neu-card p-6 mb-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                                <h2 class="text-xl font-semibold font-display mb-4">Location</h2>
+                                
+                                <div class="map-container mb-4">
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15265.923233184173!2d31.02888915!3d-17.82991005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1931a4e87e909eb7%3A0x9a1e4ddee8bce6eb!2sHarare%2C%20Zimbabwe!5e0!3m2!1sen!2sus!4v1656425228270!5m2!1sen!2sus" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                </div>
+                                
+                                <p class="text-sm text-gray-700 dark:text-gray-300 mb-2">
+                                    <i class="fas fa-map-marker-alt text-primary-600 dark:text-primary-400 mr-2"></i>
+                                    76 Samora Machel Avenue, Harare, Zimbabwe
+                                </p>
+                                
+                                <div class="flex flex-wrap gap-2 mt-4">
+                                    <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
+                                        <i class="fas fa-bus mr-1"></i>
+                                        <span>Public Transport Available</span>
+                                    </div>
+                                    <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
+                                        <i class="fas fa-car mr-1"></i>
+                                        <span>Parking Available</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Rate This Internship -->
+                            <div class="neu-card p-6 mb-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                                <h2 class="text-xl font-semibold font-display mb-4">Rate This Internship</h2>
+                                
+                                <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                                    Help other students by rating this internship opportunity
+                                </p>
+                                
+                                <div class="rating mb-6">
+                                    <i class="star far fa-star"></i>
+                                    <i class="star far fa-star"></i>
+                                    <i class="star far fa-star"></i>
+                                    <i class="star far fa-star"></i>
+                                    <i class="star far fa-star"></i>
+                                </div>
+                                
+                                <button class="neu-button inline-flex items-center justify-center py-2 px-4 w-full font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none">
+                                    <i class="fas fa-star mr-2"></i>
+                                    <span>Submit Rating</span>
+                                </button>
+                            </div>
+                            
+                            <!-- Report Button -->
+                            <div class="neu-card p-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
+                                <h2 class="text-xl font-semibold font-display mb-4">Feedback</h2>
+                                
+                                <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                                    Is there an issue with this internship listing? Let us know.
+                                </p>
+                                
+                                <button class="neu-button inline-flex items-center justify-center py-2 px-4 w-full font-medium text-gray-700 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 focus:outline-none">
+                                    <i class="fas fa-flag mr-2"></i>
+                                    <span>Report This Listing</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Notyf for notifications -->
+    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        // Initialize AOS Animation
+        AOS.init();
+        
+        // Initialize Notyf
+        const notyf = new Notyf({
+            duration: 3000,
+            position: {
+                x: 'right',
+                y: 'top',
+            },
+            types: [
+                {
+                    type: 'success',
+                    background: '#10B981',
+                    icon: {
+                        className: 'fas fa-check',
+                        tagName: 'i',
+                        color: 'white'
+                    }
+                },
+                {
+                    type: 'error',
+                    background: '#EF4444',
+                    icon: {
+                        className: 'fas fa-times',
+                        tagName: 'i',
+                        color: 'white'
+                    }
+                }
+            ]
+        });
+        
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        
+        // Check for saved theme preference or use the system preference
+        const savedTheme = localStorage.getItem('theme') || 
+                          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        // Apply the saved theme
+        if (savedTheme === 'dark') {
+            htmlElement.classList.remove('light');
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+            htmlElement.classList.add('light');
+        }
+        
+        // Toggle theme when button is clicked
+        themeToggle.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                htmlElement.classList.add('light');
+                localStorage.setItem('theme', 'light');
+            } else {
+                htmlElement.classList.remove('light');
+                htmlElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+        
+        // Mobile Sidebar Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebar-overlay');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+            sidebarOverlay.classList.toggle('open');
+            
+            // Toggle icon
+            const icon = mobileMenuButton.querySelector('i');
+            if (icon.classList.contains('fa-bars')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+        
+        sidebarOverlay.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            sidebarOverlay.classList.remove('open');
+            
+            // Reset icon
+            const icon = mobileMenuButton.querySelector('i');
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        });
+        
+        // Save Button
+        const saveButton = document.getElementById('save-button');
+        
+        saveButton.addEventListener('click', function() {
+            const icon = this.querySelector('i');
+            const text = this.querySelector('span');
+            
+            if (icon.classList.contains('far')) {
+                // Save internship
+                icon.classList.remove('far');
+                icon.classList.add('fas');
+                icon.classList.add('text-primary-600');
+                icon.classList.add('dark:text-primary-400');
+                text.textContent = 'Saved';
+                
+                // Show notification
+                notyf.success('Internship saved to your bookmarks');
+                
+                // Save to IndexedDB
+                saveInternshipToIndexedDB({
+                    id: 'software-engineering-techzim',
+                    title: 'Software Engineering Intern',
+                    company: 'TechZim Solutions',
+                    location: 'Harare, Zimbabwe',
+                    stipend: '$500 monthly stipend',
+                    duration: '3 months',
+                    match: 95,
+                    savedAt: new Date().toISOString()
+                });
+            } else {
+                // Remove from saved
+                icon.classList.remove('fas');
+                icon.classList.remove('text-primary-600');
+                icon.classList.remove('dark:text-primary-400');
+                icon.classList.add('far');
+                text.textContent = 'Save';
+                
+                // Show notification
+                notyf.success('Internship removed from your bookmarks');
+                
+                // Remove from IndexedDB
+                removeInternshipFromIndexedDB('software-engineering-techzim');
+            }
+        });
+        
+        // Share Modal
+        const shareButton = document.getElementById('share-button');
+        const shareModal = document.getElementById('share-modal');
+        const closeModal = document.getElementById('close-modal');
+        const copyLink = document.getElementById('copy-link');
+        const shareLink = document.getElementById('share-link');
+        
+        shareButton.addEventListener('click', () => {
+            shareModal.classList.add('open');
+        });
+        
+        closeModal.addEventListener('click', () => {
+            shareModal.classList.remove('open');
+        });
+        
+        // Close modal when clicking outside
+        shareModal.addEventListener('click', (e) => {
+            if (e.target === shareModal) {
+                shareModal.classList.remove('open');
+            }
+        });
+        
+        // Copy link functionality
+        copyLink.addEventListener('click', () => {
+            shareLink.select();
+            document.execCommand('copy');
+            notyf.success('Link copied to clipboard');
+        });
+        
+        // Rating Stars
+        const stars = document.querySelectorAll('.star');
+        let currentRating = 0;
+        
+        stars.forEach((star, index) => {
+            // Mouse over event
+            star.addEventListener('mouseover', () => {
+                // Reset all stars
+                stars.forEach(s => s.classList.remove('fas', 'filled'));
+                stars.forEach(s => s.classList.add('far'));
+                
+                // Fill stars up to the hovered one
+                for (let i = 0; i <= index; i++) {
+                    stars[i].classList.remove('far');
+                    stars[i].classList.add('fas', 'filled');
+                }
+            });
+            
+            // Mouse out event
+            star.addEventListener('mouseout', () => {
+                // Reset all stars
+                stars.forEach(s => s.classList.remove('fas', 'filled'));
+                stars.forEach(s => s.classList.add('far'));
+                
+                // Restore the selected rating
+                for (let i = 0; i < currentRating; i++) {
+                    stars[i].classList.remove('far');
+                    stars[i].classList.add('fas', 'filled');
+                }
+            });
+            
+            // Click event
+            star.addEventListener('click', () => {
+                currentRating = index + 1;
+                
+                // Set the rating
+                for (let i = 0; i < stars.length; i++) {
+                    if (i < currentRating) {
+                        stars[i].classList.remove('far');
+                        stars[i].classList.add('fas', 'filled');
+                    } else {
+                        stars[i].classList.remove('fas', 'filled');
+                        stars[i].classList.add('far');
+                    }
+                }
+            });
+        });
+        
+        // IndexedDB Setup for offline functionality
+        let db;
+        
+        function initDB() {
+            const request = indexedDB.open('InternMatchDB', 1);
+            
+            request.onerror = function(event) {
+                console.error('IndexedDB error:', event.target.error);
+            };
+            
+            request.onupgradeneeded = function(event) {
+                const db = event.target.result;
+                
+                // Create object stores
+                if (!db.objectStoreNames.contains('savedInternships')) {
+                    db.createObjectStore('savedInternships', { keyPath: 'id' });
+                }
+                
+                if (!db.objectStoreNames.contains('internshipViews')) {
+                    db.createObjectStore('internshipViews', { keyPath: 'id' });
+                }
+                
+                if (!db.objectStoreNames.contains('internshipRatings')) {
+                    db.createObjectStore('internshipRatings', { keyPath: 'id' });
+                }
+            };
+            
+            request.onsuccess = function(event) {
+                db = event.target.result;
+                console.log('IndexedDB initialized successfully');
+                
+                // Check if internship is already saved
+                checkIfInternshipSaved('software-engineering-techzim');
+                
+                // Record view
+                recordInternshipView('software-engineering-techzim');
+            };
+        }
+        
+        // Save internship to IndexedDB
+        function saveInternshipToIndexedDB(internship) {
+            if (!db) return;
+            
+            const transaction = db.transaction(['savedInternships'], 'readwrite');
+            const store = transaction.objectStore('savedInternships');
+            
+            store.put(internship);
+            
+            transaction.oncomplete = function() {
+                console.log('Internship saved successfully to IndexedDB');
+            };
+            
+            transaction.onerror = function(event) {
+                console.error('Error saving internship to IndexedDB:', event.target.error);
+                notyf.error('Failed to save internship offline');
+            };
+        }
+        
+        // Remove internship from IndexedDB
+        function removeInternshipFromIndexedDB(internshipId) {
+            if (!db) return;
+            
+            const transaction = db.transaction(['savedInternships'], 'readwrite');
+            const store = transaction.objectStore('savedInternships');
+            
+            store.delete(internshipId);
+            
+            transaction.oncomplete = function() {
+                console.log('Internship removed successfully from IndexedDB');
+            };
+            
+            transaction.onerror = function(event) {
+                console.error('Error removing internship from IndexedDB:', event.target.error);
+                notyf.error('Failed to remove internship from offline storage');
+            };
+        }
+        
+        // Check if internship is saved
+        function checkIfInternshipSaved(internshipId) {
+            if (!db) return;
+            
+            const transaction = db.transaction(['savedInternships'], 'readonly');
+            const store = transaction.objectStore('savedInternships');
+            const request = store.get(internshipId);
+            
+            request.onsuccess = function(event) {
+                const internship = event.target.result;
+                
+                if (internship) {
+                    // Update UI to show saved state
+                    const icon = saveButton.querySelector('i');
+                    const text = saveButton.querySelector('span');
+                    
+                    icon.classList.remove('far');
+                    icon.classList.add('fas');
+                    icon.classList.add('text-primary-600');
+                    icon.classList.add('dark:text-primary-400');
+                    text.textContent = 'Saved';
+                }
+            };
+        }
+        
+        // Record internship view
+        function recordInternshipView(internshipId) {
+            if (!db) return;
+            
+            const transaction = db.transaction(['internshipViews'], 'readwrite');
+            const store = transaction.objectStore('internshipViews');
+            
+            store.put({
+                id: internshipId,
+                timestamp: new Date().toISOString()
+            });
+        }
+        
+        // Initialize IndexedDB
+        initDB();
+    </script>
+</body>
+</html>

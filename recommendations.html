@@ -3,218 +3,1774 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recommendations | HIT IRS</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <title>Recommended Internships | InternMatch - Harare Institute of Technology</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Notyf for notifications -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        secondary: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            200: '#99f6e4',
+                            300: '#5eead4',
+                            400: '#2dd4bf',
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                            700: '#0f766e',
+                            800: '#115e59',
+                            900: '#134e4a',
+                        },
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Poppins', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'neu-light': '9px 9px 18px #e0e0e0, -9px -9px 18px #ffffff',
+                        'neu-dark': '9px 9px 18px #151515, -9px -9px 18px #252525',
+                        'neu-button-light': '5px 5px 10px #e0e0e0, -5px -5px 10px #ffffff',
+                        'neu-button-dark': '5px 5px 10px #151515, -5px -5px 10px #252525',
+                        'inner-neu-light': 'inset 3px 3px 6px #e0e0e0, inset -3px -3px 6px #ffffff',
+                        'inner-neu-dark': 'inset 3px 3px 6px #151515, inset -3px -3px 6px #252525',
+                    }
+                }
+            }
+        }
+    </script>
+    
     <style>
-        /* Keeping consistent styles from dashboard */
-        :root {
-            --primary-light: #3B82F6;
-            --secondary-light: #60A5FA;
-            --background-light: #F3F4F6;
-            --text-light: #1F2937;
-            --primary-dark: #1E40AF;
-            --secondary-dark: #1D4ED8;
-            --background-dark: #111827;
-            --text-dark: #F9FAFB;
+        /* Custom Styles */
+        .neu-card {
+            border-radius: 20px;
+            transition: all 0.3s ease-in-out;
         }
-
-        .dark {
-            --primary: var(--primary-dark);
-            --secondary: var(--secondary-dark);
-            --background: var(--background-dark);
-            --text: var(--text-dark);
+        
+        .dark .neu-card {
+            background: #1f2937;
+            box-shadow: 9px 9px 18px #151515, -9px -9px 18px #252525;
         }
-
-        .light {
-            --primary: var(--primary-light);
-            --secondary: var(--secondary-light);
-            --background: var(--background-light);
-            --text: var(--text-light);
+        
+        .light .neu-card {
+            background: #ffffff;
+            box-shadow: 9px 9px 18px #e0e0e0, -9px -9px 18px #ffffff;
         }
-
-        body {
-            background-color: var(--background);
-            color: var(--text);
-            transition: all 0.3s ease;
+        
+        .neu-button {
+            border-radius: 12px;
+            transition: all 0.2s ease-in-out;
         }
-
-        .glass-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        
+        .dark .neu-button {
+            background: #1f2937;
+            box-shadow: 5px 5px 10px #151515, -5px -5px 10px #252525;
         }
-
-        .recommendation-card {
-            transition: transform 0.3s ease;
+        
+        .light .neu-button {
+            background: #ffffff;
+            box-shadow: 5px 5px 10px #e0e0e0, -5px -5px 10px #ffffff;
         }
-
-        .recommendation-card:hover {
-            transform: translateY(-5px);
+        
+        .neu-button:hover {
+            transform: translateY(-3px);
         }
-
+        
+        .neu-button:active {
+            transform: translateY(0);
+        }
+        
+        .neu-input {
+            border-radius: 12px;
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .dark .neu-input {
+            background: #1f2937;
+            box-shadow: inset 3px 3px 6px #151515, inset -3px -3px 6px #252525;
+            color: #e5e7eb;
+            border: 1px solid #374151;
+        }
+        
+        .light .neu-input {
+            background: #f9fafb;
+            box-shadow: inset 3px 3px 6px #e0e0e0, inset -3px -3px 6px #ffffff;
+            color: #1f2937;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .neu-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            transition: all 0.3s ease-in-out;
+        }
+        
+        @media (max-width: 1023px) {
+            .sidebar {
+                transform: translateX(-100%);
+                position: fixed;
+                z-index: 50;
+                height: 100vh;
+            }
+            
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            
+            .sidebar-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 40;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.3s ease-in-out;
+            }
+            
+            .sidebar-overlay.open {
+                opacity: 1;
+                pointer-events: auto;
+            }
+        }
+        
+        /* Match Percentage Indicator */
         .match-indicator {
             width: 40px;
             height: 40px;
-            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        
+        .match-high {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+        }
+        
+        .match-medium {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
+        }
+        
+        .match-low {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+        }
+        
+        /* Skill Tags */
+        .skill-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        .dark ::-webkit-scrollbar-track {
+            background: #1f2937;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2563eb;
+        }
+        
+        /* Notification Badge */
+        .notification-badge {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background-color: #ef4444;
+            color: white;
+            font-size: 0.625rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Card Hover Effects */
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Shimmer Loading Effect */
+        .shimmer {
+            background: linear-gradient(90deg, 
+                rgba(255, 255, 255, 0.1) 0%, 
+                rgba(255, 255, 255, 0.2) 50%, 
+                rgba(255, 255, 255, 0.1) 100%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0;
+            }
+            100% {
+                background-position: 200% 0;
+            }
+        }
+        
+        .dark .shimmer {
+            background: linear-gradient(90deg, 
+                rgba(31, 41, 55, 0.1) 0%, 
+                rgba(31, 41, 55, 0.2) 50%, 
+                rgba(31, 41, 55, 0.1) 100%);
+            background-size: 200% 100%;
+        }
+        
+        /* Recommendation Categories */
+        .category-tab {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .category-tab::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, #3b82f6, #14b8a6);
+            transform: scaleX(0);
+            transform-origin: right center;
+            transition: transform 0.3s ease;
+        }
+        
+        .category-tab.active {
+            color: #3b82f6;
+        }
+        
+        .category-tab.active::after {
+            transform: scaleX(1);
+            transform-origin: left center;
+        }
+        
+        .category-content {
+            display: none;
+        }
+        
+        .category-content.active {
+            display: block;
+        }
+        
+        /* Pulse Animation */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
         }
     </style>
 </head>
-<body class="light">
-    <div class="flex h-screen">
-        <!-- Sidebar (same as dashboard) -->
-        <aside class="sidebar w-64 h-screen fixed left-0 overflow-y-auto custom-scrollbar">
-            <!-- Sidebar content same as dashboard -->
-        </aside>
-
-        <!-- Main Content -->
-        <main class="ml-64 flex-1 p-8">
-            <!-- Top Bar -->
-            <div class="flex justify-between items-center mb-8">
-                <div>
-                    <h2 class="text-2xl font-bold">Personalized Recommendations</h2>
-                    <p class="text-gray-500">Based on your profile, skills, and preferences</p>
-                </div>
+<body class="font-sans light transition-colors duration-300 bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-100 min-h-screen flex flex-col">
+    <!-- Sidebar Overlay (Mobile) -->
+    <div id="sidebar-overlay" class="sidebar-overlay lg:hidden"></div>
+    
+    <!-- Main Container -->
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar w-72 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex-shrink-0">
+            <!-- Sidebar Header -->
+            <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                <a href="index.html" class="flex items-center space-x-2">
+                    <div class="h-10 w-10 rounded-lg bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center">
+                        <i class="fas fa-briefcase text-white text-xl"></i>
+                    </div>
+                    <span class="text-xl font-bold font-display bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-secondary-500">InternMatch</span>
+                </a>
+            </div>
+            
+            <!-- User Profile Summary -->
+            <div class="p-6 border-b border-gray-200 dark:border-gray-700">
                 <div class="flex items-center space-x-4">
-                    <button id="themeToggle" class="p-2 rounded-full hover:bg-gray-700">
-                        <i class="fas fa-moon"></i>
-                    </button>
-                    <img src="https://picsum.photos/40/40?random=1" alt="Profile" class="w-10 h-10 rounded-full">
+                    <img src="https://picsum.photos/id/1005/100" alt="User Profile" class="w-12 h-12 rounded-full object-cover border-2 border-primary-500">
+                    <div>
+                        <h3 class="font-medium text-gray-900 dark:text-gray-100">Tatenda Chikwanha</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Computer Science, 3rd Year</p>
+                    </div>
                 </div>
-            </div>
-
-            <!-- Filters -->
-            <div class="glass-card p-6 mb-8">
-                <div class="flex flex-wrap gap-4 items-center">
-                    <div class="flex-1">
-                        <input type="text" placeholder="Search recommendations..." 
-                               class="w-full p-2 rounded-lg bg-white/10 border border-white/20">
+                
+                <!-- Profile Completion -->
+                <div class="mt-6">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-sm text-gray-600 dark:text-gray-400">Profile Completion</span>
+                        <span class="text-sm font-medium text-primary-600 dark:text-primary-400">75%</span>
                     </div>
-                    <select class="p-2 rounded-lg bg-white/10 border border-white/20">
-                        <option>Sort by Match %</option>
-                        <option>Sort by Date</option>
-                        <option>Sort by Company</option>
-                    </select>
-                    <button class="bg-primary px-4 py-2 rounded-lg">
-                        <i class="fas fa-filter mr-2"></i>Filters
-                    </button>
-                </div>
-            </div>
-            <div class="glass-card p-6 mb-8">
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div>
-                        <label class="block text-sm mb-2">Industry</label>
-                        <select id="industryFilter" class="w-full p-2 rounded-lg bg-white/10 border border-white/20">
-                            <option value="">All Industries</option>
-                            <option value="tech">Technology</option>
-                            <option value="finance">Finance</option>
-                            <option value="healthcare">Healthcare</option>
-                        </select>
+                    <div class="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full" style="width: 75%"></div>
                     </div>
-                    <div>
-                        <label class="block text-sm mb-2">Experience Level</label>
-                        <select id="experienceFilter" class="w-full p-2 rounded-lg bg-white/10 border border-white/20">
-                            <option value="">All Levels</option>
-                            <option value="beginner">Beginner</option>
-                            <option value="intermediate">Intermediate</option>
-                            <option value="advanced">Advanced</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm mb-2">Location</label>
-                        <select id="locationFilter" class="w-full p-2 rounded-lg bg-white/10 border border-white/20">
-                            <option value="">All Locations</option>
-                            <option value="remote">Remote</option>
-                            <option value="onsite">On-site</option>
-                            <option value="hybrid">Hybrid</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm mb-2">Duration</label>
-                        <select id="durationFilter" class="w-full p-2 rounded-lg bg-white/10 border border-white/20">
-                            <option value="">All Durations</option>
-                            <option value="3">3 months</option>
-                            <option value="6">6 months</option>
-                            <option value="12">12 months</option>
-                        </select>
-                    </div>
+                    <a href="profile.html" class="text-xs text-primary-600 dark:text-primary-400 mt-2 inline-block hover:underline">
+                        Complete your profile
+                    </a>
                 </div>
             </div>
             
-            <!-- Add this after the recommendations grid -->
-            <div class="mt-8 flex justify-between items-center">
-                <div class="text-sm text-gray-500">
-                    Showing <span id="startRange">1</span>-<span id="endRange">10</span> of <span id="totalItems">100</span> recommendations
-                </div>
-                <div class="flex space-x-2">
-                    <button id="prevPage" class="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20">
-                        <i class="fas fa-chevron-left mr-2"></i>Previous
+            <!-- Navigation Menu -->
+            <nav class="p-4">
+                <ul class="space-y-1">
+                    <li>
+                        <a href="dashboard.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-home"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="internships.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-briefcase"></i>
+                            <span>Internships</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300">
+                            <i class="fas fa-star"></i>
+                            <span>Recommendations</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="saved.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-bookmark"></i>
+                            <span>Saved</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-file-alt"></i>
+                            <span>Applications</span>
+                            <span class="ml-auto bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-xs font-medium px-2 py-0.5 rounded-full">3</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-bell"></i>
+                            <span>Notifications</span>
+                            <span class="ml-auto bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 text-xs font-medium px-2 py-0.5 rounded-full">5</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <hr class="my-6 border-gray-200 dark:border-gray-700">
+                
+                <ul class="space-y-1">
+                    <li>
+                        <a href="profile.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-user-circle"></i>
+                            <span>Profile</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settings.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="support.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Help & Support</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Log Out</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top Navigation -->
+            <header class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+                <div class="flex items-center justify-between p-4">
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-button" class="lg:hidden p-2 rounded-md text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 focus:outline-none">
+                        <i class="fas fa-bars"></i>
                     </button>
-                    <button id="nextPage" class="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20">
-                        Next<i class="fas fa-chevron-right ml-2"></i>
-                    </button>
-                </div>
-            </div>
-            <!-- Recommendations Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Recommendation Card Template -->
-                <div class="glass-card p-6 recommendation-card">
-                    <div class="flex justify-between items-start mb-4">
-                        <div>
-                            <h3 class="text-xl font-bold">Software Engineer Intern</h3>
-                            <p class="text-gray-500">Google</p>
+                    
+                    <!-- Search Bar -->
+                    <div class="hidden md:flex flex-1 max-w-xl mx-4">
+                        <div class="relative w-full">
+                            <input 
+                                type="text" 
+                                id="search-input"
+                                class="neu-input w-full pl-10 pr-4 py-2 text-sm" 
+                                placeholder="Search for internships, companies, or skills..."
+                            >
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                <i class="fas fa-search text-gray-400"></i>
+                            </div>
                         </div>
-                        <div class="match-indicator">95%</div>
                     </div>
-                    <div class="space-y-4">
-                        <div class="flex flex-wrap gap-2">
-                            <span class="bg-primary/20 text-primary px-3 py-1 rounded">React</span>
-                            <span class="bg-primary/20 text-primary px-3 py-1 rounded">Node.js</span>
-                            <span class="bg-primary/20 text-primary px-3 py-1 rounded">TypeScript</span>
+                    
+                    <!-- Right Navigation Items -->
+                    <div class="flex items-center space-x-4">
+                        <!-- Theme Toggle -->
+                        <button id="theme-toggle" class="p-2 rounded-full text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 focus:outline-none">
+                            <i class="fas fa-moon dark:hidden"></i>
+                            <i class="fas fa-sun hidden dark:block"></i>
+                        </button>
+                        
+                        <!-- Notifications -->
+                        <div class="relative">
+                            <button class="p-2 rounded-full text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 focus:outline-none">
+                                <i class="fas fa-bell"></i>
+                                <span class="notification-badge">5</span>
+                            </button>
                         </div>
-                        <p class="text-sm">Based on your expertise in frontend development and cloud technologies</p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-sm text-gray-500">Posted 2 days ago</span>
-                            <button class="bg-primary hover:bg-primary-dark px-4 py-2 rounded-lg">
-                                Apply Now
+                        
+                        <!-- Messages -->
+                        <div class="relative">
+                            <button class="p-2 rounded-full text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 focus:outline-none">
+                                <i class="fas fa-comment-alt"></i>
+                                <span class="notification-badge">2</span>
+                            </button>
+                        </div>
+                        
+                        <!-- User Menu -->
+                        <div class="relative">
+                            <button class="flex items-center focus:outline-none">
+                                <img src="https://picsum.photos/id/1005/100" alt="User Profile" class="w-8 h-8 rounded-full object-cover">
                             </button>
                         </div>
                     </div>
                 </div>
-
-                <!-- Add more recommendation cards here -->
+            </header>
+            
+            <!-- Mobile Search Bar (only visible on mobile) -->
+            <div class="md:hidden p-4 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+                <div class="relative w-full">
+                    <input 
+                        type="text" 
+                        id="mobile-search-input"
+                        class="neu-input w-full pl-10 pr-4 py-2 text-sm" 
+                        placeholder="Search for internships..."
+                    >
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <i class="fas fa-search text-gray-400"></i>
+                    </div>
+                </div>
             </div>
-        </main>
+            
+            <!-- Recommendations Content -->
+            <main class="flex-1 overflow-y-auto">
+                <div class="container mx-auto px-4 py-6">
+                    <!-- Page Header -->
+                    <div class="mb-8">
+                        <h1 class="text-2xl font-bold font-display mb-2">AI-Powered Recommendations</h1>
+                        <p class="text-gray-600 dark:text-gray-400">Personalized internship opportunities based on your profile, skills, and preferences</p>
+                    </div>
+                    
+                    <!-- AI Match Summary Card -->
+                    <div class="neu-card p-6 mb-8" data-aos="fade-up" data-aos-duration="800">
+                        <div class="flex flex-col md:flex-row items-center">
+                            <div class="md:w-1/2 mb-6 md:mb-0 md:pr-6">
+                                <h2 class="text-xl font-semibold font-display mb-4">Your AI Match Summary</h2>
+                                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                                    Based on your profile, skills, and preferences, our AI has found <span class="font-semibold text-primary-600 dark:text-primary-400">42 internship matches</span> across different categories.
+                                </p>
+                                <div class="flex items-center mb-4">
+                                    <div class="w-12 h-12 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-600 dark:text-green-400 mr-4">
+                                        <i class="fas fa-chart-line"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-medium text-gray-900 dark:text-gray-100">Match Score: 85%</h3>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">Top 15% among HIT students</p>
+                                    </div>
+                                </div>
+                                <div class="space-y-2">
+                                    <div>
+                                        <div class="flex justify-between items-center mb-1">
+                                            <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Software Development</span>
+                                            <span class="text-xs text-gray-500 dark:text-gray-400">18 matches</span>
+                                        </div>
+                                        <div class="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                                            <div class="h-full bg-blue-500 rounded-full" style="width: 90%"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between items-center mb-1">
+                                            <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Data Science</span>
+                                            <span class="text-xs text-gray-500 dark:text-gray-400">12 matches</span>
+                                        </div>
+                                        <div class="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                                            <div class="h-full bg-purple-500 rounded-full" style="width: 75%"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between items-center mb-1">
+                                            <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Web Development</span>
+                                            <span class="text-xs text-gray-500 dark:text-gray-400">8 matches</span>
+                                        </div>
+                                        <div class="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                                            <div class="h-full bg-green-500 rounded-full" style="width: 65%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md:w-1/2 md:pl-6 border-t md:border-t-0 md:border-l border-gray-200 dark:border-gray-700 pt-6 md:pt-0 md:pl-6">
+                                <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">Improve Your Matches</h3>
+                                <ul class="space-y-3">
+                                    <li class="flex items-start">
+                                        <div class="flex-shrink-0 w-5 h-5 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400 mt-0.5 mr-3">
+                                            <i class="fas fa-check text-xs"></i>
+                                        </div>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">Add more projects to showcase your practical experience</p>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <div class="flex-shrink-0 w-5 h-5 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400 mt-0.5 mr-3">
+                                            <i class="fas fa-check text-xs"></i>
+                                        </div>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">Complete your UI/UX skills section to unlock more design internships</p>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <div class="flex-shrink-0 w-5 h-5 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400 mt-0.5 mr-3">
+                                            <i class="fas fa-check text-xs"></i>
+                                        </div>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">Add the React.js certification to your profile</p>
+                                    </li>
+                                </ul>
+                                <a href="profile.html" class="mt-6 inline-flex items-center justify-center py-2 px-4 text-sm font-medium text-white bg-gradient-to-r from-primary-600 to-secondary-600 rounded-lg shadow-md hover:from-primary-700 hover:to-secondary-700 focus:outline-none w-full">
+                                    <i class="fas fa-user-edit mr-2"></i>
+                                    <span>Update Your Profile</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Recommendation Categories -->
+                    <div class="mb-6 border-b border-gray-200 dark:border-gray-700">
+                        <nav class="flex overflow-x-auto hide-scrollbar">
+                            <button class="category-tab active px-4 py-3 font-medium" data-category="best-matches">Best Matches</button>
+                            <button class="category-tab px-4 py-3 font-medium" data-category="new-opportunities">New Opportunities</button>
+                            <button class="category-tab px-4 py-3 font-medium" data-category="skill-based">Skill-Based</button>
+                            <button class="category-tab px-4 py-3 font-medium" data-category="location-based">Location-Based</button>
+                            <button class="category-tab px-4 py-3 font-medium" data-category="trending">Trending</button>
+                        </nav>
+                    </div>
+                    
+                    <!-- Best Matches Category -->
+                    <div id="best-matches" class="category-content active">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-xl font-semibold font-display">Best Matches For You</h2>
+                            <a href="#" class="text-sm text-primary-600 dark:text-primary-400 hover:underline flex items-center">
+                                <span>View all</span>
+                                <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                            </a>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <!-- Top Match - Featured Internship -->
+                            <div class="neu-card p-6 border-2 border-primary-500 dark:border-primary-600 relative pulse" data-aos="fade-up" data-aos-duration="800">
+                                <div class="absolute -top-3 -right-3 bg-gradient-to-r from-primary-600 to-secondary-600 text-white text-xs font-bold px-3 py-1 rounded-full">
+                                    Top Match
+                                </div>
+                                
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="flex items-center">
+                                        <img src="https://picsum.photos/id/0/60" alt="Company Logo" class="w-12 h-12 rounded-lg object-cover mr-4">
+                                        <div>
+                                            <h3 class="font-semibold text-gray-900 dark:text-gray-100">Software Engineering Intern</h3>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400">TechZim Solutions</p>
+                                        </div>
+                                    </div>
+                                    <div class="match-indicator match-high">
+                                        95%
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                        <i class="fas fa-map-marker-alt mr-2 text-gray-400 dark:text-gray-500"></i>
+                                        <span>Harare, Zimbabwe</span>
+                                    </div>
+                                    <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                        <i class="fas fa-clock mr-2 text-gray-400 dark:text-gray-500"></i>
+                                        <span>Full-time, 3 months</span>
+                                    </div>
+                                    <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                                        <i class="fas fa-dollar-sign mr-2 text-gray-400 dark:text-gray-500"></i>
+                                        <span>$500 monthly stipend</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                                        Join our engineering team to develop and maintain web applications using modern JavaScript frameworks.
+                                    </p>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">React</div>
+                                    <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">Node.js</div>
+                                    <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">MongoDB</div>
+                                </div>
+                                
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs text-gray-500 dark:text-gray-400">Posted 2 days ago</span>
+                                    <div class="flex space-x-2">
+                                        <button class="neu-button p-2 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none save-button">
+                                            <i class="far fa-bookmark"></i>
+                                        </button>
+                                        <a href="internship-details.html" class="inline-flex items-center justify-center py-2 px-4 text-sm font-medium text-white bg-gradient-to-r from-primary-600 to-secondary-600 rounded-lg shadow-md hover:from-primary-700 hover:to-secondary-700 focus:outline-none">
+                                            View Details
+                                        </a>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+                                    <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100 mb-2">Why this matches you</h4>
+                                    <ul class="space-y-1">
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span class="text-xs text-gray-600 dark:text-gray-400">8 of your top skills match this position</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span class="text-xs text-gray-600 dark:text-gray-400">Matches your preferred location</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                            <span class="text-xs text-gray-600 dark:text-gray-400">Aligns with your career interests</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <!-- Regular Match 1 -->
+                            <div class="neu-card card-hover" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                                <div class="p-6">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <div class="flex items-center">
+                                            <img src="https://picsum.photos/id/1/60" alt="Company Logo" class="w-12 h-12 rounded-lg object-cover mr-4">
+                                            <div>
+                                                <h3 class="font-semibold text-gray-900 dark:text-gray-100">Data Science Intern</h3>
+                                                <p class="text-sm text-gray-600 dark:text-gray-400">Zimbabwe Financial Analytics</p>
+                                            </div>
+                                        </div>
+                                        <div class="match-indicator match-high">
+                                            90%
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                            <i class="fas fa-map-marker-alt mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>Harare, Zimbabwe</span>
+                                        </div>
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                            <i class="fas fa-clock mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>Full-time, 6 months</span>
+                                        </div>
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                                            <i class="fas fa-dollar-sign mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>$600 monthly stipend</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                                            Work with our data team to analyze financial data and build predictive models for market analysis.
+                                        </p>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <div class="skill-tag bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400">Python</div>
+                                        <div class="skill-tag bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400">Machine Learning</div>
+                                        <div class="skill-tag bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400">SQL</div>
+                                    </div>
+                                    
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-xs text-gray-500 dark:text-gray-400">Posted 5 days ago</span>
+                                        <div class="flex space-x-2">
+                                            <button class="neu-button p-2 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none save-button">
+                                                <i class="far fa-bookmark"></i>
+                                            </button>
+                                            <a href="internship-details.html" class="inline-flex items-center justify-center py-2 px-4 text-sm font-medium text-white bg-gradient-to-r from-primary-600 to-secondary-600 rounded-lg shadow-md hover:from-primary-700 hover:to-secondary-700 focus:outline-none">
+                                                View Details
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Regular Match 2 -->
+                            <div class="neu-card card-hover" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                                <div class="p-6">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <div class="flex items-center">
+                                            <img src="https://picsum.photos/id/2/60" alt="Company Logo" class="w-12 h-12 rounded-lg object-cover mr-4">
+                                            <div>
+                                                <h3 class="font-semibold text-gray-900 dark:text-gray-100">Frontend Developer Intern</h3>
+                                                <p class="text-sm text-gray-600 dark:text-gray-400">WebSolutions Zimbabwe</p>
+                                            </div>
+                                        </div>
+                                        <div class="match-indicator match-high">
+                                            87%
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                            <i class="fas fa-map-marker-alt mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>Harare, Zimbabwe</span>
+                                        </div>
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                            <i class="fas fa-clock mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>Full-time, 4 months</span>
+                                        </div>
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                                            <i class="fas fa-dollar-sign mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>$450 monthly stipend</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                                            Build responsive and interactive user interfaces for web applications using modern frontend technologies.
+                                        </p>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">JavaScript</div>
+                                        <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">React</div>
+                                        <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">CSS/SASS</div>
+                                    </div>
+                                    
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-xs text-gray-500 dark:text-gray-400">Posted 1 week ago</span>
+                                        <div class="flex space-x-2">
+                                            <button class="neu-button p-2 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none save-button">
+                                                <i class="far fa-bookmark"></i>
+                                            </button>
+                                            <a href="internship-details.html" class="inline-flex items-center justify-center py-2 px-4 text-sm font-medium text-white bg-gradient-to-r from-primary-600 to-secondary-600 rounded-lg shadow-md hover:from-primary-700 hover:to-secondary-700 focus:outline-none">
+                                                View Details
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- New Opportunities Category -->
+                    <div id="new-opportunities" class="category-content">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-xl font-semibold font-display">New Opportunities</h2>
+                            <a href="#" class="text-sm text-primary-600 dark:text-primary-400 hover:underline flex items-center">
+                                <span>View all</span>
+                                <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                            </a>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <!-- New Opportunity 1 -->
+                            <div class="neu-card card-hover" data-aos="fade-up" data-aos-duration="800">
+                                <div class="p-6">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <div class="flex items-center">
+                                            <img src="https://picsum.photos/id/3/60" alt="Company Logo" class="w-12 h-12 rounded-lg object-cover mr-4">
+                                            <div>
+                                                <h3 class="font-semibold text-gray-900 dark:text-gray-100">Mobile App Developer Intern</h3>
+                                                <p class="text-sm text-gray-600 dark:text-gray-400">MobiTech Zimbabwe</p>
+                                            </div>
+                                        </div>
+                                        <div class="match-indicator match-medium">
+                                            78%
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                            <i class="fas fa-map-marker-alt mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>Harare, Zimbabwe</span>
+                                        </div>
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                            <i class="fas fa-clock mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>Full-time, 6 months</span>
+                                        </div>
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                                            <i class="fas fa-dollar-sign mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>$550 monthly stipend</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                                            Develop mobile applications for iOS and Android platforms using React Native or Flutter.
+                                        </p>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">React Native</div>
+                                        <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">JavaScript</div>
+                                        <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">Mobile Dev</div>
+                                    </div>
+                                    
+                                    <div class="flex items-center justify-between">
+                                        <div class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-300">
+                                            <i class="fas fa-clock mr-1"></i>
+                                            <span>New • Posted today</span>
+                                        </div>
+                                        <div class="flex space-x-2">
+                                            <button class="neu-button p-2 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none save-button">
+                                                <i class="far fa-bookmark"></i>
+                                            </button>
+                                            <a href="internship-details.html" class="inline-flex items-center justify-center py-2 px-4 text-sm font-medium text-white bg-gradient-to-r from-primary-600 to-secondary-600 rounded-lg shadow-md hover:from-primary-700 hover:to-secondary-700 focus:outline-none">
+                                                View Details
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- New Opportunity 2 -->
+                            <div class="neu-card card-hover" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                                <div class="p-6">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <div class="flex items-center">
+                                            <img src="https://picsum.photos/id/4/60" alt="Company Logo" class="w-12 h-12 rounded-lg object-cover mr-4">
+                                            <div>
+                                                <h3 class="font-semibold text-gray-900 dark:text-gray-100">Backend Developer Intern</h3>
+                                                <p class="text-sm text-gray-600 dark:text-gray-400">ServerTech Zimbabwe</p>
+                                            </div>
+                                        </div>
+                                        <div class="match-indicator match-medium">
+                                            75%
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                            <i class="fas fa-map-marker-alt mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>Harare, Zimbabwe</span>
+                                        </div>
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                            <i class="fas fa-clock mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>Full-time, 5 months</span>
+                                        </div>
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                                            <i class="fas fa-dollar-sign mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>$500 monthly stipend</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                                            Develop and maintain server-side applications, APIs, and database systems.
+                                        </p>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">Node.js</div>
+                                        <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">Express</div>
+                                        <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">MongoDB</div>
+                                    </div>
+                                    
+                                    <div class="flex items-center justify-between">
+                                        <div class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-300">
+                                            <i class="fas fa-clock mr-1"></i>
+                                            <span>New • Posted yesterday</span>
+                                        </div>
+                                        <div class="flex space-x-2">
+                                            <button class="neu-button p-2 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none save-button">
+                                                <i class="far fa-bookmark"></i>
+                                            </button>
+                                            <a href="internship-details.html" class="inline-flex items-center justify-center py-2 px-4 text-sm font-medium text-white bg-gradient-to-r from-primary-600 to-secondary-600 rounded-lg shadow-md hover:from-primary-700 hover:to-secondary-700 focus:outline-none">
+                                                View Details
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- New Opportunity 3 -->
+                            <div class="neu-card card-hover" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                                <div class="p-6">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <div class="flex items-center">
+                                            <img src="https://picsum.photos/id/5/60" alt="Company Logo" class="w-12 h-12 rounded-lg object-cover mr-4">
+                                            <div>
+                                                <h3 class="font-semibold text-gray-900 dark:text-gray-100">Full Stack Developer Intern</h3>
+                                                <p class="text-sm text-gray-600 dark:text-gray-400">FullStack Solutions</p>
+                                            </div>
+                                        </div>
+                                        <div class="match-indicator match-medium">
+                                            72%
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                            <i class="fas fa-map-marker-alt mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>Harare, Zimbabwe</span>
+                                        </div>
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                            <i class="fas fa-clock mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>Full-time, 6 months</span>
+                                        </div>
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                                            <i class="fas fa-dollar-sign mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>$600 monthly stipend</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                                            Work on both frontend and backend aspects of web applications using modern technologies.
+                                        </p>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">JavaScript</div>
+                                        <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">React</div>
+                                        <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">Node.js</div>
+                                    </div>
+                                    
+                                    <div class="flex items-center justify-between">
+                                        <div class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-300">
+                                            <i class="fas fa-clock mr-1"></i>
+                                            <span>New • Posted 2 days ago</span>
+                                        </div>
+                                        <div class="flex space-x-2">
+                                            <button class="neu-button p-2 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none save-button">
+                                                <i class="far fa-bookmark"></i>
+                                            </button>
+                                            <a href="internship-details.html" class="inline-flex items-center justify-center py-2 px-4 text-sm font-medium text-white bg-gradient-to-r from-primary-600 to-secondary-600 rounded-lg shadow-md hover:from-primary-700 hover:to-secondary-700 focus:outline-none">
+                                                View Details
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Skill-Based Category -->
+                    <div id="skill-based" class="category-content">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-xl font-semibold font-display">Based on Your Skills</h2>
+                            <a href="#" class="text-sm text-primary-600 dark:text-primary-400 hover:underline flex items-center">
+                                <span>View all</span>
+                                <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                            </a>
+                        </div>
+                        
+                        <!-- Skill Sections -->
+                        <div class="space-y-8">
+                            <!-- JavaScript Skill Section -->
+                            <div>
+                                <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4 flex items-center">
+                                    <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400 mr-2">
+                                        <i class="fab fa-js"></i>
+                                    </div>
+                                    <span>JavaScript</span>
+                                    <span class="text-sm text-gray-500 dark:text-gray-400 ml-2">(Advanced)</span>
+                                </h3>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                    <!-- JavaScript Internship 1 -->
+                                    <div class="neu-card card-hover">
+                                        <div class="p-6">
+                                            <div class="flex items-center justify-between mb-4">
+                                                <div class="flex items-center">
+                                                    <img src="https://picsum.photos/id/0/60" alt="Company Logo" class="w-12 h-12 rounded-lg object-cover mr-4">
+                                                    <div>
+                                                        <h3 class="font-semibold text-gray-900 dark:text-gray-100">Software Engineering Intern</h3>
+                                                        <p class="text-sm text-gray-600 dark:text-gray-400">TechZim Solutions</p>
+                                                    </div>
+                                                </div>
+                                                <div class="match-indicator match-high">
+                                                    95%
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="mb-4">
+                                                <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                                                    <i class="fas fa-map-marker-alt mr-2 text-gray-400 dark:text-gray-500"></i>
+                                                    <span>Harare, Zimbabwe</span>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="mb-4">
+                                                <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">JavaScript</div>
+                                                <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">React</div>
+                                                <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">Node.js</div>
+                                            </div>
+                                            
+                                            <div class="flex justify-end">
+                                                <a href="internship-details.html" class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:underline">
+                                                    <span>View Details</span>
+                                                    <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- JavaScript Internship 2 -->
+                                    <div class="neu-card card-hover">
+                                        <div class="p-6">
+                                            <div class="flex items-center justify-between mb-4">
+                                                <div class="flex items-center">
+                                                    <img src="https://picsum.photos/id/2/60" alt="Company Logo" class="w-12 h-12 rounded-lg object-cover mr-4">
+                                                    <div>
+                                                        <h3 class="font-semibold text-gray-900 dark:text-gray-100">Frontend Developer Intern</h3>
+                                                        <p class="text-sm text-gray-600 dark:text-gray-400">WebSolutions Zimbabwe</p>
+                                                    </div>
+                                                </div>
+                                                <div class="match-indicator match-high">
+                                                    87%
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="mb-4">
+                                                <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                                                    <i class="fas fa-map-marker-alt mr-2 text-gray-400 dark:text-gray-500"></i>
+                                                    <span>Harare, Zimbabwe</span>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="mb-4">
+                                                <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">JavaScript</div>
+                                                <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">React</div>
+                                                <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">CSS/SASS</div>
+                                            </div>
+                                            
+                                            <div class="flex justify-end">
+                                                <a href="internship-details.html" class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:underline">
+                                                    <span>View Details</span>
+                                                    <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Python Skill Section -->
+                            <div>
+                                <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4 flex items-center">
+                                    <div class="w-8 h-8 rounded-lg bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-600 dark:text-purple-400 mr-2">
+                                        <i class="fab fa-python"></i>
+                                    </div>
+                                    <span>Python</span>
+                                    <span class="text-sm text-gray-500 dark:text-gray-400 ml-2">(Intermediate)</span>
+                                </h3>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                    <!-- Python Internship 1 -->
+                                    <div class="neu-card card-hover">
+                                        <div class="p-6">
+                                            <div class="flex items-center justify-between mb-4">
+                                                <div class="flex items-center">
+                                                    <img src="https://picsum.photos/id/1/60" alt="Company Logo" class="w-12 h-12 rounded-lg object-cover mr-4">
+                                                    <div>
+                                                        <h3 class="font-semibold text-gray-900 dark:text-gray-100">Data Science Intern</h3>
+                                                        <p class="text-sm text-gray-600 dark:text-gray-400">Zimbabwe Financial Analytics</p>
+                                                    </div>
+                                                </div>
+                                                <div class="match-indicator match-high">
+                                                    90%
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="mb-4">
+                                                <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                                                    <i class="fas fa-map-marker-alt mr-2 text-gray-400 dark:text-gray-500"></i>
+                                                    <span>Harare, Zimbabwe</span>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="mb-4">
+                                                <div class="skill-tag bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400">Python</div>
+                                                <div class="skill-tag bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400">Machine Learning</div>
+                                                <div class="skill-tag bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400">SQL</div>
+                                            </div>
+                                            
+                                            <div class="flex justify-end">
+                                                <a href="internship-details.html" class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:underline">
+                                                    <span>View Details</span>
+                                                    <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Location-Based Category -->
+                    <div id="location-based" class="category-content">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-xl font-semibold font-display">Near You in Harare</h2>
+                            <a href="#" class="text-sm text-primary-600 dark:text-primary-400 hover:underline flex items-center">
+                                <span>View all</span>
+                                <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                            </a>
+                        </div>
+                        
+                        <!-- Map View -->
+                        <div class="neu-card p-6 mb-8" data-aos="fade-up" data-aos-duration="800">
+                            <div class="rounded-lg overflow-hidden h-80 mb-4">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3798.388583302807!2d31.05191091488099!3d-17.79531878781436!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1931a4fd1e8f4b05%3A0x1e066c0aaff0f4dd!2sHarare%20Institute%20of%20Technology!5e0!3m2!1sen!2szw!4v1623856417287!5m2!1sen!2szw" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                            </div>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">
+                                Showing internships within 10km of your location at Harare Institute of Technology.
+                            </p>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <!-- Location-Based Internship 1 -->
+                            <div class="neu-card card-hover" data-aos="fade-up" data-aos-duration="800">
+                                <div class="p-6">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <div class="flex items-center">
+                                            <img src="https://picsum.photos/id/0/60" alt="Company Logo" class="w-12 h-12 rounded-lg object-cover mr-4">
+                                            <div>
+                                                <h3 class="font-semibold text-gray-900 dark:text-gray-100">Software Engineering Intern</h3>
+                                                <p class="text-sm text-gray-600 dark:text-gray-400">TechZim Solutions</p>
+                                            </div>
+                                        </div>
+                                        <div class="match-indicator match-high">
+                                            95%
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                            <i class="fas fa-map-marker-alt mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>Harare, Zimbabwe</span>
+                                        </div>
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                                            <i class="fas fa-route mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>2.5 km away</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                                            Join our engineering team to develop and maintain web applications using modern JavaScript frameworks.
+                                        </p>
+                                    </div>
+                                    
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-xs text-gray-500 dark:text-gray-400">Posted 2 days ago</span>
+                                        <div class="flex space-x-2">
+                                            <button class="neu-button p-2 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none save-button">
+                                                <i class="far fa-bookmark"></i>
+                                            </button>
+                                            <a href="internship-details.html" class="inline-flex items-center justify-center py-2 px-4 text-sm font-medium text-white bg-gradient-to-r from-primary-600 to-secondary-600 rounded-lg shadow-md hover:from-primary-700 hover:to-secondary-700 focus:outline-none">
+                                                View Details
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Location-Based Internship 2 -->
+                            <div class="neu-card card-hover" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                                <div class="p-6">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <div class="flex items-center">
+                                            <img src="https://picsum.photos/id/1/60" alt="Company Logo" class="w-12 h-12 rounded-lg object-cover mr-4">
+                                            <div>
+                                                <h3 class="font-semibold text-gray-900 dark:text-gray-100">Data Science Intern</h3>
+                                                <p class="text-sm text-gray-600 dark:text-gray-400">Zimbabwe Financial Analytics</p>
+                                            </div>
+                                        </div>
+                                        <div class="match-indicator match-high">
+                                            90%
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                            <i class="fas fa-map-marker-alt mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>Harare, Zimbabwe</span>
+                                        </div>
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                                            <i class="fas fa-route mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>3.8 km away</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                                            Work with our data team to analyze financial data and build predictive models for market analysis.
+                                        </p>
+                                    </div>
+                                    
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-xs text-gray-500 dark:text-gray-400">Posted 5 days ago</span>
+                                        <div class="flex space-x-2">
+                                            <button class="neu-button p-2 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none save-button">
+                                                <i class="far fa-bookmark"></i>
+                                            </button>
+                                            <a href="internship-details.html" class="inline-flex items-center justify-center py-2 px-4 text-sm font-medium text-white bg-gradient-to-r from-primary-600 to-secondary-600 rounded-lg shadow-md hover:from-primary-700 hover:to-secondary-700 focus:outline-none">
+                                                View Details
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Location-Based Internship 3 -->
+                            <div class="neu-card card-hover" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                                <div class="p-6">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <div class="flex items-center">
+                                            <img src="https://picsum.photos/id/2/60" alt="Company Logo" class="w-12 h-12 rounded-lg object-cover mr-4">
+                                            <div>
+                                                <h3 class="font-semibold text-gray-900 dark:text-gray-100">Frontend Developer Intern</h3>
+                                                <p class="text-sm text-gray-600 dark:text-gray-400">WebSolutions Zimbabwe</p>
+                                            </div>
+                                        </div>
+                                        <div class="match-indicator match-high">
+                                            87%
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                            <i class="fas fa-map-marker-alt mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>Harare, Zimbabwe</span>
+                                        </div>
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                                            <i class="fas fa-route mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>5.2 km away</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                                            Build responsive and interactive user interfaces for web applications using modern frontend technologies.
+                                        </p>
+                                    </div>
+                                    
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-xs text-gray-500 dark:text-gray-400">Posted 1 week ago</span>
+                                        <div class="flex space-x-2">
+                                            <button class="neu-button p-2 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none save-button">
+                                                <i class="far fa-bookmark"></i>
+                                            </button>
+                                            <a href="internship-details.html" class="inline-flex items-center justify-center py-2 px-4 text-sm font-medium text-white bg-gradient-to-r from-primary-600 to-secondary-600 rounded-lg shadow-md hover:from-primary-700 hover:to-secondary-700 focus:outline-none">
+                                                View Details
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Trending Category -->
+                    <div id="trending" class="category-content">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-xl font-semibold font-display">Trending Internships</h2>
+                            <a href="#" class="text-sm text-primary-600 dark:text-primary-400 hover:underline flex items-center">
+                                <span>View all</span>
+                                <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                            </a>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <!-- Trending Internship 1 -->
+                            <div class="neu-card card-hover" data-aos="fade-up" data-aos-duration="800">
+                                <div class="p-6">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <div class="flex items-center">
+                                            <img src="https://picsum.photos/id/0/60" alt="Company Logo" class="w-12 h-12 rounded-lg object-cover mr-4">
+                                            <div>
+                                                <h3 class="font-semibold text-gray-900 dark:text-gray-100">Software Engineering Intern</h3>
+                                                <p class="text-sm text-gray-600 dark:text-gray-400">TechZim Solutions</p>
+                                            </div>
+                                        </div>
+                                        <div class="match-indicator match-high">
+                                            95%
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                            <i class="fas fa-map-marker-alt mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>Harare, Zimbabwe</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">React</div>
+                                        <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">Node.js</div>
+                                        <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">MongoDB</div>
+                                    </div>
+                                    
+                                    <div class="flex items-center justify-between">
+                                        <div class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 dark:bg-red-900/20 text-red-800 dark:text-red-300">
+                                            <i class="fas fa-fire mr-1"></i>
+                                            <span>High demand • 42 applicants</span>
+                                        </div>
+                                        <a href="internship-details.html" class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:underline">
+                                            <span>View</span>
+                                            <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Trending Internship 2 -->
+                            <div class="neu-card card-hover" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                                <div class="p-6">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <div class="flex items-center">
+                                            <img src="https://picsum.photos/id/1/60" alt="Company Logo" class="w-12 h-12 rounded-lg object-cover mr-4">
+                                            <div>
+                                                <h3 class="font-semibold text-gray-900 dark:text-gray-100">Data Science Intern</h3>
+                                                <p class="text-sm text-gray-600 dark:text-gray-400">Zimbabwe Financial Analytics</p>
+                                            </div>
+                                        </div>
+                                        <div class="match-indicator match-high">
+                                            90%
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                            <i class="fas fa-map-marker-alt mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>Harare, Zimbabwe</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <div class="skill-tag bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400">Python</div>
+                                        <div class="skill-tag bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400">Machine Learning</div>
+                                        <div class="skill-tag bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400">SQL</div>
+                                    </div>
+                                    
+                                    <div class="flex items-center justify-between">
+                                        <div class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 dark:bg-red-900/20 text-red-800 dark:text-red-300">
+                                            <i class="fas fa-fire mr-1"></i>
+                                            <span>High demand • 38 applicants</span>
+                                        </div>
+                                        <a href="internship-details.html" class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:underline">
+                                            <span>View</span>
+                                            <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Trending Internship 3 -->
+                            <div class="neu-card card-hover" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                                <div class="p-6">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <div class="flex items-center">
+                                            <img src="https://picsum.photos/id/2/60" alt="Company Logo" class="w-12 h-12 rounded-lg object-cover mr-4">
+                                            <div>
+                                                <h3 class="font-semibold text-gray-900 dark:text-gray-100">Frontend Developer Intern</h3>
+                                                <p class="text-sm text-gray-600 dark:text-gray-400">WebSolutions Zimbabwe</p>
+                                            </div>
+                                        </div>
+                                        <div class="match-indicator match-high">
+                                            87%
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                            <i class="fas fa-map-marker-alt mr-2 text-gray-400 dark:text-gray-500"></i>
+                                            <span>Harare, Zimbabwe</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">JavaScript</div>
+                                        <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">React</div>
+                                        <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">CSS/SASS</div>
+                                    </div>
+                                    
+                                    <div class="flex items-center justify-between">
+                                        <div class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 dark:bg-red-900/20 text-red-800 dark:text-red-300">
+                                            <i class="fas fa-fire mr-1"></i>
+                                            <span>High demand • 35 applicants</span>
+                                        </div>
+                                        <a href="internship-details.html" class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:underline">
+                                            <span>View</span>
+                                            <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
     </div>
-
+    
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Notyf for notifications -->
+    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+    
+    <!-- Custom JavaScript -->
     <script>
-        // Theme Toggle (same as dashboard)
-        const themeToggle = document.getElementById('themeToggle');
-        const body = document.body;
-        let isDark = false;
-
-        themeToggle.addEventListener('click', () => {
-            isDark = !isDark;
-            body.className = isDark ? 'dark' : 'light';
-            themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        // Initialize AOS Animation
+        AOS.init();
+        
+        // Initialize Notyf
+        const notyf = new Notyf({
+            duration: 3000,
+            position: {
+                x: 'right',
+                y: 'top',
+            },
+            types: [
+                {
+                    type: 'success',
+                    background: '#10B981',
+                    icon: {
+                        className: 'fas fa-check',
+                        tagName: 'i',
+                        color: 'white'
+                    }
+                },
+                {
+                    type: 'error',
+                    background: '#EF4444',
+                    icon: {
+                        className: 'fas fa-times',
+                        tagName: 'i',
+                        color: 'white'
+                    }
+                }
+            ]
         });
+        
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        
+        // Check for saved theme preference or use the system preference
+        const savedTheme = localStorage.getItem('theme') || 
+                          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        // Apply the saved theme
+        if (savedTheme === 'dark') {
+            htmlElement.classList.remove('light');
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+            htmlElement.classList.add('light');
+        }
+        
+        // Toggle theme when button is clicked
+        themeToggle.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                htmlElement.classList.add('light');
+                localStorage.setItem('theme', 'light');
+            } else {
+                htmlElement.classList.remove('light');
+                htmlElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+        
+        // Mobile Sidebar Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebar-overlay');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+            sidebarOverlay.classList.toggle('open');
+            
+            // Toggle icon
+            const icon = mobileMenuButton.querySelector('i');
+            if (icon.classList.contains('fa-bars')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+        
+        sidebarOverlay.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            sidebarOverlay.classList.remove('open');
+            
+            // Reset icon
+            const icon = mobileMenuButton.querySelector('i');
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        });
+        
+        // Recommendation Category Tabs
+        const categoryTabs = document.querySelectorAll('.category-tab');
+        const categoryContents = document.querySelectorAll('.category-content');
+        
+        categoryTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and contents
+                categoryTabs.forEach(t => t.classList.remove('active'));
+                categoryContents.forEach(content => content.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding content
+                tab.classList.add('active');
+                const category = tab.getAttribute('data-category');
+                document.getElementById(category).classList.add('active');
+            });
+        });
+        
+        // Save Buttons
+        const saveButtons = document.querySelectorAll('.save-button');
+        
+        saveButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const icon = this.querySelector('i');
+                
+                if (icon.classList.contains('far')) {
+                    // Save internship
+                    icon.classList.remove('far');
+                    icon.classList.add('fas');
+                    icon.classList.add('text-primary-600');
+                    icon.classList.add('dark:text-primary-400');
+                    
+                    // Get internship data from the card
+                    const card = this.closest('.neu-card');
+                    const title = card.querySelector('h3').textContent;
+                    const company = card.querySelector('h3 + p').textContent;
+                    
+                    // Show notification
+                    notyf.success(`"${title}" saved to your bookmarks`);
+                    
+                    // Save to IndexedDB in a real application
+                    saveInternshipToIndexedDB({
+                        id: Date.now().toString(),
+                        title: title,
+                        company: company,
+                        savedAt: new Date().toISOString()
+                    });
+                } else {
+                    // Remove from saved
+                    icon.classList.remove('fas');
+                    icon.classList.remove('text-primary-600');
+                    icon.classList.remove('dark:text-primary-400');
+                    icon.classList.add('far');
+                    
+                    // Get internship title
+                    const card = this.closest('.neu-card');
+                    const title = card.querySelector('h3').textContent;
+                    
+                    // Show notification
+                    notyf.success(`"${title}" removed from your bookmarks`);
+                    
+                    // Would remove from IndexedDB in a full implementation
+                }
+            });
+        });
+        
+        // Search Functionality
+        const searchInput = document.getElementById('search-input');
+        const mobileSearchInput = document.getElementById('mobile-search-input');
+        
+        function handleSearch(e) {
+            if (e.key === 'Enter') {
+                const searchTerm = e.target.value.trim();
+                
+                if (searchTerm) {
+                    // In a real application, this would search the internships
+                    // For now, just show a notification
+                    notyf.success(`Searching for "${searchTerm}"`);
+                }
+            }
+        }
+        
+        searchInput.addEventListener('keypress', handleSearch);
+        mobileSearchInput.addEventListener('keypress', handleSearch);
+        
+        // IndexedDB Setup for offline functionality
+        let db;
+        
+        function initDB() {
+            const request = indexedDB.open('InternMatchDB', 1);
+            
+            request.onerror = function(event) {
+                console.error('IndexedDB error:', event.target.error);
+            };
+            
+            request.onupgradeneeded = function(event) {
+                const db = event.target.result;
+                
+                // Create object stores
+                if (!db.objectStoreNames.contains('savedInternships')) {
+                    db.createObjectStore('savedInternships', { keyPath: 'id' });
+                }
+                
+                if (!db.objectStoreNames.contains('userProfile')) {
+                    db.createObjectStore('userProfile', { keyPath: 'id' });
+                }
+                
+                if (!db.objectStoreNames.contains('internshipViews')) {
+                    db.createObjectStore('internshipViews', { keyPath: 'id' });
+                }
+            };
+            
+            request.onsuccess = function(event) {
+                db = event.target.result;
+                console.log('IndexedDB initialized successfully');
+                
+                // Load saved internships to update UI
+                loadSavedInternships();
+            };
+        }
+        
+        // Save internship to IndexedDB
+        function saveInternshipToIndexedDB(internship) {
+            if (!db) return;
+            
+            const transaction = db.transaction(['savedInternships'], 'readwrite');
+            const store = transaction.objectStore('savedInternships');
+            
+            store.put(internship);
+            
+            transaction.oncomplete = function() {
+                console.log('Internship saved successfully to IndexedDB');
+            };
+            
+            transaction.onerror = function(event) {
+                console.error('Error saving internship to IndexedDB:', event.target.error);
+                notyf.error('Failed to save internship offline');
+            };
+        }
+        
+        // Load saved internships from IndexedDB
+        function loadSavedInternships() {
+            if (!db) return;
+            
+            const transaction = db.transaction(['savedInternships'], 'readonly');
+            const store = transaction.objectStore('savedInternships');
+            const request = store.getAll();
+            
+            request.onsuccess = function(event) {
+                const savedInternships = event.target.result;
+                
+                if (savedInternships && savedInternships.length > 0) {
+                    console.log('Loaded saved internships:', savedInternships);
+                    
+                    // Update UI to show saved state
+                    savedInternships.forEach(internship => {
+                        // Find all cards with this internship title
+                        const cards = document.querySelectorAll('.neu-card');
+                        cards.forEach(card => {
+                            const title = card.querySelector('h3')?.textContent;
+                            const company = card.querySelector('h3 + p')?.textContent;
+                            
+                            if (title === internship.title && company === internship.company) {
+                                const saveButton = card.querySelector('.save-button');
+                                if (saveButton) {
+                                    const icon = saveButton.querySelector('i');
+                                    icon.classList.remove('far');
+                                    icon.classList.add('fas');
+                                    icon.classList.add('text-primary-600');
+                                    icon.classList.add('dark:text-primary-400');
+                                }
+                            }
+                        });
+                    });
+                }
+            };
+            
+            request.onerror = function(event) {
+                console.error('Error loading saved internships:', event.target.error);
+            };
+        }
+        
+        // Initialize IndexedDB
+        initDB();
     </script>
-    <script src="/assets/js/jsearch-api.js"></script>
-<script src="/assets/js/recommendations.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const recommendationsManager = new RecommendationsManager();
-        recommendationsManager.fetchRecommendations();
-    });
-</script>
-
 </body>
 </html>

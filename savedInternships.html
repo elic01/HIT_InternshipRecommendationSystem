@@ -1,0 +1,1487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saved Internships | InternMatch - Harare Institute of Technology</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Notyf for notifications -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        secondary: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            200: '#99f6e4',
+                            300: '#5eead4',
+                            400: '#2dd4bf',
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                            700: '#0f766e',
+                            800: '#115e59',
+                            900: '#134e4a',
+                        },
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Poppins', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'neu-light': '9px 9px 18px #e0e0e0, -9px -9px 18px #ffffff',
+                        'neu-dark': '9px 9px 18px #151515, -9px -9px 18px #252525',
+                        'neu-button-light': '5px 5px 10px #e0e0e0, -5px -5px 10px #ffffff',
+                        'neu-button-dark': '5px 5px 10px #151515, -5px -5px 10px #252525',
+                        'inner-neu-light': 'inset 3px 3px 6px #e0e0e0, inset -3px -3px 6px #ffffff',
+                        'inner-neu-dark': 'inset 3px 3px 6px #151515, inset -3px -3px 6px #252525',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom Styles */
+        .neu-card {
+            border-radius: 20px;
+            transition: all 0.3s ease-in-out;
+        }
+        
+        .dark .neu-card {
+            background: #1f2937;
+            box-shadow: 9px 9px 18px #151515, -9px -9px 18px #252525;
+        }
+        
+        .light .neu-card {
+            background: #ffffff;
+            box-shadow: 9px 9px 18px #e0e0e0, -9px -9px 18px #ffffff;
+        }
+        
+        .neu-button {
+            border-radius: 12px;
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .dark .neu-button {
+            background: #1f2937;
+            box-shadow: 5px 5px 10px #151515, -5px -5px 10px #252525;
+        }
+        
+        .light .neu-button {
+            background: #ffffff;
+            box-shadow: 5px 5px 10px #e0e0e0, -5px -5px 10px #ffffff;
+        }
+        
+        .neu-button:hover {
+            transform: translateY(-3px);
+        }
+        
+        .neu-button:active {
+            transform: translateY(0);
+        }
+        
+        .neu-input {
+            border-radius: 12px;
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .dark .neu-input {
+            background: #1f2937;
+            box-shadow: inset 3px 3px 6px #151515, inset -3px -3px 6px #252525;
+            color: #e5e7eb;
+            border: 1px solid #374151;
+        }
+        
+        .light .neu-input {
+            background: #f9fafb;
+            box-shadow: inset 3px 3px 6px #e0e0e0, inset -3px -3px 6px #ffffff;
+            color: #1f2937;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .neu-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            transition: all 0.3s ease-in-out;
+        }
+        
+        @media (max-width: 1023px) {
+            .sidebar {
+                transform: translateX(-100%);
+                position: fixed;
+                z-index: 50;
+                height: 100vh;
+            }
+            
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            
+            .sidebar-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 40;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.3s ease-in-out;
+            }
+            
+            .sidebar-overlay.open {
+                opacity: 1;
+                pointer-events: auto;
+            }
+        }
+        
+        /* Match Percentage Indicator */
+        .match-indicator {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        
+        .match-high {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+        }
+        
+        .match-medium {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
+        }
+        
+        .match-low {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+        }
+        
+        /* Skill Tags */
+        .skill-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        .dark ::-webkit-scrollbar-track {
+            background: #1f2937;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2563eb;
+        }
+        
+        /* Notification Badge */
+        .notification-badge {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background-color: #ef4444;
+            color: white;
+            font-size: 0.625rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Card Hover Effects */
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+        
+        .empty-state-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            opacity: 0.7;
+        }
+        
+        /* Saved Date Badge */
+        .saved-date {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+        
+        /* Collection Tags */
+        .collection-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            background-color: #eff6ff;
+            color: #2563eb;
+        }
+        
+        .dark .collection-tag {
+            background-color: rgba(37, 99, 235, 0.2);
+            color: #60a5fa;
+        }
+        
+        /* Bulk Action Bar */
+        .bulk-action-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            border-top: 1px solid #e5e7eb;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transform: translateY(100%);
+            transition: transform 0.3s ease-in-out;
+            z-index: 40;
+        }
+        
+        .dark .bulk-action-bar {
+            background-color: #1f2937;
+            border-top: 1px solid #374151;
+        }
+        
+        .bulk-action-bar.show {
+            transform: translateY(0);
+        }
+        
+        /* Compare Modal */
+        .compare-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .compare-modal.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        .compare-content {
+            width: 90%;
+            max-width: 1000px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: 20px;
+            transition: transform 0.3s ease;
+            transform: scale(0.9);
+        }
+        
+        .compare-modal.show .compare-content {
+            transform: scale(1);
+        }
+        
+        /* Compare Table */
+        .compare-table th,
+        .compare-table td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+        }
+        
+        .compare-table th:first-child,
+        .compare-table td:first-child {
+            position: sticky;
+            left: 0;
+            background-color: white;
+            z-index: 10;
+        }
+        
+        .dark .compare-table th:first-child,
+        .dark .compare-table td:first-child {
+            background-color: #1f2937;
+        }
+        
+        .compare-table th {
+            background-color: #f9fafb;
+            font-weight: 600;
+        }
+        
+        .dark .compare-table th {
+            background-color: #374151;
+        }
+        
+        .compare-table tr:nth-child(even) td {
+            background-color: #f9fafb;
+        }
+        
+        .dark .compare-table tr:nth-child(even) td {
+            background-color: #1f2937;
+        }
+        
+        .dark .compare-table tr:nth-child(odd) td {
+            background-color: #111827;
+        }
+        
+        .compare-table tr:nth-child(even) td:first-child {
+            background-color: #f9fafb;
+        }
+        
+        .dark .compare-table tr:nth-child(even) td:first-child {
+            background-color: #1f2937;
+        }
+        
+        .dark .compare-table tr:nth-child(odd) td:first-child {
+            background-color: #111827;
+        }
+    </style>
+</head>
+<body class="font-sans light transition-colors duration-300 bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-100 min-h-screen flex flex-col">
+    <!-- Sidebar Overlay (Mobile) -->
+    <div id="sidebar-overlay" class="sidebar-overlay lg:hidden"></div>
+    
+    <!-- Compare Modal -->
+    <div id="compare-modal" class="compare-modal">
+        <div class="compare-content neu-card light:bg-white dark:bg-gray-800 p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold">Compare Internships</h3>
+                <button id="close-compare-modal" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="overflow-x-auto">
+                <table class="compare-table w-full border-collapse">
+                    <thead>
+                        <tr>
+                            <th class="border-b border-gray-200 dark:border-gray-700"></th>
+                            <th class="border-b border-gray-200 dark:border-gray-700">
+                                <div class="flex flex-col items-center">
+                                    <img src="https://picsum.photos/id/0/60" alt="Company Logo" class="w-12 h-12 rounded-lg object-cover mb-2">
+                                    <h4 class="font-semibold text-sm">Software Engineering Intern</h4>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">TechZim Solutions</p>
+                                </div>
+                            </th>
+                            <th class="border-b border-gray-200 dark:border-gray-700">
+                                <div class="flex flex-col items-center">
+                                    <img src="https://picsum.photos/id/1/60" alt="Company Logo" class="w-12 h-12 rounded-lg object-cover mb-2">
+                                    <h4 class="font-semibold text-sm">Data Science Intern</h4>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">Zimbabwe Financial Analytics</p>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="border-b border-gray-200 dark:border-gray-700 font-medium">Match Score</td>
+                            <td class="border-b border-gray-200 dark:border-gray-700">
+                                <div class="flex justify-center">
+                                    <div class="match-indicator match-high">
+                                        95%
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="border-b border-gray-200 dark:border-gray-700">
+                                <div class="flex justify-center">
+                                    <div class="match-indicator match-high">
+                                        90%
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="border-b border-gray-200 dark:border-gray-700 font-medium">Location</td>
+                            <td class="border-b border-gray-200 dark:border-gray-700">Harare, Zimbabwe</td>
+                            <td class="border-b border-gray-200 dark:border-gray-700">Harare, Zimbabwe</td>
+                        </tr>
+                        <tr>
+                            <td class="border-b border-gray-200 dark:border-gray-700 font-medium">Duration</td>
+                            <td class="border-b border-gray-200 dark:border-gray-700">3 months</td>
+                            <td class="border-b border-gray-200 dark:border-gray-700">6 months</td>
+                        </tr>
+                        <tr>
+                            <td class="border-b border-gray-200 dark:border-gray-700 font-medium">Stipend</td>
+                            <td class="border-b border-gray-200 dark:border-gray-700">$500 monthly</td>
+                            <td class="border-b border-gray-200 dark:border-gray-700">$600 monthly</td>
+                        </tr>
+                        <tr>
+                            <td class="border-b border-gray-200 dark:border-gray-700 font-medium">Required Skills</td>
+                            <td class="border-b border-gray-200 dark:border-gray-700">
+                                <div class="flex flex-wrap justify-center gap-1">
+                                    <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-xs">React</div>
+                                    <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-xs">Node.js</div>
+                                    <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-xs">MongoDB</div>
+                                </div>
+                            </td>
+                            <td class="border-b border-gray-200 dark:border-gray-700">
+                                <div class="flex flex-wrap justify-center gap-1">
+                                    <div class="skill-tag bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400 text-xs">Python</div>
+                                    <div class="skill-tag bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400 text-xs">Machine Learning</div>
+                                    <div class="skill-tag bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400 text-xs">SQL</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="border-b border-gray-200 dark:border-gray-700 font-medium">Work Type</td>
+                            <td class="border-b border-gray-200 dark:border-gray-700">Full-time</td>
+                            <td class="border-b border-gray-200 dark:border-gray-700">Full-time</td>
+                        </tr>
+                        <tr>
+                            <td class="border-b border-gray-200 dark:border-gray-700 font-medium">Application Deadline</td>
+                            <td class="border-b border-gray-200 dark:border-gray-700">July 15, 2023</td>
+                            <td class="border-b border-gray-200 dark:border-gray-700">July 30, 2023</td>
+                        </tr>
+                        <tr>
+                            <td class="border-b border-gray-200 dark:border-gray-700 font-medium">Company Size</td>
+                            <td class="border-b border-gray-200 dark:border-gray-700">51-200 employees</td>
+                            <td class="border-b border-gray-200 dark:border-gray-700">201-500 employees</td>
+                        </tr>
+                        <tr>
+                            <td class="border-b border-gray-200 dark:border-gray-700 font-medium">Industry</td>
+                            <td class="border-b border-gray-200 dark:border-gray-700">Software Development</td>
+                            <td class="border-b border-gray-200 dark:border-gray-700">Financial Services</td>
+                        </tr>
+                        <tr>
+                            <td class="border-b border-gray-200 dark:border-gray-700 font-medium">Posted Date</td>
+                            <td class="border-b border-gray-200 dark:border-gray-700">2 days ago</td>
+                            <td class="border-b border-gray-200 dark:border-gray-700">5 days ago</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="pt-4">
+                                <a href="internship-details.html" class="inline-flex items-center justify-center w-full py-2 px-4 text-sm font-medium text-white bg-gradient-to-r from-primary-600 to-secondary-600 rounded-lg shadow-md hover:from-primary-700 hover:to-secondary-700 focus:outline-none">
+                                    View Details
+                                </a>
+                            </td>
+                            <td class="pt-4">
+                                <a href="internship-details.html" class="inline-flex items-center justify-center w-full py-2 px-4 text-sm font-medium text-white bg-gradient-to-r from-primary-600 to-secondary-600 rounded-lg shadow-md hover:from-primary-700 hover:to-secondary-700 focus:outline-none">
+                                    View Details
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bulk Action Bar -->
+    <div id="bulk-action-bar" class="bulk-action-bar">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center">
+                <span class="text-sm font-medium mr-4"><span id="selected-count">0</span> items selected</span>
+                <button id="cancel-selection" class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 focus:outline-none">
+                    Cancel
+                </button>
+            </div>
+            <div class="flex items-center space-x-3">
+                <button id="compare-selected" class="neu-button inline-flex items-center py-2 px-4 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none" disabled>
+                    <i class="fas fa-exchange-alt mr-2"></i>
+                    <span>Compare</span>
+                </button>
+                <button id="add-to-collection" class="neu-button inline-flex items-center py-2 px-4 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none">
+                    <i class="fas fa-folder-plus mr-2"></i>
+                    <span>Add to Collection</span>
+                </button>
+                <button id="delete-selected" class="neu-button inline-flex items-center py-2 px-4 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 focus:outline-none">
+                    <i class="fas fa-trash-alt mr-2"></i>
+                    <span>Delete</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Container -->
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar w-72 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex-shrink-0">
+            <!-- Sidebar Header -->
+            <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                <a href="index.html" class="flex items-center space-x-2">
+                    <div class="h-10 w-10 rounded-lg bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center">
+                        <i class="fas fa-briefcase text-white text-xl"></i>
+                    </div>
+                    <span class="text-xl font-bold font-display bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-secondary-500">InternMatch</span>
+                </a>
+            </div>
+            
+            <!-- User Profile Summary -->
+            <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                <div class="flex items-center space-x-4">
+                    <img src="https://picsum.photos/id/1005/100" alt="User Profile" class="w-12 h-12 rounded-full object-cover border-2 border-primary-500">
+                    <div>
+                        <h3 class="font-medium text-gray-900 dark:text-gray-100">Tatenda Chikwanha</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Computer Science, 3rd Year</p>
+                    </div>
+                </div>
+                
+                <!-- Profile Completion -->
+                <div class="mt-6">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-sm text-gray-600 dark:text-gray-400">Profile Completion</span>
+                        <span class="text-sm font-medium text-primary-600 dark:text-primary-400">75%</span>
+                    </div>
+                    <div class="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full" style="width: 75%"></div>
+                    </div>
+                    <a href="profile.html" class="text-xs text-primary-600 dark:text-primary-400 mt-2 inline-block hover:underline">
+                        Complete your profile
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Navigation Menu -->
+            <nav class="p-4">
+                <ul class="space-y-1">
+                    <li>
+                        <a href="dashboard.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-home"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="internships.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-briefcase"></i>
+                            <span>Internships</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="recommendations.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-star"></i>
+                            <span>Recommendations</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300">
+                            <i class="fas fa-bookmark"></i>
+                            <span>Saved</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-file-alt"></i>
+                            <span>Applications</span>
+                            <span class="ml-auto bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-xs font-medium px-2 py-0.5 rounded-full">3</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-bell"></i>
+                            <span>Notifications</span>
+                            <span class="ml-auto bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 text-xs font-medium px-2 py-0.5 rounded-full">5</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <hr class="my-6 border-gray-200 dark:border-gray-700">
+                
+                <ul class="space-y-1">
+                    <li>
+                        <a href="profile.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-user-circle"></i>
+                            <span>Profile</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settings.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="support.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Help & Support</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Log Out</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top Navigation -->
+            <header class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+                <div class="flex items-center justify-between p-4">
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-button" class="lg:hidden p-2 rounded-md text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 focus:outline-none">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    
+                    <!-- Search Bar -->
+                    <div class="hidden md:flex flex-1 max-w-xl mx-4">
+                        <div class="relative w-full">
+                            <input 
+                                type="text" 
+                                id="search-saved"
+                                class="neu-input w-full pl-10 pr-4 py-2 text-sm" 
+                                placeholder="Search in saved internships..."
+                            >
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                <i class="fas fa-search text-gray-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Navigation Items -->
+                    <div class="flex items-center space-x-4">
+                        <!-- Theme Toggle -->
+                        <button id="theme-toggle" class="p-2 rounded-full text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 focus:outline-none">
+                            <i class="fas fa-moon dark:hidden"></i>
+                            <i class="fas fa-sun hidden dark:block"></i>
+                        </button>
+                        
+                        <!-- Notifications -->
+                        <div class="relative">
+                            <button class="p-2 rounded-full text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 focus:outline-none">
+                                <i class="fas fa-bell"></i>
+                                <span class="notification-badge">5</span>
+                            </button>
+                        </div>
+                        
+                        <!-- Messages -->
+                        <div class="relative">
+                            <button class="p-2 rounded-full text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 focus:outline-none">
+                                <i class="fas fa-comment-alt"></i>
+                                <span class="notification-badge">2</span>
+                            </button>
+                        </div>
+                        
+                        <!-- User Menu -->
+                        <div class="relative">
+                            <button class="flex items-center focus:outline-none">
+                                <img src="https://picsum.photos/id/1005/100" alt="User Profile" class="w-8 h-8 rounded-full object-cover">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Mobile Search Bar (only visible on mobile) -->
+            <div class="md:hidden p-4 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+                <div class="relative w-full">
+                    <input 
+                        type="text" 
+                        id="mobile-search-saved"
+                        class="neu-input w-full pl-10 pr-4 py-2 text-sm" 
+                        placeholder="Search in saved internships..."
+                    >
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <i class="fas fa-search text-gray-400"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Saved Internships Content -->
+            <main class="flex-1 overflow-y-auto">
+                <div class="container mx-auto px-4 py-6">
+                    <!-- Page Header -->
+                    <div class="flex justify-between items-center mb-8">
+                        <div>
+                            <h1 class="text-2xl font-bold font-display mb-2">Saved Internships</h1>
+                            <p class="text-gray-600 dark:text-gray-400">Manage and organize your bookmarked internship opportunities</p>
+                        </div>
+                        <div class="flex space-x-3">
+                            <button id="select-all" class="neu-button inline-flex items-center py-2 px-4 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none">
+                                <i class="fas fa-check-square mr-2"></i>
+                                <span>Select All</span>
+                            </button>
+                            <div class="relative">
+                                <button id="sort-dropdown-button" class="neu-button inline-flex items-center py-2 px-4 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none">
+                                    <i class="fas fa-sort mr-2"></i>
+                                    <span>Sort</span>
+                                    <i class="fas fa-chevron-down ml-2 text-xs"></i>
+                                </button>
+                                <div id="sort-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg z-10 border border-gray-200 dark:border-gray-700">
+                                    <ul class="py-2">
+                                        <li>
+                                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" data-sort="recent">
+                                                Most Recent
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" data-sort="match">
+                                                Highest Match
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" data-sort="deadline">
+                                                Closest Deadline
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" data-sort="company">
+                                                Company (A-Z)
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Collections Filter -->
+                    <div class="mb-6">
+                        <div class="flex items-center space-x-2 overflow-x-auto pb-2">
+                            <button class="neu-button py-1.5 px-3 text-sm font-medium text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 focus:outline-none">
+                                All Saved
+                            </button>
+                            <button class="neu-button py-1.5 px-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none">
+                                Summer 2023
+                            </button>
+                            <button class="neu-button py-1.5 px-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none">
+                                Software Dev
+                            </button>
+                            <button class="neu-button py-1.5 px-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none">
+                                Remote Friendly
+                            </button>
+                            <button class="neu-button py-1.5 px-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none">
+                                <i class="fas fa-plus mr-1"></i>
+                                <span>New Collection</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Saved Internships Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                        <!-- Saved Internship 1 -->
+                        <div class="neu-card card-hover relative" data-aos="fade-up" data-aos-duration="800">
+                            <div class="saved-date">Saved 2 days ago</div>
+                            <div class="absolute top-4 left-4">
+                                <input type="checkbox" class="internship-checkbox h-5 w-5 rounded border-gray-300 text-primary-600 focus:ring-primary-500">
+                            </div>
+                            <div class="p-6 pt-10">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="flex items-center">
+                                        <img src="https://picsum.photos/id/0/60" alt="Company Logo" class="w-12 h-12 rounded-lg object-cover mr-4">
+                                        <div>
+                                            <h3 class="font-semibold text-gray-900 dark:text-gray-100">Software Engineering Intern</h3>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400">TechZim Solutions</p>
+                                        </div>
+                                    </div>
+                                    <div class="match-indicator match-high">
+                                        95%
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                        <i class="fas fa-map-marker-alt mr-2 text-gray-400 dark:text-gray-500"></i>
+                                        <span>Harare, Zimbabwe</span>
+                                    </div>
+                                    <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                        <i class="fas fa-clock mr-2 text-gray-400 dark:text-gray-500"></i>
+                                        <span>Full-time, 3 months</span>
+                                    </div>
+                                    <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                                        <i class="fas fa-dollar-sign mr-2 text-gray-400 dark:text-gray-500"></i>
+                                        <span>$500 monthly stipend</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">React</div>
+                                    <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">Node.js</div>
+                                    <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">MongoDB</div>
+                                </div>
+                                
+                                <div class="flex items-center justify-between">
+                                    <div class="collection-tag">
+                                        Summer 2023
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <button class="neu-button p-2 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 focus:outline-none">
+                                            <i class="fas fa-bookmark"></i>
+                                        </button>
+                                        <a href="internship-details.html" class="inline-flex items-center justify-center py-2 px-4 text-sm font-medium text-white bg-gradient-to-r from-primary-600 to-secondary-600 rounded-lg shadow-md hover:from-primary-700 hover:to-secondary-700 focus:outline-none">
+                                            View Details
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Saved Internship 2 -->
+                        <div class="neu-card card-hover relative" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                            <div class="saved-date">Saved 3 days ago</div>
+                            <div class="absolute top-4 left-4">
+                                <input type="checkbox" class="internship-checkbox h-5 w-5 rounded border-gray-300 text-primary-600 focus:ring-primary-500">
+                            </div>
+                            <div class="p-6 pt-10">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="flex items-center">
+                                        <img src="https://picsum.photos/id/1/60" alt="Company Logo" class="w-12 h-12 rounded-lg object-cover mr-4">
+                                        <div>
+                                            <h3 class="font-semibold text-gray-900 dark:text-gray-100">Data Science Intern</h3>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400">Zimbabwe Financial Analytics</p>
+                                        </div>
+                                    </div>
+                                    <div class="match-indicator match-high">
+                                        90%
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                        <i class="fas fa-map-marker-alt mr-2 text-gray-400 dark:text-gray-500"></i>
+                                        <span>Harare, Zimbabwe</span>
+                                    </div>
+                                    <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                        <i class="fas fa-clock mr-2 text-gray-400 dark:text-gray-500"></i>
+                                        <span>Full-time, 6 months</span>
+                                    </div>
+                                    <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                                        <i class="fas fa-dollar-sign mr-2 text-gray-400 dark:text-gray-500"></i>
+                                        <span>$600 monthly stipend</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <div class="skill-tag bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400">Python</div>
+                                    <div class="skill-tag bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400">Machine Learning</div>
+                                    <div class="skill-tag bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400">SQL</div>
+                                </div>
+                                
+                                <div class="flex items-center justify-between">
+                                    <div class="collection-tag">
+                                        Software Dev
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <button class="neu-button p-2 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 focus:outline-none">
+                                            <i class="fas fa-bookmark"></i>
+                                        </button>
+                                        <a href="internship-details.html" class="inline-flex items-center justify-center py-2 px-4 text-sm font-medium text-white bg-gradient-to-r from-primary-600 to-secondary-600 rounded-lg shadow-md hover:from-primary-700 hover:to-secondary-700 focus:outline-none">
+                                            View Details
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Saved Internship 3 -->
+                        <div class="neu-card card-hover relative" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                            <div class="saved-date">Saved 1 week ago</div>
+                            <div class="absolute top-4 left-4">
+                                <input type="checkbox" class="internship-checkbox h-5 w-5 rounded border-gray-300 text-primary-600 focus:ring-primary-500">
+                            </div>
+                            <div class="p-6 pt-10">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="flex items-center">
+                                        <img src="https://picsum.photos/id/2/60" alt="Company Logo" class="w-12 h-12 rounded-lg object-cover mr-4">
+                                        <div>
+                                            <h3 class="font-semibold text-gray-900 dark:text-gray-100">Frontend Developer Intern</h3>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400">WebSolutions Zimbabwe</p>
+                                        </div>
+                                    </div>
+                                    <div class="match-indicator match-high">
+                                        87%
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                        <i class="fas fa-map-marker-alt mr-2 text-gray-400 dark:text-gray-500"></i>
+                                        <span>Harare, Zimbabwe</span>
+                                    </div>
+                                    <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                        <i class="fas fa-clock mr-2 text-gray-400 dark:text-gray-500"></i>
+                                        <span>Full-time, 4 months</span>
+                                    </div>
+                                    <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                                        <i class="fas fa-dollar-sign mr-2 text-gray-400 dark:text-gray-500"></i>
+                                        <span>$450 monthly stipend</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">JavaScript</div>
+                                    <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">React</div>
+                                    <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">CSS/SASS</div>
+                                </div>
+                                
+                                <div class="flex items-center justify-between">
+                                    <div class="collection-tag">
+                                        Remote Friendly
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <button class="neu-button p-2 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 focus:outline-none">
+                                            <i class="fas fa-bookmark"></i>
+                                        </button>
+                                        <a href="internship-details.html" class="inline-flex items-center justify-center py-2 px-4 text-sm font-medium text-white bg-gradient-to-r from-primary-600 to-secondary-600 rounded-lg shadow-md hover:from-primary-700 hover:to-secondary-700 focus:outline-none">
+                                            View Details
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Saved Internship 4 -->
+                        <div class="neu-card card-hover relative" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
+                            <div class="saved-date">Saved 2 weeks ago</div>
+                            <div class="absolute top-4 left-4">
+                                <input type="checkbox" class="internship-checkbox h-5 w-5 rounded border-gray-300 text-primary-600 focus:ring-primary-500">
+                            </div>
+                            <div class="p-6 pt-10">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="flex items-center">
+                                        <img src="https://picsum.photos/id/3/60" alt="Company Logo" class="w-12 h-12 rounded-lg object-cover mr-4">
+                                        <div>
+                                            <h3 class="font-semibold text-gray-900 dark:text-gray-100">Mobile App Developer Intern</h3>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400">MobiTech Zimbabwe</p>
+                                        </div>
+                                    </div>
+                                    <div class="match-indicator match-medium">
+                                        78%
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                        <i class="fas fa-map-marker-alt mr-2 text-gray-400 dark:text-gray-500"></i>
+                                        <span>Harare, Zimbabwe</span>
+                                    </div>
+                                    <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                        <i class="fas fa-clock mr-2 text-gray-400 dark:text-gray-500"></i>
+                                        <span>Full-time, 6 months</span>
+                                    </div>
+                                    <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                                        <i class="fas fa-dollar-sign mr-2 text-gray-400 dark:text-gray-500"></i>
+                                        <span>$550 monthly stipend</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">React Native</div>
+                                    <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">JavaScript</div>
+                                    <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">Mobile Dev</div>
+                                </div>
+                                
+                                <div class="flex items-center justify-between">
+                                    <div class="collection-tag">
+                                        Summer 2023
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <button class="neu-button p-2 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 focus:outline-none">
+                                            <i class="fas fa-bookmark"></i>
+                                        </button>
+                                        <a href="internship-details.html" class="inline-flex items-center justify-center py-2 px-4 text-sm font-medium text-white bg-gradient-to-r from-primary-600 to-secondary-600 rounded-lg shadow-md hover:from-primary-700 hover:to-secondary-700 focus:outline-none">
+                                            View Details
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Saved Internship 5 -->
+                        <div class="neu-card card-hover relative" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
+                            <div class="saved-date">Saved 3 weeks ago</div>
+                            <div class="absolute top-4 left-4">
+                                <input type="checkbox" class="internship-checkbox h-5 w-5 rounded border-gray-300 text-primary-600 focus:ring-primary-500">
+                            </div>
+                            <div class="p-6 pt-10">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="flex items-center">
+                                        <img src="https://picsum.photos/id/4/60" alt="Company Logo" class="w-12 h-12 rounded-lg object-cover mr-4">
+                                        <div>
+                                            <h3 class="font-semibold text-gray-900 dark:text-gray-100">Backend Developer Intern</h3>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400">ServerTech Zimbabwe</p>
+                                        </div>
+                                    </div>
+                                    <div class="match-indicator match-medium">
+                                        75%
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                        <i class="fas fa-map-marker-alt mr-2 text-gray-400 dark:text-gray-500"></i>
+                                        <span>Harare, Zimbabwe</span>
+                                    </div>
+                                    <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                        <i class="fas fa-clock mr-2 text-gray-400 dark:text-gray-500"></i>
+                                        <span>Full-time, 5 months</span>
+                                    </div>
+                                    <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                                        <i class="fas fa-dollar-sign mr-2 text-gray-400 dark:text-gray-500"></i>
+                                        <span>$500 monthly stipend</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">Node.js</div>
+                                    <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">Express</div>
+                                    <div class="skill-tag bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">MongoDB</div>
+                                </div>
+                                
+                                <div class="flex items-center justify-between">
+                                    <div class="collection-tag">
+                                        Software Dev
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <button class="neu-button p-2 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 focus:outline-none">
+                                            <i class="fas fa-bookmark"></i>
+                                        </button>
+                                        <a href="internship-details.html" class="inline-flex items-center justify-center py-2 px-4 text-sm font-medium text-white bg-gradient-to-r from-primary-600 to-secondary-600 rounded-lg shadow-md hover:from-primary-700 hover:to-secondary-700 focus:outline-none">
+                                            View Details
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Empty State (Hidden by default, shown when no saved internships) -->
+                    <div id="empty-state" class="neu-card p-6 empty-state hidden">
+                        <div class="empty-state-icon">
+                            <i class="fas fa-bookmark text-gray-400 dark:text-gray-600 text-6xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold font-display mb-2">No Saved Internships Yet</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-6 max-w-md mx-auto">
+                            Save internships to keep track of opportunities you're interested in. They'll appear here for easy access.
+                        </p>
+                        <a href="internships.html" class="inline-flex items-center justify-center py-2 px-6 text-sm font-medium text-white bg-gradient-to-r from-primary-600 to-secondary-600 rounded-lg shadow-md hover:from-primary-700 hover:to-secondary-700 focus:outline-none">
+                            <i class="fas fa-search mr-2"></i>
+                            <span>Browse Internships</span>
+                        </a>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Notyf for notifications -->
+    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        // Initialize AOS Animation
+        AOS.init();
+        
+        // Initialize Notyf
+        const notyf = new Notyf({
+            duration: 3000,
+            position: {
+                x: 'right',
+                y: 'top',
+            },
+            types: [
+                {
+                    type: 'success',
+                    background: '#10B981',
+                    icon: {
+                        className: 'fas fa-check',
+                        tagName: 'i',
+                        color: 'white'
+                    }
+                },
+                {
+                    type: 'error',
+                    background: '#EF4444',
+                    icon: {
+                        className: 'fas fa-times',
+                        tagName: 'i',
+                        color: 'white'
+                    }
+                }
+            ]
+        });
+        
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        
+        // Check for saved theme preference or use the system preference
+        const savedTheme = localStorage.getItem('theme') || 
+                          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        // Apply the saved theme
+        if (savedTheme === 'dark') {
+            htmlElement.classList.remove('light');
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+            htmlElement.classList.add('light');
+        }
+        
+        // Toggle theme when button is clicked
+        themeToggle.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                htmlElement.classList.add('light');
+                localStorage.setItem('theme', 'light');
+            } else {
+                htmlElement.classList.remove('light');
+                htmlElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+        
+        // Mobile Sidebar Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebar-overlay');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+            sidebarOverlay.classList.toggle('open');
+            
+            // Toggle icon
+            const icon = mobileMenuButton.querySelector('i');
+            if (icon.classList.contains('fa-bars')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+        
+        sidebarOverlay.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            sidebarOverlay.classList.remove('open');
+            
+            // Reset icon
+            const icon = mobileMenuButton.querySelector('i');
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        });
+        
+        // Sort Dropdown Toggle
+        const sortDropdownButton = document.getElementById('sort-dropdown-button');
+        const sortDropdown = document.getElementById('sort-dropdown');
+        
+        sortDropdownButton.addEventListener('click', () => {
+            sortDropdown.classList.toggle('hidden');
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!sortDropdownButton.contains(e.target) && !sortDropdown.contains(e.target)) {
+                sortDropdown.classList.add('hidden');
+            }
+        });
+        
+        // Sort Functionality
+        const sortOptions = document.querySelectorAll('#sort-dropdown a');
+        
+        sortOptions.forEach(option => {
+            option.addEventListener('click', (e) => {
+                e.preventDefault();
+                const sortBy = option.getAttribute('data-sort');
+                
+                // In a real application, this would sort the internships
+                // For now, just show a notification
+                notyf.success(`Sorted by ${sortBy}`);
+                
+                // Close dropdown
+                sortDropdown.classList.add('hidden');
+            });
+        });
+        
+        // Bulk Selection
+        const selectAllButton = document.getElementById('select-all');
+        const internshipCheckboxes = document.querySelectorAll('.internship-checkbox');
+        const bulkActionBar = document.getElementById('bulk-action-bar');
+        const selectedCountElement = document.getElementById('selected-count');
+        const cancelSelectionButton = document.getElementById('cancel-selection');
+        const compareSelectedButton = document.getElementById('compare-selected');
+        const deleteSelectedButton = document.getElementById('delete-selected');
+        const addToCollectionButton = document.getElementById('add-to-collection');
+        
+        // Function to update the selected count and bulk action bar
+        function updateSelection() {
+            const selectedCount = document.querySelectorAll('.internship-checkbox:checked').length;
+            selectedCountElement.textContent = selectedCount;
+            
+            if (selectedCount > 0) {
+                bulkActionBar.classList.add('show');
+                
+                // Enable/disable compare button (only enable if exactly 2 or 3 items are selected)
+                if (selectedCount === 2 || selectedCount === 3) {
+                    compareSelectedButton.disabled = false;
+                    compareSelectedButton.classList.remove('opacity-50', 'cursor-not-allowed');
+                } else {
+                    compareSelectedButton.disabled = true;
+                    compareSelectedButton.classList.add('opacity-50', 'cursor-not-allowed');
+                }
+            } else {
+                bulkActionBar.classList.remove('show');
+            }
+        }
+        
+        // Select All button
+        selectAllButton.addEventListener('click', () => {
+            const isAllSelected = document.querySelectorAll('.internship-checkbox:checked').length === internshipCheckboxes.length;
+            
+            internshipCheckboxes.forEach(checkbox => {
+                checkbox.checked = !isAllSelected;
+            });
+            
+            updateSelection();
+        });
+        
+        // Individual checkbox selection
+        internshipCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', updateSelection);
+        });
+        
+        // Cancel Selection button
+        cancelSelectionButton.addEventListener('click', () => {
+            internshipCheckboxes.forEach(checkbox => {
+                checkbox.checked = false;
+            });
+            
+            updateSelection();
+        });
+        
+        // Compare Selected button
+        const compareModal = document.getElementById('compare-modal');
+        const closeCompareModal = document.getElementById('close-compare-modal');
+        
+        compareSelectedButton.addEventListener('click', () => {
+            compareModal.classList.add('show');
+        });
+        
+        closeCompareModal.addEventListener('click', () => {
+            compareModal.classList.remove('show');
+        });
+        
+        // Click outside to close compare modal
+        compareModal.addEventListener('click', (e) => {
+            if (e.target === compareModal) {
+                compareModal.classList.remove('show');
+            }
+        });
+        
+        // Delete Selected button
+        deleteSelectedButton.addEventListener('click', () => {
+            const selectedCount = document.querySelectorAll('.internship-checkbox:checked').length;
+            
+            if (confirm(`Are you sure you want to remove ${selectedCount} internship${selectedCount > 1 ? 's' : ''} from your saved list?`)) {
+                // In a real application, this would delete the selected internships
+                // For now, just show a notification
+                notyf.success(`${selectedCount} internship${selectedCount > 1 ? 's' : ''} removed from saved list`);
+                
+                // Reset selection
+                internshipCheckboxes.forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                
+                updateSelection();
+            }
+        });
+        
+        // Add to Collection button
+        addToCollectionButton.addEventListener('click', () => {
+            const selectedCount = document.querySelectorAll('.internship-checkbox:checked').length;
+            
+            // In a real application, this would open a modal to select or create a collection
+            // For now, just show a notification
+            notyf.success(`${selectedCount} internship${selectedCount > 1 ? 's' : ''} added to collection`);
+        });
+        
+        // Save/Unsave Functionality
+        const saveButtons = document.querySelectorAll('.neu-button .fa-bookmark');
+        
+        saveButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // In a real application, this would remove the internship from saved list
+                // For now, just show a notification
+                const card = this.closest('.neu-card');
+                const title = card.querySelector('h3').textContent;
+                
+                notyf.success(`"${title}" removed from saved list`);
+            });
+        });
+        
+        // Search Functionality
+        const searchSaved = document.getElementById('search-saved');
+        const mobileSearchSaved = document.getElementById('mobile-search-saved');
+        
+        function handleSearch(e) {
+            const searchTerm = e.target.value.trim().toLowerCase();
+            const cards = document.querySelectorAll('.neu-card');
+            
+            cards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const company = card.querySelector('h3 + p').textContent.toLowerCase();
+                const skills = Array.from(card.querySelectorAll('.skill-tag')).map(tag => tag.textContent.toLowerCase());
+                
+                if (title.includes(searchTerm) || company.includes(searchTerm) || skills.some(skill => skill.includes(searchTerm))) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            // Check if any cards are visible
+            const visibleCards = Array.from(cards).filter(card => card.style.display !== 'none');
+            const emptyState = document.getElementById('empty-state');
+            
+            if (visibleCards.length === 0) {
+                emptyState.style.display = 'block';
+                emptyState.querySelector('h3').textContent = 'No Matching Internships';
+                emptyState.querySelector('p').textContent = `No saved internships match your search for "${searchTerm}". Try a different search term or clear the search.`;
+            } else {
+                emptyState.style.display = 'none';
+            }
+        }
+        
+        searchSaved.addEventListener('input', handleSearch);
+        mobileSearchSaved.addEventListener('input', handleSearch);
+        
+        // IndexedDB Setup for offline functionality
+        let db;
+        
+        function initDB() {
+            const request = indexedDB.open('InternMatchDB', 1);
+            
+            request.onerror = function(event) {
+                console.error('IndexedDB error:', event.target.error);
+            };
+            
+            request.onupgradeneeded = function(event) {
+                const db = event.target.result;
+                
+                // Create object stores
+                if (!db.objectStoreNames.contains('savedInternships')) {
+                    db.createObjectStore('savedInternships', { keyPath: 'id' });
+                }
+                
+                if (!db.objectStoreNames.contains('collections')) {
+                    db.createObjectStore('collections', { keyPath: 'id' });
+                }
+            };
+            
+            request.onsuccess = function(event) {
+                db = event.target.result;
+                console.log('IndexedDB initialized successfully');
+                
+                // Load saved internships
+                loadSavedInternships();
+            };
+        }
+        
+        // Load saved internships from IndexedDB
+        function loadSavedInternships() {
+            if (!db) return;
+            
+            const transaction = db.transaction(['savedInternships'], 'readonly');
+            const store = transaction.objectStore('savedInternships');
+            const request = store.getAll();
+            
+            request.onsuccess = function(event) {
+                const savedInternships = event.target.result;
+                
+                // Check if there are any saved internships
+                const emptyState = document.getElementById('empty-state');
+                
+                if (savedInternships.length === 0) {
+                    emptyState.style.display = 'block';
+                } else {
+                    emptyState.style.display = 'none';
+                    
+                    // In a real application, we would populate the UI with the saved internships
+                    console.log('Loaded saved internships:', savedInternships);
+                }
+            };
+            
+            request.onerror = function(event) {
+                console.error('Error loading saved internships:', event.target.error);
+            };
+        }
+        
+        // Initialize IndexedDB
+        initDB();
+    </script>
+</body>
+</html>

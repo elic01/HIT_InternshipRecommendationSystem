@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact & Support | InternMatch - Harare Institute of Technology</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Notyf for notifications -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        secondary: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            200: '#99f6e4',
+                            300: '#5eead4',
+                            400: '#2dd4bf',
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                            700: '#0f766e',
+                            800: '#115e59',
+                            900: '#134e4a',
+                        },
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Poppins', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'neu-light': '9px 9px 18px #e0e0e0, -9px -9px 18px #ffffff',
+                        'neu-dark': '9px 9px 18px #151515, -9px -9px 18px #252525',
+                        'neu-button-light': '5px 5px 10px #e0e0e0, -5px -5px 10px #ffffff',
+                        'neu-button-dark': '5px 5px 10px #151515, -5px -5px 10px #252525',
+                        'inner-neu-light': 'inset 3px 3px 6px #e0e0e0, inset -3px -3px 6px #ffffff',
+                        'inner-neu-dark': 'inset 3px 3px 6px #151515, inset -3px -3px 6px #252525',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom Styles */
+        .neu-card {
+            border-radius: 20px;
+            transition: all 0.3s ease-in-out;
+        }
+        
+        .dark .neu-card {
+            background: #1f2937;
+            box-shadow: 9px 9px 18px #151515, -9px -9px 18px #252525;
+        }
+        
+        .light .neu-card {
+            background: #ffffff;
+            box-shadow: 9px 9px 18px #e0e0e0, -9px -9px 18px #ffffff;
+        }
+        
+        .neu-button {
+            border-radius: 12px;
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .dark .neu-button {
+            background: #1f2937;
+            box-shadow: 5px 5px 10px #151515, -5px -5px 10px #252525;
+        }
+        
+        .light .neu-button {
+            background: #ffffff;
+            box-shadow: 5px 5px 10px #e0e0e0, -5px -5px 10px #ffffff;
+        }
+        
+        .neu-button:hover {
+            transform: translateY(-3px);
+        }
+        
+        .neu-button:active {
+            transform: translateY(0);
+        }
+        
+        .neu-input {
+            border-radius: 12px;
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .dark .neu-input {
+            background: #1f2937;
+            box-shadow: inset 3px 3px 6px #151515, inset -3px -3px 6px #252525;
+            color: #e5e7eb;
+            border: 1px solid #374151;
+        }
+        
+        .light .neu-input {
+            background: #f9fafb;
+            box-shadow: inset 3px 3px 6px #e0e0e0, inset -3px -3px 6px #ffffff;
+            color: #1f2937;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .neu-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            transition: all 0.3s ease-in-out;
+        }
+        
+        @media (max-width: 1023px) {
+            .sidebar {
+                transform: translateX(-100%);
+                position: fixed;
+                z-index: 50;
+                height: 100vh;
+            }
+            
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            
+            .sidebar-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 40;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.3s ease-in-out;
+            }
+            
+            .sidebar-overlay.open {
+                opacity: 1;
+                pointer-events: auto;
+            }
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        .dark ::-webkit-scrollbar-track {
+            background: #1f2937;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2563eb;
+        }
+        
+        /* Notification Badge */
+        .notification-badge {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background-color: #ef4444;
+            color: white;
+            font-size: 0.625rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Background Animation */
+        .bg-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        
+        .bg-animation li {
+            position: absolute;
+            display: block;
+            list-style: none;
+            width: 20px;
+            height: 20px;
+            background: rgba(59, 130, 246, 0.1);
+            animation: animate 25s linear infinite;
+            bottom: -150px;
+            border-radius: 50%;
+        }
+        
+        .dark .bg-animation li {
+            background: rgba(59, 130, 246, 0.2);
+        }
+        
+        .bg-animation li:nth-child(1) {
+            left: 25%;
+            width: 80px;
+            height: 80px;
+            animation-delay: 0s;
+        }
+        
+        .bg-animation li:nth-child(2) {
+            left: 10%;
+            width: 20px;
+            height: 20px;
+            animation-delay: 2s;
+            animation-duration: 12s;
+        }
+        
+        .bg-animation li:nth-child(3) {
+            left: 70%;
+            width: 20px;
+            height: 20px;
+            animation-delay: 4s;
+        }
+        
+        .bg-animation li:nth-child(4) {
+            left: 40%;
+            width: 60px;
+            height: 60px;
+            animation-delay: 0s;
+            animation-duration: 18s;
+        }
+        
+        .bg-animation li:nth-child(5) {
+            left: 65%;
+            width: 20px;
+            height: 20px;
+            animation-delay: 0s;
+        }
+        
+        .bg-animation li:nth-child(6) {
+            left: 75%;
+            width: 110px;
+            height: 110px;
+            animation-delay: 3s;
+        }
+        
+        .bg-animation li:nth-child(7) {
+            left: 35%;
+            width: 150px;
+            height: 150px;
+            animation-delay: 7s;
+        }
+        
+        .bg-animation li:nth-child(8) {
+            left: 50%;
+            width: 25px;
+            height: 25px;
+            animation-delay: 15s;
+            animation-duration: 45s;
+        }
+        
+        .bg-animation li:nth-child(9) {
+            left: 20%;
+            width: 15px;
+            height: 15px;
+            animation-delay: 2s;
+            animation-duration: 35s;
+        }
+        
+        .bg-animation li:nth-child(10) {
+            left: 85%;
+            width: 150px;
+            height: 150px;
+            animation-delay: 0s;
+            animation-duration: 11s;
+        }
+        
+        @keyframes animate {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+                border-radius: 0;
+            }
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+                opacity: 0;
+                border-radius: 50%;
+            }
+        }
+        
+        /* FAQ Accordion */
+        .faq-accordion {
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-question {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .faq-accordion.active .faq-answer {
+            max-height: 500px;
+        }
+        
+        .faq-accordion.active .faq-icon {
+            transform: rotate(180deg);
+        }
+        
+        /* Contact Card */
+        .contact-card {
+            transition: all 0.3s ease;
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        /* Form Validation */
+        .form-input.error {
+            border-color: #ef4444;
+        }
+        
+        .error-message {
+            color: #ef4444;
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+        }
+        
+        /* Success Message */
+        .success-message {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .success-message.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        .success-content {
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        
+        .success-message.show .success-content {
+            transform: scale(1);
+        }
+    </style>
+</head>
+<body class="font-sans light transition-colors duration-300 bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-100 min-h-screen flex flex-col">
+    <!-- Background Animation -->
+    <ul class="bg-animation">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    
+    <!-- Sidebar Overlay (Mobile) -->
+    <div id="sidebar-overlay" class="sidebar-overlay lg:hidden"></div>
+    
+    <!-- Success Message Modal -->
+    <div id="success-message" class="success-message">
+        <div class="success-content neu-card p-8 max-w-md mx-4">
+            <div class="text-center">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 text-green-500 dark:text-green-400 mb-6">
+                    <i class="fas fa-check-circle text-3xl"></i>
+                </div>
+                <h3 class="text-xl font-bold font-display mb-2">Message Sent Successfully!</h3>
+                <p class="text-gray-600 dark:text-gray-400 mb-6">
+                    Thank you for reaching out. We'll get back to you as soon as possible.
+                </p>
+                <button id="close-success" class="py-2 px-6 bg-gradient-to-r from-primary-600 to-secondary-600 text-white rounded-lg shadow-md hover:from-primary-700 hover:to-secondary-700 focus:outline-none">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Container -->
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar w-72 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex-shrink-0">
+            <!-- Sidebar Header -->
+            <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                <a href="index.html" class="flex items-center space-x-2">
+                    <div class="h-10 w-10 rounded-lg bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center">
+                        <i class="fas fa-briefcase text-white text-xl"></i>
+                    </div>
+                    <span class="text-xl font-bold font-display bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-secondary-500">InternMatch</span>
+                </a>
+            </div>
+            
+            <!-- User Profile Summary -->
+            <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                <div class="flex items-center space-x-4">
+                    <img src="https://picsum.photos/id/1005/100" alt="User Profile" class="w-12 h-12 rounded-full object-cover border-2 border-primary-500">
+                    <div>
+                        <h3 class="font-medium text-gray-900 dark:text-gray-100">Tatenda Chikwanha</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Computer Science, 3rd Year</p>
+                    </div>
+                </div>
+                
+                <!-- Profile Completion -->
+                <div class="mt-6">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-sm text-gray-600 dark:text-gray-400">Profile Completion</span>
+                        <span class="text-sm font-medium text-primary-600 dark:text-primary-400">75%</span>
+                    </div>
+                    <div class="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full" style="width: 75%"></div>
+                    </div>
+                    <a href="#" class="text-xs text-primary-600 dark:text-primary-400 mt-2 inline-block hover:underline">
+                        Complete your profile
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Navigation Menu -->
+            <nav class="p-4">
+                <ul class="space-y-1">
+                    <li>
+                        <a href="dashboard.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-home"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="internships.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-briefcase"></i>
+                            <span>Internships</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-star"></i>
+                            <span>Recommendations</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-bookmark"></i>
+                            <span>Saved</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-file-alt"></i>
+                            <span>Applications</span>
+                            <span class="ml-auto bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-xs font-medium px-2 py-0.5 rounded-full">3</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-bell"></i>
+                            <span>Notifications</span>
+                            <span class="ml-auto bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 text-xs font-medium px-2 py-0.5 rounded-full">5</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <hr class="my-6 border-gray-200 dark:border-gray-700">
+                
+                <ul class="space-y-1">
+                    <li>
+                        <a href="profile.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-user-circle"></i>
+                            <span>Profile</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Help & Support</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Log Out</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top Navigation -->
+            <header class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+                <div class="flex items-center justify-between p-4">
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-button" class="lg:hidden p-2 rounded-md text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 focus:outline-none">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    
+                    <!-- Page Title -->
+                    <h1 class="text-xl font-bold font-display text-gray-900 dark:text-gray-100 hidden md:block">Help & Support</h1>
+                    
+                    <!-- Right Navigation Items -->
+                    <div class="flex items-center space-x-4">
+                        <!-- Theme Toggle -->
+                        <button id="theme-toggle" class="p-2 rounded-full text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 focus:outline-none">
+                            <i class="fas fa-moon dark:hidden"></i>
+                            <i class="fas fa-sun hidden dark:block"></i>
+                        </button>
+                        
+                        <!-- Notifications -->
+                        <div class="relative">
+                            <button class="p-2 rounded-full text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 focus:outline-none">
+                                <i class="fas fa-bell"></i>
+                                <span class="notification-badge">5</span>
+                            </button>
+                        </div>
+                        
+                        <!-- Messages -->
+                        <div class="relative">
+                            <button class="p-2 rounded-full text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 focus:outline-none">
+                                <i class="fas fa-comment-alt"></i>
+                                <span class="notification-badge">2</span>
+                            </button>
+                        </div>
+                        
+                        <!-- User Menu -->
+                        <div class="relative">
+                            <button class="flex items-center focus:outline-none">
+                                <img src="https://picsum.photos/id/1005/100" alt="User Profile" class="w-8 h-8 rounded-full object-cover">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Contact & Support Content -->
+            <main class="flex-1 overflow-y-auto">
+                <div class="container mx-auto px-4 py-8">
+                    <!-- Page Header -->
+                    <div class="text-center max-w-3xl mx-auto mb-12" data-aos="fade-up" data-aos-duration="800">
+                        <h1 class="text-3xl md:text-4xl font-bold font-display mb-4">How Can We Help You?</h1>
+                        <p class="text-lg text-gray-600 dark:text-gray-400">
+                            Get in touch with our support team or find answers to frequently asked questions.
+                        </p>
+                    </div>
+                    
+                    <!-- Contact Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+                        <!-- Email Contact -->
+                        <div class="neu-card p-6 text-center contact-card" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                            <div class="contact-icon bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 mx-auto">
+                                <i class="fas fa-envelope text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold font-display mb-2">Email Us</h3>
+                            <p class="text-gray-600 dark:text-gray-400 mb-4">
+                                Send us an email and we'll respond within 24 hours.
+                            </p>
+                            <a href="mailto:support@internmatch.co.zw" class="text-primary-600 dark:text-primary-400 font-medium hover:underline">
+                                support@internmatch.co.zw
+                            </a>
+                        </div>
+                        
+                        <!-- Phone Contact -->
+                        <div class="neu-card p-6 text-center contact-card" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                            <div class="contact-icon bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 mx-auto">
+                                <i class="fas fa-phone-alt text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold font-display mb-2">Call Us</h3>
+                            <p class="text-gray-600 dark:text-gray-400 mb-4">
+                                Available Monday to Friday, 8am to 5pm.
+                            </p>
+                            <a href="tel:+26324741422" class="text-primary-600 dark:text-primary-400 font-medium hover:underline">
+                                +263 24 2741 422
+                            </a>
+                        </div>
+                        
+                        <!-- Visit Us -->
+                        <div class="neu-card p-6 text-center contact-card" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
+                            <div class="contact-icon bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 mx-auto">
+                                <i class="fas fa-map-marker-alt text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold font-display mb-2">Visit Us</h3>
+                            <p class="text-gray-600 dark:text-gray-400 mb-4">
+                                Our office is located on the HIT campus.
+                            </p>
+                            <address class="text-primary-600 dark:text-primary-400 font-medium not-italic">
+                                Room 203, Admin Building<br>
+                                Harare Institute of Technology
+                            </address>
+                        </div>
+                    </div>
+                    
+                    <!-- Contact Form and FAQ Section -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+                        <!-- Contact Form -->
+                        <div class="neu-card p-8" data-aos="fade-up" data-aos-duration="800">
+                            <h2 class="text-2xl font-semibold font-display mb-6">Send Us a Message</h2>
+                            
+                            <form id="contact-form" class="space-y-6">
+                                <div>
+                                    <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Full Name</label>
+                                    <input type="text" id="name" name="name" class="neu-input form-input w-full px-4 py-3" placeholder="Your name">
+                                    <span class="error-message hidden" id="name-error">Please enter your name</span>
+                                </div>
+                                
+                                <div>
+                                    <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email Address</label>
+                                    <input type="email" id="email" name="email" class="neu-input form-input w-full px-4 py-3" placeholder="your.email@hit.ac.zw">
+                                    <span class="error-message hidden" id="email-error">Please enter a valid email address</span>
+                                </div>
+                                
+                                <div>
+                                    <label for="subject" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Subject</label>
+                                    <select id="subject" name="subject" class="neu-input form-input w-full px-4 py-3">
+                                        <option value="" disabled selected>Select a subject</option>
+                                        <option value="account">Account Issues</option>
+                                        <option value="application">Application Problems</option>
+                                        <option value="technical">Technical Support</option>
+                                        <option value="feedback">Feedback & Suggestions</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                    <span class="error-message hidden" id="subject-error">Please select a subject</span>
+                                </div>
+                                
+                                <div>
+                                    <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Message</label>
+                                    <textarea id="message" name="message" rows="5" class="neu-input form-input w-full px-4 py-3 resize-none" placeholder="How can we help you?"></textarea>
+                                    <span class="error-message hidden" id="message-error">Please enter your message</span>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <div class="flex items-center h-5">
+                                        <input id="terms" name="terms" type="checkbox" class="focus:ring-primary-500 h-4 w-4 text-primary-600 border-gray-300 rounded">
+                                    </div>
+                                    <div class="ml-3 text-sm">
+                                        <label for="terms" class="text-gray-600 dark:text-gray-400">
+                                            I agree to the <a href="#" class="text-primary-600 dark:text-primary-400 hover:underline">Privacy Policy</a>
+                                        </label>
+                                        <span class="error-message hidden block" id="terms-error">You must agree to the privacy policy</span>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <button type="submit" class="w-full py-3 px-4 bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-medium rounded-lg shadow-lg hover:from-primary-700 hover:to-secondary-700 focus:outline-none transition-all duration-300 transform hover:-translate-y-1">
+                                        Send Message
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <!-- FAQ Section -->
+                        <div class="neu-card p-8" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                            <h2 class="text-2xl font-semibold font-display mb-6">Frequently Asked Questions</h2>
+                            
+                            <div class="space-y-4">
+                                <!-- FAQ Item 1 -->
+                                <div class="faq-accordion border border-gray-200 dark:border-gray-700">
+                                    <div class="faq-question flex justify-between items-center p-4 bg-gray-50 dark:bg-gray-800">
+                                        <h3 class="text-base font-medium text-gray-900 dark:text-gray-100">How does the internship matching algorithm work?</h3>
+                                        <i class="fas fa-chevron-down text-gray-500 dark:text-gray-400 transition-transform faq-icon"></i>
+                                    </div>
+                                    <div class="faq-answer bg-white dark:bg-gray-800">
+                                        <div class="p-4 text-gray-600 dark:text-gray-400">
+                                            <p>Our AI-powered matching algorithm analyzes your profile, including your skills, academic background, interests, and career goals. It then compares this information with the requirements and preferences of internship opportunities in our database to find the best matches for you.</p>
+                                            <p class="mt-2">The algorithm also takes into account factors such as location preferences, stipend expectations, and availability to provide personalized recommendations that align with your specific needs and aspirations.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- FAQ Item 2 -->
+                                <div class="faq-accordion border border-gray-200 dark:border-gray-700">
+                                    <div class="faq-question flex justify-between items-center p-4 bg-gray-50 dark:bg-gray-800">
+                                        <h3 class="text-base font-medium text-gray-900 dark:text-gray-100">How can I improve my match percentage?</h3>
+                                        <i class="fas fa-chevron-down text-gray-500 dark:text-gray-400 transition-transform faq-icon"></i>
+                                    </div>
+                                    <div class="faq-answer bg-white dark:bg-gray-800">
+                                        <div class="p-4 text-gray-600 dark:text-gray-400">
+                                            <p>To improve your match percentage, make sure your profile is complete and up-to-date. Here are some specific tips:</p>
+                                            <ul class="list-disc pl-5 mt-2 space-y-1">
+                                                <li>Add all relevant skills, especially those in demand for your desired roles</li>
+                                                <li>Upload a comprehensive resume with your latest experience and projects</li>
+                                                <li>Complete your education details, including relevant coursework</li>
+                                                <li>Add any certifications or additional qualifications you have</li>
+                                                <li>Specify your internship preferences clearly (location, duration, industry, etc.)</li>
+                                                <li>Keep your profile regularly updated with new skills and experiences</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- FAQ Item 3 -->
+                                <div class="faq-accordion border border-gray-200 dark:border-gray-700">
+                                    <div class="faq-question flex justify-between items-center p-4 bg-gray-50 dark:bg-gray-800">
+                                        <h3 class="text-base font-medium text-gray-900 dark:text-gray-100">What should I do if I'm not getting any matches?</h3>
+                                        <i class="fas fa-chevron-down text-gray-500 dark:text-gray-400 transition-transform faq-icon"></i>
+                                    </div>
+                                    <div class="faq-answer bg-white dark:bg-gray-800">
+                                        <div class="p-4 text-gray-600 dark:text-gray-400">
+                                            <p>If you're not receiving any matches, consider the following steps:</p>
+                                            <ul class="list-disc pl-5 mt-2 space-y-1">
+                                                <li>Review and update your skills to ensure they match current industry demands</li>
+                                                <li>Broaden your location preferences or consider remote opportunities</li>
+                                                <li>Adjust your stipend expectations if they might be too high for the market</li>
+                                                <li>Check if your availability aligns with typical internship periods</li>
+                                                <li>Consider adding more industries or roles to your preferences</li>
+                                                <li>Contact our support team for personalized assistance with your profile</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- FAQ Item 4 -->
+                                <div class="faq-accordion border border-gray-200 dark:border-gray-700">
+                                    <div class="faq-question flex justify-between items-center p-4 bg-gray-50 dark:bg-gray-800">
+                                        <h3 class="text-base font-medium text-gray-900 dark:text-gray-100">How do I track my internship applications?</h3>
+                                        <i class="fas fa-chevron-down text-gray-500 dark:text-gray-400 transition-transform faq-icon"></i>
+                                    </div>
+                                    <div class="faq-answer bg-white dark:bg-gray-800">
+                                        <div class="p-4 text-gray-600 dark:text-gray-400">
+                                            <p>You can track all your internship applications through your dashboard or the Applications page. For each application, you'll be able to see:</p>
+                                            <ul class="list-disc pl-5 mt-2 space-y-1">
+                                                <li>Current status (Submitted, Under Review, Interview Scheduled, etc.)</li>
+                                                <li>Application submission date</li>
+                                                <li>Any updates or communications from the employer</li>
+                                                <li>Upcoming interview details (if applicable)</li>
+                                                <li>Action items or next steps</li>
+                                            </ul>
+                                            <p class="mt-2">You'll also receive email notifications whenever there's an update to your application status.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- FAQ Item 5 -->
+                                <div class="faq-accordion border border-gray-200 dark:border-gray-700">
+                                    <div class="faq-question flex justify-between items-center p-4 bg-gray-50 dark:bg-gray-800">
+                                        <h3 class="text-base font-medium text-gray-900 dark:text-gray-100">Can companies see my profile before I apply?</h3>
+                                        <i class="fas fa-chevron-down text-gray-500 dark:text-gray-400 transition-transform faq-icon"></i>
+                                    </div>
+                                    <div class="faq-answer bg-white dark:bg-gray-800">
+                                        <div class="p-4 text-gray-600 dark:text-gray-400">
+                                            <p>By default, your full profile is only visible to companies after you apply to their internship positions. However, you can adjust your privacy settings to allow companies to discover your profile if they're looking for candidates with your skills and qualifications.</p>
+                                            <p class="mt-2">If you enable profile discovery, companies will be able to see your basic information, skills, and qualifications, but your contact details will remain private until you accept their invitation to apply or connect.</p>
+                                            <p class="mt-2">You can manage these settings in your Profile Privacy section under Settings.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- FAQ Item 6 -->
+                                <div class="faq-accordion border border-gray-200 dark:border-gray-700">
+                                    <div class="faq-question flex justify-between items-center p-4 bg-gray-50 dark:bg-gray-800">
+                                        <h3 class="text-base font-medium text-gray-900 dark:text-gray-100">Is InternMatch only for HIT students?</h3>
+                                        <i class="fas fa-chevron-down text-gray-500 dark:text-gray-400 transition-transform faq-icon"></i>
+                                    </div>
+                                    <div class="faq-answer bg-white dark:bg-gray-800">
+                                        <div class="p-4 text-gray-600 dark:text-gray-400">
+                                            <p>Currently, InternMatch is exclusively available to students and recent graduates of Harare Institute of Technology. This allows us to provide specialized support and build strong relationships with companies that specifically want to hire HIT talent.</p>
+                                            <p class="mt-2">To verify your HIT student status, you need to sign up with your official HIT email address (@hit.ac.zw) and provide your student ID number during registration.</p>
+                                            <p class="mt-2">We may expand to other institutions in the future, but our current focus is on serving the HIT community with the best possible internship matching experience.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-8 p-4 bg-blue-50 dark:bg-blue-900/10 rounded-lg border border-blue-100 dark:border-blue-900/20">
+                                <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">Still have questions?</h3>
+                                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                                    If you couldn't find the answer to your question, please don't hesitate to contact our support team.
+                                </p>
+                                <a href="#contact-form" class="inline-flex items-center text-primary-600 dark:text-primary-400 font-medium hover:underline">
+                                    <span>Contact Support</span>
+                                    <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Resources Section -->
+                    <div class="neu-card p-8 mb-16" data-aos="fade-up" data-aos-duration="800">
+                        <h2 class="text-2xl font-semibold font-display mb-6">Helpful Resources</h2>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <!-- Resource 1 -->
+                            <a href="#" class="block p-6 border border-gray-200 dark:border-gray-700 rounded-lg hover:border-primary-300 dark:hover:border-primary-700 transition-all">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-12 h-12 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400 mr-4">
+                                        <i class="fas fa-book"></i>
+                                    </div>
+                                    <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">User Guide</h3>
+                                </div>
+                                <p class="text-gray-600 dark:text-gray-400">
+                                    Comprehensive guide to using all features of the InternMatch platform.
+                                </p>
+                            </a>
+                            
+                            <!-- Resource 2 -->
+                            <a href="#" class="block p-6 border border-gray-200 dark:border-gray-700 rounded-lg hover:border-primary-300 dark:hover:border-primary-700 transition-all">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-12 h-12 rounded-lg bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-600 dark:text-green-400 mr-4">
+                                        <i class="fas fa-file-alt"></i>
+                                    </div>
+                                    <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">Resume Templates</h3>
+                                </div>
+                                <p class="text-gray-600 dark:text-gray-400">
+                                    Download professionally designed resume templates tailored for internship applications.
+                                </p>
+                            </a>
+                            
+                            <!-- Resource 3 -->
+                            <a href="#" class="block p-6 border border-gray-200 dark:border-gray-700 rounded-lg hover:border-primary-300 dark:hover:border-primary-700 transition-all">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-12 h-12 rounded-lg bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center text-amber-600 dark:text-amber-400 mr-4">
+                                        <i class="fas fa-lightbulb"></i>
+                                    </div>
+                                    <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">Interview Tips</h3>
+                                </div>
+                                <p class="text-gray-600 dark:text-gray-400">
+                                    Expert advice and practice questions to help you ace your internship interviews.
+                                </p>
+                            </a>
+                            
+                            <!-- Resource 4 -->
+                            <a href="#" class="block p-6 border border-gray-200 dark:border-gray-700 rounded-lg hover:border-primary-300 dark:hover:border-primary-700 transition-all">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-12 h-12 rounded-lg bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-600 dark:text-purple-400 mr-4">
+                                        <i class="fas fa-video"></i>
+                                    </div>
+                                    <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">Tutorial Videos</h3>
+                                </div>
+                                <p class="text-gray-600 dark:text-gray-400">
+                                    Step-by-step video tutorials on how to make the most of the InternMatch platform.
+                                </p>
+                            </a>
+                            
+                            <!-- Resource 5 -->
+                            <a href="#" class="block p-6 border border-gray-200 dark:border-gray-700 rounded-lg hover:border-primary-300 dark:hover:border-primary-700 transition-all">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-12 h-12 rounded-lg bg-red-100 dark:bg-red-900/30 flex items-center justify-center text-red-600 dark:text-red-400 mr-4">
+                                        <i class="fas fa-chart-line"></i>
+                                    </div>
+                                    <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">Industry Insights</h3>
+                                </div>
+                                <p class="text-gray-600 dark:text-gray-400">
+                                    Latest trends and insights about internship opportunities in various industries.
+                                </p>
+                            </a>
+                            
+                            <!-- Resource 6 -->
+                            <a href="#" class="block p-6 border border-gray-200 dark:border-gray-700 rounded-lg hover:border-primary-300 dark:hover:border-primary-700 transition-all">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-12 h-12 rounded-lg bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-600 dark:text-indigo-400 mr-4">
+                                        <i class="fas fa-calendar-alt"></i>
+                                    </div>
+                                    <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">Events Calendar</h3>
+                                </div>
+                                <p class="text-gray-600 dark:text-gray-400">
+                                    Upcoming career fairs, workshops, and networking events for HIT students.
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Map Section -->
+                    <div class="neu-card p-8 mb-16" data-aos="fade-up" data-aos-duration="800">
+                        <h2 class="text-2xl font-semibold font-display mb-6">Visit Our Office</h2>
+                        
+                        <div class="rounded-lg overflow-hidden h-80 mb-6">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3798.388583302807!2d31.05191091488099!3d-17.79531878781436!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1931a4fd1e8f4b05%3A0x1e066c0aaff0f4dd!2sHarare%20Institute%20of%20Technology!5e0!3m2!1sen!2szw!4v1623856417287!5m2!1sen!2szw" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">Office Hours</h3>
+                                <ul class="space-y-2 text-gray-600 dark:text-gray-400">
+                                    <li class="flex justify-between">
+                                        <span>Monday - Friday</span>
+                                        <span>8:00 AM - 5:00 PM</span>
+                                    </li>
+                                    <li class="flex justify-between">
+                                        <span>Saturday</span>
+                                        <span>9:00 AM - 1:00 PM</span>
+                                    </li>
+                                    <li class="flex justify-between">
+                                        <span>Sunday</span>
+                                        <span>Closed</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div>
+                                <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">Getting Here</h3>
+                                <p class="text-gray-600 dark:text-gray-400 mb-2">
+                                    Our office is located in Room 203 of the Administration Building at Harare Institute of Technology, Belvedere, Harare.
+                                </p>
+                                <p class="text-gray-600 dark:text-gray-400">
+                                    <strong>Public Transport:</strong> ZUPCO buses to HIT Campus<br>
+                                    <strong>Parking:</strong> Available in the visitor's parking area
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Support Team Section -->
+                    <div class="neu-card p-8" data-aos="fade-up" data-aos-duration="800">
+                        <h2 class="text-2xl font-semibold font-display mb-6">Meet Our Support Team</h2>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                            <!-- Team Member 1 -->
+                            <div class="text-center">
+                                <img src="https://picsum.photos/id/1001/200" alt="Support Team Member" class="w-24 h-24 rounded-full object-cover mx-auto mb-4">
+                                <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">Sarah Moyo</h3>
+                                <p class="text-gray-600 dark:text-gray-400 mb-2">Support Manager</p>
+                                <div class="flex justify-center space-x-2">
+                                    <a href="#" class="text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400">
+                                        <i class="fab fa-linkedin"></i>
+                                    </a>
+                                    <a href="#" class="text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400">
+                                        <i class="fas fa-envelope"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <!-- Team Member 2 -->
+                            <div class="text-center">
+                                <img src="https://picsum.photos/id/1002/200" alt="Support Team Member" class="w-24 h-24 rounded-full object-cover mx-auto mb-4">
+                                <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">David Mutasa</h3>
+                                <p class="text-gray-600 dark:text-gray-400 mb-2">Technical Support</p>
+                                <div class="flex justify-center space-x-2">
+                                    <a href="#" class="text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400">
+                                        <i class="fab fa-linkedin"></i>
+                                    </a>
+                                    <a href="#" class="text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400">
+                                        <i class="fas fa-envelope"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <!-- Team Member 3 -->
+                            <div class="text-center">
+                                <img src="https://picsum.photos/id/1003/200" alt="Support Team Member" class="w-24 h-24 rounded-full object-cover mx-auto mb-4">
+                                <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">Grace Nyathi</h3>
+                                <p class="text-gray-600 dark:text-gray-400 mb-2">Student Liaison</p>
+                                <div class="flex justify-center space-x-2">
+                                    <a href="#" class="text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400">
+                                        <i class="fab fa-linkedin"></i>
+                                    </a>
+                                    <a href="#" class="text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400">
+                                        <i class="fas fa-envelope"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <!-- Team Member 4 -->
+                            <div class="text-center">
+                                <img src="https://picsum.photos/id/1004/200" alt="Support Team Member" class="w-24 h-24 rounded-full object-cover mx-auto mb-4">
+                                <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">Michael Tawanda</h3>
+                                <p class="text-gray-600 dark:text-gray-400 mb-2">Employer Relations</p>
+                                <div class="flex justify-center space-x-2">
+                                    <a href="#" class="text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400">
+                                        <i class="fab fa-linkedin"></i>
+                                    </a>
+                                    <a href="#" class="text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400">
+                                        <i class="fas fa-envelope"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            
+            <!-- Footer -->
+            <footer class="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 py-6">
+                <div class="container mx-auto px-4">
+                    <div class="flex flex-col md:flex-row justify-between items-center">
+                        <div class="flex items-center space-x-2 mb-4 md:mb-0">
+                            <div class="h-8 w-8 rounded-lg bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center">
+                                <i class="fas fa-briefcase text-white text-sm"></i>
+                            </div>
+                            <span class="text-sm font-bold font-display bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-secondary-500">InternMatch</span>
+                        </div>
+                        
+                        <div class="flex space-x-6">
+                            <a href="#" class="text-xs text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400">
+                                Privacy Policy
+                            </a>
+                            <a href="#" class="text-xs text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400">
+                                Terms of Service
+                            </a>
+                            <a href="#" class="text-xs text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400">
+                                Help Center
+                            </a>
+                        </div>
+                        
+                        <div class="mt-4 md:mt-0 text-xs text-gray-600 dark:text-gray-400">
+                            &copy; 2023 InternMatch. All rights reserved.
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Notyf for notifications -->
+    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        // Initialize AOS Animation
+        AOS.init();
+        
+        // Initialize Notyf
+        const notyf = new Notyf({
+            duration: 3000,
+            position: {
+                x: 'right',
+                y: 'top',
+            },
+            types: [
+                {
+                    type: 'success',
+                    background: '#10B981',
+                    icon: {
+                        className: 'fas fa-check',
+                        tagName: 'i',
+                        color: 'white'
+                    }
+                },
+                {
+                    type: 'error',
+                    background: '#EF4444',
+                    icon: {
+                        className: 'fas fa-times',
+                        tagName: 'i',
+                        color: 'white'
+                    }
+                }
+            ]
+        });
+        
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        
+        // Check for saved theme preference or use the system preference
+        const savedTheme = localStorage.getItem('theme') || 
+                          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        // Apply the saved theme
+        if (savedTheme === 'dark') {
+            htmlElement.classList.remove('light');
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+            htmlElement.classList.add('light');
+        }
+        
+        // Toggle theme when button is clicked
+        themeToggle.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                htmlElement.classList.add('light');
+                localStorage.setItem('theme', 'light');
+            } else {
+                htmlElement.classList.remove('light');
+                htmlElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+        
+        // Mobile Sidebar Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebar-overlay');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+            sidebarOverlay.classList.toggle('open');
+            
+            // Toggle icon
+            const icon = mobileMenuButton.querySelector('i');
+            if (icon.classList.contains('fa-bars')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+        
+        sidebarOverlay.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            sidebarOverlay.classList.remove('open');
+            
+            // Reset icon
+            const icon = mobileMenuButton.querySelector('i');
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        });
+        
+        // FAQ Accordion
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const accordion = question.closest('.faq-accordion');
+                
+                // Check if current accordion is active
+                const isActive = accordion.classList.contains('active');
+                
+                // Close all accordions
+                document.querySelectorAll('.faq-accordion').forEach(acc => {
+                    acc.classList.remove('active');
+                });
+                
+                // If current accordion was not active, open it
+                if (!isActive) {
+                    accordion.classList.add('active');
+                }
+            });
+        });
+        
+        // Contact Form Validation
+        const contactForm = document.getElementById('contact-form');
+        const successMessage = document.getElementById('success-message');
+        const closeSuccess = document.getElementById('close-success');
+        
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Reset all error messages
+            const errorMessages = document.querySelectorAll('.error-message');
+            errorMessages.forEach(message => {
+                message.classList.add('hidden');
+            });
+            
+            const formInputs = document.querySelectorAll('.form-input');
+            formInputs.forEach(input => {
+                input.classList.remove('error');
+            });
+            
+            // Get form values
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value.trim();
+            const terms = document.getElementById('terms').checked;
+            
+            let isValid = true;
+            
+            // Validate name
+            if (name === '') {
+                document.getElementById('name').classList.add('error');
+                document.getElementById('name-error').classList.remove('hidden');
+                isValid = false;
+            }
+            
+            // Validate email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                document.getElementById('email').classList.add('error');
+                document.getElementById('email-error').classList.remove('hidden');
+                isValid = false;
+            }
+            
+            // Validate subject
+            if (subject === '' || subject === null) {
+                document.getElementById('subject').classList.add('error');
+                document.getElementById('subject-error').classList.remove('hidden');
+                isValid = false;
+            }
+            
+            // Validate message
+            if (message === '') {
+                document.getElementById('message').classList.add('error');
+                document.getElementById('message-error').classList.remove('hidden');
+                isValid = false;
+            }
+            
+            // Validate terms
+            if (!terms) {
+                document.getElementById('terms-error').classList.remove('hidden');
+                isValid = false;
+            }
+            
+            // If valid, submit form
+            if (isValid) {
+                // Simulate form submission
+                const submitButton = contactForm.querySelector('button[type="submit"]');
+                const originalButtonText = submitButton.innerHTML;
+                
+                submitButton.disabled = true;
+                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Sending...';
+                
+                // Simulate API call delay
+                setTimeout(() => {
+                    // Reset form
+                    contactForm.reset();
+                    
+                    // Reset button
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = originalButtonText;
+                    
+                    // Show success message
+                    successMessage.classList.add('show');
+                }, 1500);
+            } else {
+                // Scroll to the first error
+                const firstError = document.querySelector('.form-input.error') || document.getElementById('terms-error');
+                if (firstError) {
+                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+        });
+        
+        // Close success message
+        closeSuccess.addEventListener('click', () => {
+            successMessage.classList.remove('show');
+        });
+        
+        // Click outside to close success message
+        successMessage.addEventListener('click', (e) => {
+            if (e.target === successMessage) {
+                successMessage.classList.remove('show');
+            }
+        });
+        
+        // Smooth scroll to contact form when clicking "Contact Support" link
+        document.querySelectorAll('a[href="#contact-form"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                const contactForm = document.getElementById('contact-form');
+                contactForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
+</body>
+</html>
