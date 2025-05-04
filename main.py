@@ -2,7 +2,6 @@ from fastapi import FastAPI
 from contextlib import asynccontextmanager
 import uvicorn
 
-
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """
