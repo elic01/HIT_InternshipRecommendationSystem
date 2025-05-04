@@ -561,6 +561,7 @@
                                     class="neu-input w-full px-4 py-3" 
                                     placeholder="your.email@hit.ac.zw" 
                                     required
+                                    name="email"
                                 >
                                 <div id="login-email-error" class="validation-message text-red-500 hidden"></div>
                             </div>
@@ -579,6 +580,7 @@
                                         class="neu-input w-full px-4 py-3 pr-10" 
                                         placeholder="••••••••" 
                                         required
+                                        name="password"
                                     >
                                     <button 
                                         type="button" 
@@ -1061,9 +1063,22 @@
     
                     if (!response.ok) {
                         const error = await response.json();
+                        window.location.href = "{{ url_for('login') }}";
                         throw new Error(error.detail || 'Registration failed');
                     }
-                    window.location.href = "{{ url_for('login') }}";
+    
+                    // Check if response is a redirect
+                    if (response.redirected) {
+                        window.location.href = response.url;
+                        return;
+                    }
+    
+                    // If not redirected, handle the JSON response
+                    const result = await response.json();
+                    
+                    if (result.url) {
+                        window.location.href = result.url;
+                    }
                 } catch (error) {
                     alert('Registration failed: ' + error.message);
                 }

@@ -103,6 +103,33 @@ def create_student(
     )
     return {"status": "success", "message": "Student registered successfully", "student_id": student_id}
 
+@app.post("/login")
+def login(
+    request: Request,
+    email: str = Form(...),
+    password: str = Form(...)
+):
+    """
+    Login a student.
+    """
+    # Check if the student exists
+    student = get_student_by_email(email)
+    if not student:
+        raise HTTPException(status_code=400, detail="Invalid email or password")
+
+    # Verify the password
+    if not verify_password(password, student["password"]):
+        raise HTTPException(status_code=400, detail="Invalid email or password")
+
+    # Store the student ID in the session
+    request.session["student_id"] = student["id"]
+    request.session["student_email"] = student["email"]    
+    return RedirectResponse(
+        url="/dashboard", 
+        status_code=303,
+        headers={"Location": "/dashboard"}
+    )
+
 # Routes to handle html pages
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):
@@ -112,7 +139,17 @@ async def index(request: Request):
 async def login(request: Request):
     return templates.TemplateResponse("auth.html", {"request": request, "departments": get_departments()})
 
+@app.get("/dashboard", response_class=HTMLResponse)
+async def dashboard(request: Request):
+    student_id = request.session.get("student_id")
+    if not student_id:
+        return RedirectResponse(url="/login", status_code=303)
+    
+    student = get_student_by_id(student_id)
+    if not student:
+        return RedirectResponse(url="/login", status_code=303)
 
+    return templates.TemplateResponse("dashboard.html", {"request": request, "student": student})
 
 if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=8000, reload=True)
