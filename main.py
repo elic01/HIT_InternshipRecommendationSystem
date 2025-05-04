@@ -15,7 +15,6 @@ from contextlib import asynccontextmanager
 import uvicorn
 
 
-
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """
@@ -38,8 +37,20 @@ async def lifespan(app: FastAPI):
     # - Release resources
     print("Application is shutting down...")
 
+
+# Base Models Here
+class Student(BaseModel):
+    firstName: str
+    lastName: str
+    email: str
+    regNumber: str
+    departmentId: str
+    password: str
+
 app = FastAPI(lifespan=lifespan)
+
 app.mount("/static", StaticFiles(directory="static"), name="static")
+
 templates = Jinja2Templates(directory="templates")
 ## Student endpoints
 
@@ -56,9 +67,52 @@ app.add_middleware(
     secret_key="5b9cf554803dde92a4ef38053b63823294d2145dbfd26ce2fd04f88663bd8082",
 )
 
-@app.get("/")
-def read_root():
-    return {"message": "Welcome to the Internship Recommendation System"}
+#API routes
+@app.post("/department/add")
+def create_department(name:str):
+    add_department(name.strip().lower())
+    return {"status": "success", "message": f"{name} added successfully"}    
+
+@app.post("/register", name="register")
+def create_student(
+    firstName: str = Form(...),
+    lastName: str = Form(...),
+    email: str = Form(...),
+    regNumber: str = Form(...),
+    departmentId: str = Form(...),
+    password: str = Form(...)
+):
+    """
+    Register a new student.
+    """
+    # Check if the email already exists
+    existing_student = get_student_by_email(email)
+    if existing_student:
+        raise HTTPException(status_code=400, detail="Email already registered")
+
+    # Hash the password
+    hashed_password = hash_password(password)
+
+    # Add the student to the database
+    student_id = add_student(firstName, lastName, email, regNumber, departmentId, hashed_password)
+
+    send_email(
+        subject="Welcome to the Student Portal",
+        recipient=email,
+        body=f"Hello {firstName},\n\nThank you for registering. Your student ID is {student_id}.\n\nBest regards,\nStudent Portal Team"
+    )
+    return {"status": "success", "message": "Student registered successfully", "student_id": student_id}
+
+# Routes to handle html pages
+@app.get("/", response_class=HTMLResponse)
+async def index(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
+
+@app.get("/login", response_class=HTMLResponse, name="login")
+async def login(request: Request):
+    return templates.TemplateResponse("auth.html", {"request": request, "departments": get_departments()})
+
+
 
 if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=8000, reload=True)

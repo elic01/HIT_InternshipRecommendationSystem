@@ -659,7 +659,8 @@
                                         type="text" 
                                         id="first-name" 
                                         class="neu-input w-full px-4 py-3" 
-                                        placeholder="First name" 
+                                        placeholder="First name"
+                                        name="firstName" 
                                         required
                                     >
                                     <div id="first-name-error" class="validation-message text-red-500 hidden"></div>
@@ -671,7 +672,8 @@
                                         type="text" 
                                         id="last-name" 
                                         class="neu-input w-full px-4 py-3" 
-                                        placeholder="Last name" 
+                                        placeholder="Last name"
+                                        name="lastName" 
                                         required
                                     >
                                     <div id="last-name-error" class="validation-message text-red-500 hidden"></div>
@@ -685,6 +687,7 @@
                                     id="signup-email" 
                                     class="neu-input w-full px-4 py-3" 
                                     placeholder="your.email@hit.ac.zw" 
+                                    name="email"
                                     required
                                 >
                                 <div id="signup-email-error" class="validation-message text-red-500 hidden"></div>
@@ -697,6 +700,7 @@
                                     id="student-id" 
                                     class="neu-input w-full px-4 py-3" 
                                     placeholder="e.g., H190123B" 
+                                    name="regNumber"
                                     required
                                 >
                                 <div id="student-id-error" class="validation-message text-red-500 hidden"></div>
@@ -708,17 +712,12 @@
                                     id="department" 
                                     class="neu-input w-full px-4 py-3" 
                                     required
+                                    name="departmentId"
                                 >
                                     <option value="" disabled selected>Select your department</option>
-                                    <option value="computer-science">Computer Science</option>
-                                    <option value="information-security">Information Security & Assurance</option>
-                                    <option value="software-engineering">Software Engineering</option>
-                                    <option value="electronic-engineering">Electronic Engineering</option>
-                                    <option value="industrial-manufacturing">Industrial & Manufacturing Engineering</option>
-                                    <option value="chemical-processing">Chemical & Processing Engineering</option>
-                                    <option value="biotechnology">Biotechnology</option>
-                                    <option value="information-technology">Information Technology</option>
-                                    <option value="other">Other</option>
+                                    {% for department in departments %}
+                                        <option value="{{ department.id }}">{{ department.name.title() }}</option>
+                                    {% endfor %}
                                 </select>
                                 <div id="department-error" class="validation-message text-red-500 hidden"></div>
                             </div>
@@ -731,6 +730,7 @@
                                         id="signup-password" 
                                         class="neu-input w-full px-4 py-3 pr-10" 
                                         placeholder="••••••••" 
+                                        name="password"
                                         required
                                     >
                                     <button 
@@ -1022,7 +1022,7 @@
         const signupForm = document.getElementById('signup-form-element');
         
         // Login Form Validation
-        loginForm.addEventListener('submit', (e) => {
+        loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
             let isValid = true;
@@ -1051,14 +1051,27 @@
             
             // If form is valid, submit
             if (isValid) {
-                // Here you would typically send the form data to the server
-                // For now, we'll simulate a successful login
-                simulateSuccessfulSubmission('login');
+                const formData = new FormData(loginForm);
+                console.log('Form Data:', Array.from(formData.entries()));
+                try {
+                    const response = await fetch("{{url_for('login')}}", {
+                        method: 'POST',
+                        body: formData  // Remove headers and send FormData directly
+                    });
+    
+                    if (!response.ok) {
+                        const error = await response.json();
+                        throw new Error(error.detail || 'Registration failed');
+                    }
+                    window.location.href = "{{ url_for('login') }}";
+                } catch (error) {
+                    alert('Registration failed: ' + error.message);
+                }
             }
         });
         
         // Signup Form Validation
-        signupForm.addEventListener('submit', (e) => {
+        signupForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
             let isValid = true;
@@ -1145,9 +1158,22 @@
             
             // If form is valid, submit
             if (isValid) {
-                // Here you would typically send the form data to the server
-                // For now, we'll simulate a successful registration
-                simulateSuccessfulSubmission('signup');
+                const formData = new FormData(signupForm);
+                console.log('Form Data:', Array.from(formData.entries()));
+                try {
+                    const response = await fetch("{{url_for('register')}}", {
+                        method: 'POST',
+                        body: formData  // Remove headers and send FormData directly
+                    });
+    
+                    if (!response.ok) {
+                        const error = await response.json();
+                        throw new Error(error.detail || 'Registration failed');
+                    }
+                    window.location.href = "{{ url_for('login') }}";
+                } catch (error) {
+                    alert('Registration failed: ' + error.message);
+                }
             }
         });
         
