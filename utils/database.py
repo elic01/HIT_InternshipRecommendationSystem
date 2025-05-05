@@ -2,10 +2,13 @@ from tinydb import TinyDB, Query
 from utils.generate_uuid import generate_id
 from utils.get_date import get_date
 import os
+from utils.get_jobs import Job
 
 os.makedirs("./database", exist_ok=True)
 students = TinyDB("./database/students.json")
 departments = TinyDB("./database/departments.json")
+applied = TinyDB("/database/applied.json")
+saved = TinyDB("/database/saved.json")
 
 Item = Query()
 
@@ -76,3 +79,33 @@ def get_students():
     Get all students.
     """
     return students.all()
+
+def apply_job(studentId:str, job:Job):
+    applied.insert({
+        "id":generate_id(),
+        "studentId": studentId,
+        "created_at": get_date(),
+        "job": job
+    })
+
+def get_applied_jobs(studentId:str):
+    """
+    Get all jobs applied by a student.
+    """
+    return applied.search(Item.studentId == studentId)
+    
+def save_job(studentId:str, job:Job):
+    saved.insert({
+        "id":generate_id(),
+        "studentId": studentId,
+        "created_at": get_date(),
+        "job": job        
+    })
+
+def get_saved_jobs(studentId:str):
+    """
+    Get all jobs saved by a student.
+    """
+    return saved.search(Item.studentId == studentId)
+
+

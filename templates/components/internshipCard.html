@@ -46,7 +46,7 @@
                 <button class="neu-button p-2 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none">
                     <i class="fas fa-bookmark"></i>
                 </button>
-                <form action="{{url_for('apply')}}" method="POST">
+                <form onsubmit="submitApplication(event, this)">
                     {% for key, value in job %}
                     <input type="hidden" name="{{ key }}" value="{{ value }}">
                     {% endfor %}
@@ -54,6 +54,23 @@
                         Apply Now
                     </button>
                 </form>
+                <script>
+                    async function submitApplication(e, form) {
+                        e.preventDefault();
+                        const formData = new FormData(form);
+                        try {
+                            const response = await fetch('/apply', {
+                                method: 'POST',
+                                body: formData
+                            });
+                            const data = await response.json();
+                            console.log('Success:', data);
+                            // You can add UI feedback here
+                        } catch (error) {
+                            console.error('Error:', error);
+                        }
+                    }
+                </script>
             </div>
         </div>
     </div>

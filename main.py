@@ -132,12 +132,21 @@ def login (
         headers={"Location": "/dashboard"}
     )
     
-@app.post("apply", name="apply")
-def apply(
-    request: Request,
-    job_data
-):
-    return {"status": "success", "message": "Application submitted successfully", "job_data": job_data}
+@app.post("/apply", name="apply")
+async def apply(request: Request):
+    form_data = await request.form()
+    job_data = {
+        "title": form_data.get("title"),
+        "company": form_data.get("company"),
+        "location": form_data.get("location"),
+        "description": form_data.get("description"),
+        "employment_type": form_data.get("employment_type"),
+        "posted_date": form_data.get("posted_date"),
+        "applicant_count": form_data.get("applicant_count"),
+        "salary": form_data.get("salary"),
+        "link": form_data.get("link")
+    }
+    return {"status": "success", "job": job_data}
 
 @app.get("/jobs", response_model=List[Job])
 async def search_jobs(
