@@ -206,7 +206,7 @@ async def index(request: Request):
 async def login(request: Request):
     return templates.TemplateResponse("auth.html", {"request": request, "departments": get_departments()})
 
-@app.get("/dashboard", response_class=HTMLResponse)
+@app.get("/dashboard", response_class=HTMLResponse, name="dashboard")
 async def dashboard(request: Request):
     student_id = request.session.get("student_id")
     if not student_id:
@@ -217,6 +217,70 @@ async def dashboard(request: Request):
         return RedirectResponse(url="/login", status_code=303)
 
     return templates.TemplateResponse("dashboard.html", {"request": request, "student": student})
+
+@app.get("/logout")
+async def logout(request: Request):
+    request.session.clear()
+    return RedirectResponse(url="/", status_code=303)
+
+@app.get("/applications", response_class=HTMLResponse, name="applications")
+async def applications(request: Request):
+    student_id = request.session.get("student_id")
+    if not student_id:
+        return RedirectResponse(url="/login", status_code=303)
+    return templates.TemplateResponse("applications.html", {"request": request})
+
+@app.get("/contact", response_class=HTMLResponse, name="contact")
+async def contact(request: Request):
+    return templates.TemplateResponse("contactPage.html", {"request": request})
+
+@app.get("/internship/{internship_id}", response_class=HTMLResponse)
+async def internship_details(request: Request, internship_id: str):
+    return templates.TemplateResponse("internshipDetails.html", {"request": request, "internship_id": internship_id})
+
+@app.get("/notifications", response_class=HTMLResponse, name="notifications")
+async def notifications(request: Request):
+    student_id = request.session.get("student_id")
+    if not student_id:
+        return RedirectResponse(url="/login", status_code=303)
+    return templates.TemplateResponse("notifications.html", {"request": request})
+
+@app.get("/profile", response_class=HTMLResponse, name="profile")
+async def profile(request: Request):
+    student_id = request.session.get("student_id")
+    if not student_id:
+        return RedirectResponse(url="/login", status_code=303)
+    return templates.TemplateResponse("profile.html", {"request": request})
+
+@app.get("/saved", response_class=HTMLResponse, name="saved")
+async def saved_internships(request: Request):
+    student_id = request.session.get("student_id")
+    if not student_id:
+        return RedirectResponse(url="/login", status_code=303)
+    return templates.TemplateResponse("savedInternships.html", {"request": request})
+
+@app.get("/settings", response_class=HTMLResponse, name="settings")
+async def settings(request: Request):
+    student_id = request.session.get("student_id")
+    if not student_id:
+        return RedirectResponse(url="/login", status_code=303)
+    return templates.TemplateResponse("settings.html", {"request": request})
+
+@app.get("/internships", response_class=HTMLResponse, name="internships")
+async def internship_listing(request: Request):
+    return templates.TemplateResponse("internshipListing.html", {"request": request})
+
+@app.get("/recommendations", response_class=HTMLResponse, name="recommendations")
+async def recommendations(request: Request):
+    student_id = request.session.get("student_id")
+    if not student_id:
+        return RedirectResponse(url="/login", status_code=303)
+    return templates.TemplateResponse("recommendations.html", {"request": request})
+
+@app.get("/error", response_class=HTMLResponse)
+async def error(request: Request):
+    return templates.TemplateResponse("errorPage.html", {"request": request})
+
 
 if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=8000, reload=True)
