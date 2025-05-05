@@ -15,7 +15,7 @@
             <img src="https://picsum.photos/id/1005/100" alt="User Profile" class="w-12 h-12 rounded-full object-cover border-2 border-primary-500">
             <div>
                 <h3 class="font-medium text-gray-900 dark:text-gray-100">{{ student.firstName.title() + " " + student.lastName.title()}}</h3>
-                <p class="text-sm text-gray-500 dark:text-gray-400">Computer Science, 3rd Year</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">{{ student.department.name.title() }}</p>
             </div>
         </div>
         

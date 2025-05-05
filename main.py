@@ -15,6 +15,7 @@ from contextlib import asynccontextmanager
 import uvicorn
 import httpx
 from bs4 import BeautifulSoup
+from utils.get_jobs import *
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -47,20 +48,6 @@ class Student(BaseModel):
     regNumber: str
     departmentId: str
     password: str
-
-class Job(BaseModel):
-    title: str
-    company: str
-    location: str
-    link: str
-    description: Optional[str] = None
-    employment_type: Optional[str] = None
-    experience_level: Optional[str] = None
-    posted_date: Optional[str] = None
-    applicant_count: Optional[str] = None
-    salary: Optional[str] = None
-
-GUEST_SEARCH_URL = "https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search"
 
 app = FastAPI(lifespan=lifespan, title="Student Portal API", description="API for Student Portal", version="1.0.0")
 
@@ -119,7 +106,7 @@ def create_student(
     return {"status": "success", "message": "Student registered successfully", "student_id": student_id}
 
 @app.post("/login")
-def login(
+def login (
     request: Request,
     email: str = Form(...),
     password: str = Form(...)
@@ -211,12 +198,12 @@ async def dashboard(request: Request):
     student_id = request.session.get("student_id")
     if not student_id:
         return RedirectResponse(url="/login", status_code=303)
-    
     student = get_student_by_id(student_id)
     if not student:
         return RedirectResponse(url="/login", status_code=303)
-
-    return templates.TemplateResponse("dashboard.html", {"request": request, "student": student})
+    student["department"] = get_department_by_id(student["departmentId"])
+    jobs = get_jobs(discipline=student["department"]["name"], location="Worldwide")
+    return templates.TemplateResponse("dashboard.html", {"request": request, "student": student, "jobs": jobs})
 
 @app.get("/logout")
 async def logout(request: Request):
