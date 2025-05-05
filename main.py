@@ -131,6 +131,13 @@ def login (
         status_code=303,
         headers={"Location": "/dashboard"}
     )
+    
+@app.post("apply", name="apply")
+def apply(
+    request: Request,
+    job_data
+):
+    return {"status": "success", "message": "Application submitted successfully", "job_data": job_data}
 
 @app.get("/jobs", response_model=List[Job])
 async def search_jobs(
@@ -202,7 +209,7 @@ async def dashboard(request: Request):
     if not student:
         return RedirectResponse(url="/login", status_code=303)
     student["department"] = get_department_by_id(student["departmentId"])
-    jobs = get_jobs(discipline=student["department"]["name"], location="Worldwide")
+    jobs = await get_jobs(discipline=student["department"]["name"], location="Zimbabwe")
     return templates.TemplateResponse("dashboard.html", {"request": request, "student": student, "jobs": jobs})
 
 @app.get("/logout")
