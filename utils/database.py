@@ -7,8 +7,8 @@ from utils.get_jobs import Job
 os.makedirs("./database", exist_ok=True)
 students = TinyDB("./database/students.json")
 departments = TinyDB("./database/departments.json")
-applied = TinyDB("/database/applied.json")
-saved = TinyDB("/database/saved.json")
+applied = TinyDB("./database/applied.json")
+saved = TinyDB("./database/saved.json")
 
 Item = Query()
 
