@@ -146,6 +146,14 @@ async def apply(request: Request):
         "salary": form_data.get("salary"),
         "link": form_data.get("link")
     }
+    apply_job(
+        studentId=request.session.get("student_id"),
+        job=job_data
+    )
+    add_notification(
+        studentId=request.session.get("student_id"),
+        message=f"You have successfully applied for {job_data['title']} at {job_data['company']}"
+    )
     return {"status": "success", "job": job_data}
 
 @app.get("/jobs", response_model=List[Job])

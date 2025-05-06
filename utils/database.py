@@ -9,6 +9,7 @@ students = TinyDB("./database/students.json")
 departments = TinyDB("./database/departments.json")
 applied = TinyDB("./database/applied.json")
 saved = TinyDB("./database/saved.json")
+notifications = TinyDB("./database/notifications.json")
 
 Item = Query()
 
@@ -108,4 +109,21 @@ def get_saved_jobs(studentId:str):
     """
     return saved.search(Item.studentId == studentId)
 
+def add_notification(studentId:str, message:str):
+    """
+    Add a new notification for a student.
+    """
+    notifications.insert({
+        "id":generate_id(),
+        "studentId": studentId,
+        "message": message,
+        "created_at": get_date()
+    })
+    return True
+
+def get_notifications(studentId:str):
+    """
+    Get all notifications for a student.
+    """
+    return notifications.search(Item.studentId == studentId)
 
