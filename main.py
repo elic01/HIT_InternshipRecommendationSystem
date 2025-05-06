@@ -226,7 +226,7 @@ async def dashboard(request: Request):
     if not student:
         return RedirectResponse(url="/login", status_code=303)
     student["department"] = get_department_by_id(student["departmentId"])
-    jobs = await get_jobs(discipline=student["department"]["name"], location="World Wide")
+    jobs = await get_jobs(discipline=student["department"]["name"], location="Zimbabwe")
     return templates.TemplateResponse("dashboard.html", {"request": request, "student": student, "jobs": jobs})
 
 @app.get("/logout")
