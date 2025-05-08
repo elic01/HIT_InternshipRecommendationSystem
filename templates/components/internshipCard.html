@@ -43,13 +43,13 @@
         <div class="flex items-center justify-between">
             <span class="text-xs text-gray-500 dark:text-gray-400">Posted {{ job.posted_date }}</span>
             <div class="flex space-x-2">
-                <button class="neu-button p-2 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none">
-                    <i class="fas fa-bookmark"></i>
-                </button>
-                <form onsubmit="submitApplication(event, this)">
+                <form onsubmit="submitApplication(event, this)" id="apply-form">
                     {% for key, value in job %}
                     <input type="hidden" name="{{ key }}" value="{{ value }}">
                     {% endfor %}
+                    <button class="neu-button p-2 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none" onclick="saveApplication(event)">
+                        <i class="fas fa-bookmark"></i>
+                    </button>
                     <button type="submit" class="inline-flex items-center justify-center py-2 px-4 text-sm font-medium text-white bg-gradient-to-r from-primary-600 to-secondary-600 rounded-lg shadow-md hover:from-primary-700 hover:to-secondary-700 focus:outline-none">
                         Apply Now
                     </button>
@@ -60,6 +60,23 @@
                         const formData = new FormData(form);
                         try {
                             const response = await fetch('/apply', {
+                                method: 'POST',
+                                body: formData
+                            });
+                            const data = await response.json();
+                            console.log('Success:', data);
+                            // You can add UI feedback here
+                        } catch (error) {
+                            console.error('Error:', error);
+                        }
+                    }
+
+                    async function saveApplication(e) {
+                        e.preventDefault();
+                        const form = document.getElementById('apply-form');
+                        const formData = new FormData(form);
+                        try {
+                            const response = await fetch('/save', {
                                 method: 'POST',
                                 body: formData
                             });

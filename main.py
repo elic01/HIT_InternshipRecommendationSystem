@@ -156,6 +156,30 @@ async def apply(request: Request):
     )
     return {"status": "success", "job": job_data}
 
+@app.post("/save", name="save")
+async def apply(request: Request):
+    form_data = await request.form()
+    job_data = {
+        "title": form_data.get("title"),
+        "company": form_data.get("company"),
+        "location": form_data.get("location"),
+        "description": form_data.get("description"),
+        "employment_type": form_data.get("employment_type"),
+        "posted_date": form_data.get("posted_date"),
+        "applicant_count": form_data.get("applicant_count"),
+        "salary": form_data.get("salary"),
+        "link": form_data.get("link")
+    }
+    save_job(
+        studentId=request.session.get("student_id"),
+        job=job_data
+    )
+    add_notification(
+        studentId=request.session.get("student_id"),
+        message=f"You Saved {job_data['title']} at {job_data['company']}"
+    )
+    return {"status": "success", "job": job_data}
+
 @app.get("/jobs", response_model=List[Job])
 async def search_jobs(
     discipline: str,
