@@ -272,7 +272,14 @@ async def applications(request: Request):
 
 @app.get("/contact", response_class=HTMLResponse, name="contact")
 async def contact(request: Request):
-    return templates.TemplateResponse("contactPage.html", {"request": request})
+    student_id = request.session.get("student_id")
+    if not student_id:
+        return RedirectResponse(url="/login", status_code=303)
+    student = get_student_by_id(student_id)
+    if not student:
+        return RedirectResponse(url="/login", status_code=303)
+    student["department"] = get_department_by_id(student["departmentId"])
+    return templates.TemplateResponse("contactPage.html", {"request": request, "student" : student})
 
 @app.get("/internship/{internship_id}", response_class=HTMLResponse)
 async def internship_details(request: Request, internship_id: str):
@@ -318,7 +325,11 @@ async def settings(request: Request):
     student_id = request.session.get("student_id")
     if not student_id:
         return RedirectResponse(url="/login", status_code=303)
-    return templates.TemplateResponse("settings.html", {"request": request})
+    student = get_student_by_id(student_id)
+    if not student:
+        return RedirectResponse(url="/login", status_code=303)
+    student["department"] = get_department_by_id(student["departmentId"])
+    return templates.TemplateResponse("settings.html", {"request": request, "student": student})    
 
 @app.get("/internships", response_class=HTMLResponse, name="internships")
 async def internship_listing(request: Request):
