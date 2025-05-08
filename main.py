@@ -283,7 +283,12 @@ async def notifications(request: Request):
     student_id = request.session.get("student_id")
     if not student_id:
         return RedirectResponse(url="/login", status_code=303)
-    return templates.TemplateResponse("notifications.html", {"request": request})
+    student = get_student_by_id(student_id)
+    if not student:
+        return RedirectResponse(url="/login", status_code=303)
+    student["department"] = get_department_by_id(student["departmentId"])
+    notifications = get_notifications(student_id)
+    return templates.TemplateResponse("notifications.html", {"request": request, "notifications": notifications, "student": student})
 
 @app.get("/profile", response_class=HTMLResponse, name="profile")
 async def profile(request: Request):
