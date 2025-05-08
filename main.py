@@ -295,7 +295,11 @@ async def profile(request: Request):
     student_id = request.session.get("student_id")
     if not student_id:
         return RedirectResponse(url="/login", status_code=303)
-    return templates.TemplateResponse("profile.html", {"request": request})
+    student = get_student_by_id(student_id)
+    if not student:
+        return RedirectResponse(url="/login", status_code=303)
+    student["department"] = get_department_by_id(student["departmentId"])
+    return templates.TemplateResponse("profile.html", {"request": request, "student" : student})
 
 @app.get("/saved", response_class=HTMLResponse, name="saved")
 async def saved(request: Request):
