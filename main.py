@@ -263,7 +263,12 @@ async def applications(request: Request):
     student_id = request.session.get("student_id")
     if not student_id:
         return RedirectResponse(url="/login", status_code=303)
-    return templates.TemplateResponse("applications.html", {"request": request})
+    student = get_student_by_id(student_id)
+    if not student:
+        return RedirectResponse(url="/login", status_code=303)
+    student["department"] = get_department_by_id(student["departmentId"])
+    jobs = get_saved_jobs(student_id)
+    return templates.TemplateResponse("applications.html", {"request": request, "student": student, "jobs": jobs})
 
 @app.get("/contact", response_class=HTMLResponse, name="contact")
 async def contact(request: Request):
@@ -288,11 +293,16 @@ async def profile(request: Request):
     return templates.TemplateResponse("profile.html", {"request": request})
 
 @app.get("/saved", response_class=HTMLResponse, name="saved")
-async def saved_internships(request: Request):
+async def saved(request: Request):
     student_id = request.session.get("student_id")
     if not student_id:
         return RedirectResponse(url="/login", status_code=303)
-    return templates.TemplateResponse("savedInternships.html", {"request": request})
+    student = get_student_by_id(student_id)
+    if not student:
+        return RedirectResponse(url="/login", status_code=303)
+    student["department"] = get_department_by_id(student["departmentId"])
+    jobs = get_saved_jobs(student_id)
+    return templates.TemplateResponse("savedInternships.html", {"request": request, "student": student, "jobs": jobs})
 
 @app.get("/settings", response_class=HTMLResponse, name="settings")
 async def settings(request: Request):

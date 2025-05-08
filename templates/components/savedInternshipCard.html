@@ -1,0 +1,38 @@
+<div class="neu-card card-hover relative" data-aos="fade-up" data-aos-duration="800">
+    <div class="saved-date">{{job.createdAt }}</div>
+    <div class="absolute top-4 left-4">
+        <input type="checkbox" class="internship-checkbox h-5 w-5 rounded border-gray-300 text-primary-600 focus:ring-primary-500">
+    </div>
+    <div class="p-6 pt-10">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <img src="https://picsum.photos/id/0/60" alt="Company Logo" class="w-12 h-12 rounded-lg object-cover mr-4">
+                <div>
+                    <h3 class="font-semibold text-gray-900 dark:text-gray-100">{{ job.job.title.title() }}</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">{{ job.job.company.title() }}</p>
+                </div>
+            </div>
+            <div class="match-indicator match-high">
+                95%
+            </div>
+        </div>
+        
+        <div class="mb-4">
+            <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
+                <i class="fas fa-map-marker-alt mr-2 text-gray-400 dark:text-gray-500"></i>
+                <span>{{ job.job.location.title() }}</span>
+            </div>
+            <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                <i class="fas fa-dollar-sign mr-2 text-gray-400 dark:text-gray-500"></i>
+                <span>{{ job.job.salary }}</span>
+            </div>
+        </div>     
+        <div class="flex items-center justify-between">
+            <div class="flex space-x-2">
+                <a href={{job.job.link}} class="inline-flex items-center justify-center py-2 px-4 text-sm font-medium text-white bg-gradient-to-r from-primary-600 to-secondary-600 rounded-lg shadow-md hover:from-primary-700 hover:to-secondary-700 focus:outline-none">
+                    View Details
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
