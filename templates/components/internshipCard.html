@@ -43,7 +43,7 @@
         <div class="flex items-center justify-between">
             <span class="text-xs text-gray-500 dark:text-gray-400">Posted {{ job.posted_date }}</span>
             <div class="flex space-x-2">
-                <form onsubmit="submitApplication(event, this)" id="apply-form">
+                <form onsubmit="submitApplication(event, this)" id="apply-form" data-job-link="{{ job.link }}">
                     {% for key, value in job %}
                     <input type="hidden" name="{{ key }}" value="{{ value }}">
                     {% endfor %}
@@ -65,7 +65,12 @@
                             });
                             const data = await response.json();
                             console.log('Success:', data);
-                            // You can add UI feedback here
+                            
+                            // Get the job link and redirect
+                            const jobLink = form.dataset.jobLink;
+                            if (jobLink) {
+                                window.location.href = jobLink;
+                            }
                         } catch (error) {
                             console.error('Error:', error);
                         }
